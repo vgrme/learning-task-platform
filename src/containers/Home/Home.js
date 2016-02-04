@@ -18,7 +18,8 @@ export default class Home extends Component {
     loadPlans: PropTypes.func.isRequired,
     plans: PropTypes.array,
     loaded: PropTypes.bool,
-    filter: PropTypes.string
+    filter: PropTypes.string,
+    changePlanFilter: PropTypes.func.isRequired
   };
 
   static contextTypes = {
@@ -26,10 +27,16 @@ export default class Home extends Component {
   };
 
   render() {
+    const handleFilterChange = (filter) => {
+      const {changePlanFilter} = this.props;
+      changePlanFilter(filter);
+    };
+
     return (
       <div>
         <div>Home</div>
-        <PlansList filterOptions={filterOptions} filter={this.props.filter} plans={this.props.plans} />
+        <PlansList filterOptions={filterOptions} filter={this.props.filter} plans={this.props.plans} 
+                  onFilterChange={handleFilterChange}/>
       </div>
     );
   }

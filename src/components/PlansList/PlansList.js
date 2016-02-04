@@ -5,7 +5,7 @@ import MenuItem from 'material-ui/lib/menus/menu-item';
 
 const PlansList = (props) => {
   const onFilterChange = function(event, index, value){
-    //props.actions.
+    props.onFilterChange(value);
     console.log(value);
   };
 
@@ -29,8 +29,8 @@ const PlansList = (props) => {
 PlansList.propTypes = {
   filterOptions: PropTypes.array.isRequired,
   filter: PropTypes.string.isRequired,
-  plans: PropTypes.array.isRequired
-  //actions: PropTypes.object.isRequired
+  plans: PropTypes.array.isRequired,
+  onFilterChange: PropTypes.func.isRequired
 };
 
 export default PlansList;

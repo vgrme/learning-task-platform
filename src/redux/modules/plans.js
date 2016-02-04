@@ -4,6 +4,7 @@ import * as plansService from '../../services/plans';
 const LOAD = 'plans/LOAD';
 const LOAD_SUCCESS = 'plans/LOAD_SUCCESS';
 const LOAD_FAIL = 'plans/LOAD_FAIL';
+const CHANGE_FILTER = 'plans/CHANGE_FILTER';
 
 
 const initialState = {
@@ -19,6 +20,11 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         data: plansService.getPlans()
       };
+    case CHANGE_FILTER:
+      return {
+        ...state,
+        filter: action.filter
+      };
     default:
       return state;
   }
@@ -27,5 +33,12 @@ export default function reducer(state = initialState, action = {}) {
 export function loadPlans(){
   return {
     type: LOAD
+  };
+}
+
+export function changePlanFilter(filter){
+  return {
+    type: CHANGE_FILTER,
+    filter: filter
   };
 }
