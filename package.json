@@ -3,8 +3,8 @@
   "version": "1.0.3",
   "description": "",
   "scripts": {
-    "start": "NODE_ENV=production node server.prod.js",
-    "dev": "NODE_ENV=development node server.dev.js",
+    "start": "NODE_ENV=production node server.js",
+    "dev": "NODE_ENV=development node server.js",
     "lint": "eslint src",
     "lint:watch": "watch 'npm run lint' src",
     "clean-dist": "npm run remove-dist && mkdir dist",
@@ -16,6 +16,7 @@
     "test:watch": "npm run test -- --watch"
   },
   "dependencies": {
+    "body-parser": "1.14.2",
     "express": "4.13.4",
     "history": "1.17.0",
     "lodash": "4.1.0",
