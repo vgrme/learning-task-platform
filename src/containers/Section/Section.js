@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import * as plansActions from 'redux/modules/plans';
 import * as sectionsActions from 'redux/modules/sections';
-import MainPlansList from './MainPlansList';
 
 
 @connect(
@@ -38,9 +37,7 @@ export default class Home extends Component {
 
     return (
       <div className="clearfix">
-        <div style={planListStyle}>
-          <MainPlansList/>
-        </div>
+        Section
       </div>
     );
   }

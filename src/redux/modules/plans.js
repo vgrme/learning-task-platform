@@ -1,30 +1,13 @@
-import * as plansService from '../../services/plans';
+import * as plansService from 'services/plans';
+import plan from './plan';
+import {LOAD, UPDATE_PLAN_NAME} from '../constants/plansConstant';
 
-
-const LOAD = 'plans/LOAD';
-const LOAD_SUCCESS = 'plans/LOAD_SUCCESS';
-const LOAD_FAIL = 'plans/LOAD_FAIL';
-const CHANGE_FILTER = 'plans/CHANGE_FILTER';
-
-
-const initialState = {
-  loaded: false,
-  filter: 'All',
-  data: []
-};
-
-export default function reducer(state = initialState, action = {}) {
+export default function reducer(state = [], action = {}) {
   switch (action.type) {
     case LOAD:
-      return {
-        ...state,
-        data: plansService.getPlans()
-      };
-    case CHANGE_FILTER:
-      return {
-        ...state,
-        filter: action.filter
-      };
+      return plansService.getPlans();
+    case UPDATE_PLAN_NAME:
+      return state.map(p=>plan(p,action));
     default:
       return state;
   }
@@ -36,9 +19,10 @@ export function loadPlans(){
   };
 }
 
-export function changePlanFilter(filter){
+export function updatePlanName(planId, planName){
   return {
-    type: CHANGE_FILTER,
-    filter: filter
+    type: UPDATE_PLAN_NAME,
+    planId: planId,
+    planName: planName
   };
 }

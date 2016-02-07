@@ -5,6 +5,7 @@ import createBrowserHistory from 'history/lib/createBrowserHistory';
 import {
     App,
     Home,
+    Section,
     NotFound
   } from './containers';
 
@@ -19,10 +20,9 @@ const routes = (
       <IndexRoute component={Home} />
 
       { /* Routes */ }
-      <Route path="/notfound" component={NotFound} />
-
-      <Route path="*" component={NotFound} status={404} />
+      <Route path="section/:sectionId" component={Section} />
     </Route>
+    <Route path="*" component={NotFound} status={404} />
   </Router>
 );
 
