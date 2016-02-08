@@ -1,6 +1,6 @@
 import * as plansService from 'services/plans';
 import section from './section';
-import {LOAD, UPDATE_SECTION_NAME} from '../constants/sectionsConstant';
+import {LOAD, UPDATE_SECTION_NAME} from './sectionsConstant';
 
 export default function reducer(state = [], action = {}) {
   switch (action.type) {

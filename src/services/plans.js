@@ -46,6 +46,10 @@ export function getGroupedPlans(plans, sections){
   return orderedPlans;
 }
 
+export function getCurrentPlan(plans){
+  return _.find(plans, {isCurrent: true});
+}
+
 // export function updatePlanName(planId, planName){
 //   var index = _.findIndex(plans, {id: planId});
 //   plans[index].name = planName;

@@ -1,4 +1,4 @@
-import {UPDATE_SECTION_NAME} from '../constants/sectionsConstant';
+import {UPDATE_SECTION_NAME} from './sectionsConstant';
 //const initialState
 
 export default function reducer(state, action){

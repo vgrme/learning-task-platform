@@ -1,8 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import * as plansActions from 'redux/modules/plans';
-import * as sectionsActions from 'redux/modules/sections';
-
+import {plansActions, sectionsActions} from 'redux/modules';
+import Container from '../App/Container';
 
 @connect(
   state => ({
@@ -29,16 +28,10 @@ export default class Home extends Component {
 
   render() {
 
-    const planListStyle = {
-      width: '350px',
-      float: 'left',
-      margin: '20px'
-    };
-
     return (
-      <div className="clearfix">
-        Section
-      </div>
+      <Container className="clearfix">
+        <div>Section</div>
+      </Container>
     );
   }
 }

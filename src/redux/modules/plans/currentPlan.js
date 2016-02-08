@@ -1,6 +1,6 @@
 import * as plansService from 'services/plans';
 import plan from './plan';
-import {LOAD, UPDATE_PLAN_NAME} from '../constants/plansConstant';
+import {SET_CURRENT_PLAN} from './plansConstant';
 
 export default function reducer(state = [], action = {}) {
   switch (action.type) {
@@ -11,18 +11,4 @@ export default function reducer(state = [], action = {}) {
     default:
       return state;
   }
-}
-
-export function loadPlans(){
-  return {
-    type: LOAD
-  };
-}
-
-export function updatePlanName(planId, planName){
-  return {
-    type: UPDATE_PLAN_NAME,
-    planId: planId,
-    planName: planName
-  };
 }
