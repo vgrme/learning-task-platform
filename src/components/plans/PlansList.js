@@ -17,7 +17,8 @@ const PlansList = (props) => {
 
 PlansList.propTypes = {
   plans: PropTypes.array,
-  onTextChange: PropTypes.func
+  onTextChange: PropTypes.func,
+  onPlanClick: PropTypes.func
 };
 
 export default PlansList;

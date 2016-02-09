@@ -19,6 +19,14 @@ var plans = [
 ];
 
 const tasks = [
+  {id: 1, name: 'R1', complete: true, plan: 1, order: 4 },
+  {id: 2, name: 'R2', complete: false, plan: 1, order: 2 },
+  {id: 3, name: 'R3', complete: true, plan: 1, order: 1 },
+  {id: 4, name: 'R4', complete: false, plan: 1, order: 3 },
+  {id: 5, name: 'A1', complete: false, plan: 2, order: 1 },
+  {id: 6, name: 'A2', complete: false, plan: 2, order: 2 },
+  {id: 7, name: 'A3', complete: false, plan: 2, order: 4 },
+  {id: 8, name: 'A4', complete: false, plan: 2, order: 3 }
 ];
 
 export function getPlans(){
@@ -27,6 +35,14 @@ export function getPlans(){
 
 export function getSections(){
   return sections;
+}
+
+export function getTasksByPlanId(planId){
+  var result = _.chain(tasks)
+               .filter(t=>t.plan===planId)
+               .orderBy(['order'])
+               .value();
+  return result;
 }
 
 

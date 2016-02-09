@@ -1,7 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
+import * as plansService from 'services/plans';
 import {plansActions} from 'redux/modules';
-import {PlanTitle} from 'components';
+import {PlanTitle, TasksList} from 'components';
 
 
 @connect(
@@ -22,9 +23,14 @@ export default class SideDetails extends Component {
       padding: '20px'
     };
 
+    const getTasks = () => {
+      return plansService.getTasksByPlanId(this.props.currentPlan.id);
+    };
+
     return (
       <div>
         <PlanTitle plan={this.props.currentPlan} onTextChange={this.props.updatePlanName}/>
+        <TasksList tasks={getTasks()}/>
       </div>
     );
   }
