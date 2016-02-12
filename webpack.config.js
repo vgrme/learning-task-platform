@@ -8,7 +8,8 @@ var getPlugins = function(env) {
   var GLOBALS = {
     'process.env.NODE_ENV': JSON.stringify(env),
     __DEV__: env == 'development',
-    __DEVTOOLS__: false
+    __DEVTOOLS__: false,
+    __SERVER__: false
   };
 
   var plugins = [

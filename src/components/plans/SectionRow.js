@@ -11,13 +11,16 @@ const SectionRow = (props) => {
   const handleTextChange = (event) => {
     if(props.onTextChange){
       console.log('c');
-      props.onTextChange(props.section.id, event.target.value);
+      props.onTextChange(props.section._id, event.target.value);
     }
   };
 
+
   return (
     <div>
-      <TextField value={props.section.name} style={sectionStyle} underlineShow={false} onChange={handleTextChange} />
+      <TextField value={props.section.name} style={sectionStyle} underlineShow={false} 
+                 onChange={handleTextChange} onBlur={()=>props.onTextBlur(props.section)}
+                 onClick={()=>props.onSectionClick(props.section._id)}/>
       <Divider />
     </div>
   );
@@ -26,7 +29,9 @@ const SectionRow = (props) => {
 
 SectionRow.propTypes = {
   section: PropTypes.object.isRequired,
-  onTextChange: PropTypes.func
+  onTextChange: PropTypes.func,
+  onTextBlur: PropTypes.func,
+  onSectionClick: PropTypes.func
 };
 
 export default SectionRow;

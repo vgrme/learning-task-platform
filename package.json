@@ -17,8 +17,10 @@
   },
   "dependencies": {
     "body-parser": "1.14.2",
+    "es6-promise": "3.0.2",
     "express": "4.13.4",
     "history": "1.17.0",
+    "isomorphic-fetch": "2.2.1",
     "lodash": "4.1.0",
     "material-ui": "0.14.3",
     "object-assign": "4.0.1",
@@ -29,7 +31,10 @@
     "react-router-redux": "2.1.0",
     "react-tap-event-plugin": "0.2.2",
     "redux": "3.0.5",
-    "scroll-behavior": "0.3.0"
+    "redux-logger": "2.5.0",
+    "redux-thunk": "1.0.3",
+    "scroll-behavior": "0.3.0",
+    "superagent": "1.7.2"
   },
   "devDependencies": {
     "babel": "5.8.23",

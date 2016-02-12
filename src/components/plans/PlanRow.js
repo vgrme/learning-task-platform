@@ -15,12 +15,12 @@ const PlanRow = (props) => {
 
   const handleTextChange = (event) => {
     if(props.onTextChange){
-      props.onTextChange(props.plan.id, event.target.value);
+      props.onTextChange(props.plan._id, event.target.value);
     }
   };
 
   const handleClick = () => {
-    props.onPlanClick(props.plan.id);
+    props.onPlanClick(props.plan._id);
   };
 
   return (

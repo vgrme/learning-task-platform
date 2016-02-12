@@ -5,18 +5,17 @@ import {OutlineButton} from 'components';
 
 
 @connect(
-  state => ({
-    filter: state.filter
-  }),
+  state => ({}),
   {...sectionsActions})
 export default class AddSectionButton extends Component {
   static propTypes = {
+    addSection: PropTypes.func
   };
 
   render() {
 
     const handleAddSection = () => {
-      console.log('click');
+      this.props.addSection();
     };
 
     return (

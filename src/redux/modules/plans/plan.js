@@ -4,7 +4,7 @@ import {UPDATE_PLAN_NAME, SET_CURRENT_PLAN} from './plansConstant';
 export default function reducer(state, action){
   switch (action.type) {
     case UPDATE_PLAN_NAME:
-      if(state.id !== action.planId){
+      if(state._id !== action.planId){
         return state;
       }
       return {
@@ -12,7 +12,7 @@ export default function reducer(state, action){
         name: action.planName
       };
     case SET_CURRENT_PLAN:
-      if(state.id !== action.planId){
+      if(state._id !== action.planId){
         return {
           ...state,
           isCurrent: false

@@ -12,7 +12,8 @@ import Container from '../App/Container';
 
 @connect(
   state => ({
-    showCurrentPlan: state.plans.showCurrent
+    showCurrentPlan: state.plans.showCurrent,
+    currentSectionId: state.sections.currentSectionId
   })
 )
 export default class Home extends Component {
@@ -63,7 +64,7 @@ export default class Home extends Component {
           <div style={planListStyle}> 
             <Paper style={paperStyle} zDepth={2}>
               <AddSectionButton />
-              <PlanFilter />
+              <div className="clearfix"><div className="float-right"><PlanFilter/></div></div>
               <HomePlansList />
             </Paper>
           </div>

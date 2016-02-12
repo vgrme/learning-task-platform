@@ -3,24 +3,30 @@
 //With Redux, the actual stores are in /reducers.
 
 import { createStore, applyMiddleware, compose } from 'redux';
+import { syncHistory } from 'react-router-redux';
+import { browserHistory } from 'react-router';
+import thunk from 'redux-thunk';
+import clientMiddleware from './middleware/clientMiddleware';
 import rootReducer from './reducer';
+import createLogger from 'redux-logger';
+import ApiClient from 'helpers/ApiClient';
 
 export default function configureStore(initialState) {
+  const client = new ApiClient();
   let finalCreateStore;
   if(process.env.NODE_ENV && process.env.NODE_ENV){
     const { persistState } = require('redux-devtools');
     const DevTools = require('../containers/DevTool');
 
     finalCreateStore = compose(
-      // Middleware you want to use in development:
-      // applyMiddleware(d1, d2, d3),
+      applyMiddleware(clientMiddleware(client), createLogger()),
       window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument(),
       persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
     )(createStore);
   }
   else{
     finalCreateStore = compose(
-      // applyMiddleware(p1, p2, p3),
+      applyMiddleware(clientMiddleware(client))
     )(createStore);
   }
 

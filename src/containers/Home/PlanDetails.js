@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import * as plansService from 'services/plans';
+import * as plansService from 'services/planService';
 import {plansActions} from 'redux/modules';
 import {PlanTitle, TasksList} from 'components';
 

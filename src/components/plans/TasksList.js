@@ -1,5 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-import TaskRow from './TaskRow';
 
 import TextField from 'material-ui/lib/text-field';
 
@@ -30,12 +29,23 @@ const TasksList = (props) => {
 
   };
 
+  const handleRowClick = ()=>{
+
+  };
+
   return (
     <table>
       <tbody>
       {
         props.tasks.map((t) => 
-          <TaskRow task={t}></TaskRow>
+          <tr onClick={handleRowClick} onBlur={handleRowClick}>
+            <td style={checkBoxColStyle}>
+              <Checkbox style={checkBoxStyle}/>
+            </td>
+            <td style={colStyle}>
+              <TextField value={this.props.task.name} style={textColStyle} underlineShow={false} onChange={handleTextChange} />
+            </td>
+          </tr>
         )
       }
       </tbody>

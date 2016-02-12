@@ -9,7 +9,7 @@ import { Link } from 'react-router';
 
 @connect(
   state => ({
-    sections: state.sections,
+    sections: state.sections.list,
     open: state.leftSideBar
   }),
   { ...sectionsActions })
@@ -31,7 +31,7 @@ export default class LeftSideBar extends Component {
           <FontIcon className="material-icons" onClick={this.props.onClickClose} style={closeIconStyle}>clear</FontIcon>
         </div>
         {
-          this.props.sections.map(s => <Link to={`/section/${s.id}`} key={s.id}><MenuItem>{s.name}</MenuItem></Link> )
+          this.props.sections.map(s => <Link to={`/section/${s.id}`} key={s._id}><MenuItem>{s.name}</MenuItem></Link> )
         }
       </LeftNav>
     );
