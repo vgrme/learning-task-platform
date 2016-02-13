@@ -10,7 +10,9 @@ import FlatButton from 'material-ui/lib/flat-button';
   { ...plansActions, ...tasksActions })
 export default class SideDetails extends Component {
   static propTypes = {
-    plan: PropTypes.object.isRequired
+    plan: PropTypes.object.isRequired,
+    changePlanActiveValue: PropTypes.func.isRequired,
+    addTask: PropTypes.func.isRequired
   };
 
   render() {
@@ -26,7 +28,7 @@ export default class SideDetails extends Component {
       minWidth: '30px',
       fontWeight: '0',
       fontSize: '10px'
-    }
+    };
 
     const archiveLabel = plan.active? 'Archive': 'UnArchive';
 

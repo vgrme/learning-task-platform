@@ -13,14 +13,16 @@ const filterOptions = ['All', 'Complete', 'Not Complete'];
   {...filterActions})
 export default class PlanFilter extends Component {
   static propTypes = {
-    filter: PropTypes.string,
+    filter: PropTypes.string.isRequired,
     setFilter: PropTypes.func.isRequired
   };
 
   render() {
+    const {filter} = this.props;
+    const {setFilter} = this.props;
 
     return (
-      <DropDownFilter filterOptions={filterOptions} filter={this.props.filter} onFilterChange={this.props.setFilter}/>
+      <DropDownFilter filterOptions={filterOptions} filter={filter} onFilterChange={setFilter}/>
     );
   }
 }

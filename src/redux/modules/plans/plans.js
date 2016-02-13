@@ -65,7 +65,7 @@ export default function reducer(state = initialState, action = {}) {
         return {
           ...state,
           newPlan: {...state.newPlan,[action.field]: action.data}
-        }
+        };
       }
       return {
         ...state,
@@ -115,12 +115,32 @@ export function updatePlanName(planId, planName){
   };
 }
 
+export function savePlanName(plan, plans){
+  if(!plan._id){
+    if(!plan.name){
+      return stopAddPlan();
+    }
+    else{
+      var newPlansList = plansService.addPlan(plans, plan.sectionId, plan);
+      return saveAllPlans(newPlansList, plan.sectionId, 'addNew');
+    }
+  }
+  else{
+    if(!plan.name){
+      return rollbackPlanName(plan._id);
+    }
+    else if(plan.pre && plan.name !== plan.pre.name){
+      return savePlan(plan, plan.sectionId);
+    }
+  }
+}
+
 export function rollbackPlanName(planId){
   return {
     type: ROLLBACK_PLAN,
     planId,
     field: 'name'
-  }
+  };
 }
 
 export function selectPlan(plan){
@@ -135,13 +155,13 @@ export function addPlan(sectionId){
   return {
     type: ADD_PLAN,
     sectionId
-  }
+  };
 }
 
 export function stopAddPlan(){
   return {
     type: STOP_ADD_PLAN
-  }
+  };
 }
 
 export function changePlanActiveValue(plan){
@@ -164,5 +184,5 @@ export function saveAllPlans(plans, sectionId, reason){
     sectionId,
     reason,
     promise: (client) => client.post(`/api/learning/plans/${sectionId}/many`,{data:plans})
-  }
+  };
 }

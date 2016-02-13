@@ -15,31 +15,19 @@ import * as plansService from 'services/planService';
   { ...tasksActions })
 export default class TasksList extends Component {
   static propTypes = {
+    currentPlanId: PropTypes.string.isRequired,
+    currentSectionId: PropTypes.string.isRequired,
+    tasks: PropTypes.array,
+    newTask: PropTypes.object
   };
 
 
   render() {
     const {currentPlanId, currentSectionId, tasks, newTask} = this.props;
-    const {updateTaskName, rollbackTaskName, saveTask, saveAllTasks, stopAddTask,
-           changeTaskCompleteValue} = this.props; //from tasksActions
-
-    const handleNewTaskBlur = (task) => {
-      if(task.name){
-        var newTasksList = plansService.addTask(tasks, task);
-        saveAllTasks(newTasksList, currentSectionId, currentPlanId, 'addNew');
-      }
-      else{
-        stopAddTask();
-      }
-    };
+    const {updateTaskName, saveTaskName, changeTaskCompleteValue} = this.props; //from tasksActions
 
     const handleTaskBlur = (task) => {
-      if(!task.name){
-        rollbackTaskName(task._id);
-      }
-      else if(task.pre && task.name !== task.pre.name){
-        saveTask(task, currentSectionId, currentPlanId);
-      }
+      saveTaskName(task, tasks, currentSectionId, currentPlanId);
     };
 
     return (
@@ -48,12 +36,12 @@ export default class TasksList extends Component {
           {
             !newTask?'':
             <TaskRow task={newTask} onTextChange={updateTaskName} 
-                        onTextBlur={handleNewTaskBlur} />
+                        onTextBlur={handleTaskBlur} />
           }
         </div>
         <div>
           {tasks.map((t) => 
-            <TaskRow task={t} onTextChange={updateTaskName} 
+            <TaskRow key={t._id} task={t} onTextChange={updateTaskName} 
                      onTextBlur={handleTaskBlur} 
                      onCheck={()=>changeTaskCompleteValue(t,currentSectionId,currentPlanId)}/>
            )

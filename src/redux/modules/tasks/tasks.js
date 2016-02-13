@@ -64,7 +64,7 @@ export default function reducer(state = initialState, action = {}) {
         return {
           ...state,
           newTask: {...state.newTask,[action.field]: action.data}
-        }
+        };
       }
       return {
         ...state,
@@ -113,12 +113,32 @@ export function updateTaskName(taskId, taskName){
   };
 }
 
+export function saveTaskName(task, tasks, sectionId, planId){
+  if(!task._id){
+    if(!task.name){
+      return stopAddTask();
+    }
+    else{
+      var newTasksList = plansService.addTask(tasks, task);
+      return saveAllTasks(newTasksList, sectionId, planId, 'addNew');
+    }
+  }
+  else{
+    if(!task.name){
+      return rollbackTaskName(task._id);
+    }
+    else if(task.pre && task.name !== task.pre.name){
+      return saveTask(task, sectionId, planId);
+    }
+  }
+}
+
 export function rollbackTaskName(taskId){
   return {
     type: ROLLBACK_TASK,
     taskId,
     field: 'name'
-  }
+  };
 }
 
 export function selectTask(taskId){
@@ -132,13 +152,13 @@ export function addTask(planId){
   return {
     type: ADD_TASK,
     planId
-  }
+  };
 }
 
 export function stopAddTask(){
   return {
     type: STOP_ADD_TASK
-  }
+  };
 }
 
 export function changeTaskCompleteValue(task, sectionId, planId){
@@ -164,5 +184,5 @@ export function saveAllTasks(tasks, sectionId, planId, reason){
     planId,
     reason,
     promise: (client) => client.post(`/api/learning/tasks/${sectionId}/${planId}/many`,{data:tasks})
-  }
+  };
 }

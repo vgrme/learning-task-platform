@@ -11,39 +11,43 @@ import TasksList from './TasksList';
   state => ({
     currentPlanId: state.plans.currentPlanId,
     currentSectionId: state.plans.currentSectionId,
-    showCurrentPlan: state.plans.showCurrent,
     plans: state.plans.list
   }),
   { ...plansActions, ...tasksActions })
 export default class SideDetails extends Component {
   static propTypes = {
+    currentPlanId: PropTypes.string.isRequired,
+    currentSectionId: PropTypes.string.isRequired,
+    plans: PropTypes.array,
+    loadTasks: PropTypes.func.isRequired,
     updatePlanName: PropTypes.func.isRequired,
-    selectPlan: PropTypes.func
+    rollbackPlanName: PropTypes.func.isRequired,
+    savePlan: PropTypes.func.isRequired
   };
 
   componentDidMount() {
-    this.props.loadTasks(this.props.currentSectionId, this.props.currentPlanId);
+    const {currentPlanId, currentSectionId, loadTasks} = this.props;
+    loadTasks(currentSectionId, currentPlanId);
   }
 
   render() {
     const {currentPlanId, plans} = this.props;
-
-    //const tasks = plansService.getTasksByPlanId(currentPlanId);
+    const {rollbackPlanName, savePlan, updatePlanName} = this.props;
 
     const currentPlan = plans.find(p=>p._id === currentPlanId);
 
     const handlePlanBlur = (plan) => {
       if(!plan.name){
-        this.props.rollbackPlanName(plan._id);
+        rollbackPlanName(plan._id);
       }
       else if(plan.pre && plan.name !== plan.pre.name){
-        this.props.savePlan(plan, plan.sectionId);
+        savePlan(plan, plan.sectionId);
       }
     };
 
     return (
       <div>
-        <PlanTitle plan={currentPlan} onTextChange={this.props.updatePlanName} 
+        <PlanTitle plan={currentPlan} onTextChange={updatePlanName} 
                    onTextBlur={handlePlanBlur}/>
         <PlanActionBar plan={currentPlan} />
         <TasksList />

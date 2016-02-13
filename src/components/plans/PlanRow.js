@@ -3,6 +3,7 @@ import TextField from 'material-ui/lib/text-field';
 import Colors from 'material-ui/lib/styles/colors';
 
 const PlanRow = (props) => {
+  const {plan, onTextChange, onTextBlur, onPlanClick} = props;
 
   const planStyle = {
     basic: {
@@ -14,23 +15,23 @@ const PlanRow = (props) => {
   };
 
   const handleTextChange = (event) => {
-    if(props.onTextChange){
-      props.onTextChange(props.plan._id, event.target.value);
+    if(onTextChange){
+      onTextChange(plan._id, event.target.value);
     }
   };
 
   const handleClick = () => {
-    if(props.onPlanClick){
-      props.onPlanClick(props.plan);
+    if(onPlanClick){
+      onPlanClick(plan);
     }
   };
 
   return (
     <div>
-      <TextField value={props.plan.name} fullWidth={true}
+      <TextField value={plan.name} fullWidth={true}
                  inputStyle={planStyle.basic} underlineStyle={planStyle.underlineStyle} 
                  onChange={handleTextChange} onClick={handleClick}
-                 onBlur={()=>props.onTextBlur(props.plan)}/>
+                 onBlur={()=>onTextBlur(plan)}/>
     </div>
   );
 
@@ -38,7 +39,9 @@ const PlanRow = (props) => {
 
 PlanRow.propTypes = {
   plan: PropTypes.object.isRequired,
-  onTextChange: PropTypes.func
+  onTextChange: PropTypes.func,
+  onTextBlur: PropTypes.func,
+  onPlanClick: PropTypes.func
 };
 
 export default PlanRow;

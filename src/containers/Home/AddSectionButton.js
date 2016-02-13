@@ -9,13 +9,14 @@ import {OutlineButton} from 'components';
   {...sectionsActions})
 export default class AddSectionButton extends Component {
   static propTypes = {
-    addSection: PropTypes.func
+    addSection: PropTypes.func.isRequired
   };
 
   render() {
+    const {addSection} = this.props;
 
     return (
-      <OutlineButton label="+ Section" onClick={this.props.addSection}/>
+      <OutlineButton label="+ Section" onClick={addSection}/>
     );
   }
 }

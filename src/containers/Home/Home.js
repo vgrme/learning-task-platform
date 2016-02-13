@@ -12,8 +12,7 @@ import Container from '../App/Container';
 
 @connect(
   state => ({
-    showCurrentPlan: state.plans.showCurrent,
-    currentSectionId: state.sections.currentSectionId
+    showCurrentPlan: state.plans.showCurrent
   })
 )
 export default class Home extends Component {
@@ -41,20 +40,19 @@ export default class Home extends Component {
 
     const planListStyle = {
       ...columnStyle,
-      width: this.props.showCurrentPlan? '50%': '80%'
-      //left: 0
+      width: showCurrentPlan? '50%': '80%'
     };
 
     const planDetailStyle = {
       ...columnStyle,
-      width: this.props.showCurrentPlan? '50%': '0',
+      width: showCurrentPlan? '50%': '0',
       right: 0
     };
 
     const paperStyle = {
-      width: this.props.showCurrentPlan? '100%':'80%',
+      width: showCurrentPlan? '100%':'80%',
       padding: '20px',
-      margin: this.props.showCurrentPlan? '20px':'20px auto',
+      margin: showCurrentPlan? '20px':'20px auto',
       overflowY: 'scroll',
       height: 'auto'
     };
@@ -69,7 +67,7 @@ export default class Home extends Component {
               <HomePlansList />
             </Paper>
           </div>
-          { !showCurrentPlan?'':
+          {!showCurrentPlan?'':
             <div style={planDetailStyle}> 
               <Paper style={paperStyle} zDepth={2}>
                 <PlanDetails/>

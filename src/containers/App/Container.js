@@ -2,22 +2,24 @@ import React, {PropTypes} from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import {NavbarTop} from 'components';
-import LeftSideBar from './LeftSideBar';
+import {NavbarTop, LeftSideBar} from 'components';
 import {plansActions, sectionsActions} from 'redux/modules';
 import * as leftNavActions from 'redux/modules/leftSideBar';
 
 
 @connect(
   state => ({
-    isLeftSideBarOpen: state.leftSideBar
+    isLeftSideBarOpen: state.leftSideBar,
+    sections: state.sections.list
   }),
   { ...leftNavActions, ...plansActions, ...sectionsActions })
 export default class Container extends React.Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
-    openLeftNav: PropTypes.func,
-    closeLeftNav: PropTypes.func
+    isLeftSideBarOpen: PropTypes.bool.isRequired,
+    sections: PropTypes.array,
+    openLeftNav: PropTypes.func.isRequired,
+    closeLeftNav: PropTypes.func.isRequired
   };
 
   componentDidMount() {
@@ -28,13 +30,15 @@ export default class Container extends React.Component {
   render() {
     const title = 'LiF - Learning is Fun';
     const sideBarWidth = 280;
+    const {isLeftSideBarOpen, sections} = this.props;
+    const {openLeftNav, closeLeftNav} = this.props;
 
     const handleClickMenuBtn = () =>{
-      this.props.openLeftNav();
+      openLeftNav();
     };
 
     const handleClickClose = () =>{
-      this.props.closeLeftNav();
+      closeLeftNav();
     };
 
     const leftSideBarStyle = {
@@ -43,7 +47,7 @@ export default class Container extends React.Component {
 
     const containerStyle = {
       position: 'absolute',
-      left: this.props.isLeftSideBarOpen? sideBarWidth + 'px':'0',
+      left: isLeftSideBarOpen? sideBarWidth + 'px':'0',
       right: 0,
       bottom: 0,
       top:0
@@ -51,9 +55,10 @@ export default class Container extends React.Component {
 
     return (
       <div>
-        <LeftSideBar width={sideBarWidth} onClickClose={handleClickClose}/>
+        <LeftSideBar width={sideBarWidth} onClickClose={handleClickClose} open={isLeftSideBarOpen}
+                     sections={sections}/>
         <div style={containerStyle}>
-          <NavbarTop title={title} onClickMenu={handleClickMenuBtn} showMenuBtn={!this.props.isLeftSideBarOpen}/>
+          <NavbarTop title={title} onClickMenu={handleClickMenuBtn} showMenuBtn={!isLeftSideBarOpen}/>
           <div>{this.props.children}</div>
         </div>
       </div>

@@ -10,23 +10,28 @@ import {SectionRow} from 'components';
   {  ...sectionsActions })
 export default class SectionTitleRow extends Component {
   static propTypes = {
-    section: PropTypes.object
+    section: PropTypes.object.isRequired,
+    rollbackSectionName: PropTypes.func.isRequired,
+    saveSection: PropTypes.func.isRequired,
+    selectSection: PropTypes.func.isRequired,
+    updateSectionName: PropTypes.func.isRequired
   };
 
   render() {
     const {section} = this.props;
+    const {rollbackSectionName, saveSection, selectSection, updateSectionName} = this.props;  //from sectionsAction
 
     const handleTextBlur = () => {
       if(!section.name){
-        this.props.rollbackSectionName(section._id);
+        rollbackSectionName(section._id);
       }
       else if(section.pre && section.name !== section.pre.name){
-        this.props.saveSection(section);
+        saveSection(section);
       }
     };
 
     const handleSectionClick = (sectionId) => {
-      this.props.selectSection(sectionId, false);
+      selectSection(sectionId, false);
     };
 
     const sectionTextStyle = {
@@ -41,7 +46,7 @@ export default class SectionTitleRow extends Component {
 
     return (
       <div className="clearfix">
-        <SectionRow style={sectionTextStyle} section={section} onTextChange={this.props.updateSectionName} 
+        <SectionRow style={sectionTextStyle} section={section} onTextChange={updateSectionName} 
                     onTextBlur={handleTextBlur}/>
         <div style={sectionOptionsStyle}>
         </div>

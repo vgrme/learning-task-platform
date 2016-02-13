@@ -2,11 +2,11 @@ import React, {Component, PropTypes} from 'react';
 import TextField from 'material-ui/lib/text-field';
 
 const PlanTitle = (props) => {
-  const {plan} = props;
+  const {plan, onTextChange, onTextBlur} = props;
 
   const handleTextChange = (event) => {
-    if(props.onTextChange){
-      props.onTextChange(props.plan._id, event.target.value);
+    if(onTextChange){
+      onTextChange(plan._id, event.target.value);
     }
   };
 
@@ -14,15 +14,16 @@ const PlanTitle = (props) => {
   return (
     <div>
       <TextField value={plan.name} fullWidth={true}
-                 onChange={handleTextChange} onBlur={()=>props.onTextBlur(plan)}/>
+                 onChange={handleTextChange} onBlur={()=>onTextBlur(plan)}/>
     </div>
   );
 
 };
 
 PlanTitle.propTypes = {
-  plan: PropTypes.object,
-  onTextChange: PropTypes.func
+  plan: PropTypes.object.isRequired,
+  onTextChange: PropTypes.func,
+  onTextBlur: PropTypes.func
 };
 
 export default PlanTitle;

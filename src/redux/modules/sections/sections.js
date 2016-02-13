@@ -66,7 +66,7 @@ export default function reducer(state = initialState, action = {}) {
         return {
           ...state,
           newSection: {...state.newSection,[action.field]: action.data}
-        }
+        };
       }
       return {
         ...state,
@@ -131,24 +131,44 @@ export function updateSectionName(sectionId, sectionName){
   };
 }
 
+export function saveSectionName(section, sections){
+  if(!section._id){ //new section
+    if(!section.name){
+      return stopAddSection();
+    }
+    else{
+      var newSectionsList = plansService.addSection(sections, section);
+      return saveAllSections(newSectionsList, 'addNew');
+    }
+  }
+  else{
+    if(!section.name){
+      return rollbackSectionName(section._id);
+    }
+    else if(section.pre && section.name !== section.pre.name){
+      return saveSection(section);
+    }
+  }
+}
+
 export function rollbackSectionName(sectionId){
   return {
     type: ROLLBACK_SECTION,
     sectionId,
     field: 'name'
-  }
+  };
 }
 
 export function addSection(){
   return {
     type: ADD_SECTION
-  }
+  };
 }
 
 export function stopAddSection(){
   return {
     type: STOP_ADD_SECTION
-  }
+  };
 }
 
 export function selectSection(sectionId, showCurrent){
@@ -156,26 +176,26 @@ export function selectSection(sectionId, showCurrent){
     type: SELECT_SECTION,
     sectionId,
     showCurrent
-  }
+  };
 }
 
 export function unSelectSection(){
   return {
     type: UN_SELECT_SECTION
-  }
+  };
 }
 
 export function activateSection(sectionId){
   return {
     type: ACTIVATE_SECTION,
     sectionId
-  }
+  };
 }
 
 export function deActivateSection(){
   return {
     type: DE_ACTIVATE_SECTION
-  }
+  };
 }
 
 export function saveAllSections(sections, reason){
@@ -183,7 +203,7 @@ export function saveAllSections(sections, reason){
     types: [SAVE, SAVE_ALL_SUCCESS, SAVE_FAIL],
     reason,
     promise: (client) => client.post('/api/learning/sections/many',{data:sections})
-  }
+  };
 }
 
 export function saveSection(section, replaceWithResult){

@@ -3,13 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { pushState } from 'redux-router';
 
-import {NavbarTop} from 'components';
-import LeftSideBar from './LeftSideBar';
-import Container from './Container';
-import {plansActions, sectionsActions} from 'redux/modules';
-import * as leftNavActions from 'redux/modules/leftSideBar';
-
-
 @connect(
   state => ({}),
   { pushState })
