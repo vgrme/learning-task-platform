@@ -7,7 +7,8 @@ const PlansList = (props) => {
     <div>
       {
         props.plans.map((plan) => 
-          <PlanRow key={plan._id} plan={plan} onTextChange={props.onTextChange}  onPlanClick={props.onPlanClick}/>
+          <PlanRow key={plan._id} plan={plan} onTextChange={props.onTextChange} 
+                   onPlanClick={props.onPlanClick} onTextBlur={props.onTextBlur}/>
         )
       }
     </div>

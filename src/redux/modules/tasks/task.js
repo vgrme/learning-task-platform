@@ -1,10 +1,10 @@
-import {UPDATE_PLAN, ROLLBACK_PLAN, SET_CURRENT_PLAN} from './plansConstant';
+import {UPDATE_TASK, ROLLBACK_TASK, SET_CURRENT_TASK} from './constant';
 //const initialState
 
 export default function reducer(state, action){
   switch (action.type) {
-    case UPDATE_PLAN:
-      if(state._id !== action.planId){
+    case UPDATE_TASK:
+      if(state._id !== action.taskId){
         return state;
       }
       return {
@@ -12,8 +12,8 @@ export default function reducer(state, action){
         pre: state.pre || {[action.field]: state[action.field]},  //save the pre data
         [action.field]: action.data
       };
-    case ROLLBACK_PLAN:
-      if(state._id !== action.planId){
+    case ROLLBACK_TASK:
+      if(state._id !== action.taskId){
         return state;
       }
       return {
@@ -21,8 +21,8 @@ export default function reducer(state, action){
         [action.field]: state.pre[action.field],
         pre: {} //clear the pre data
       };
-    case SET_CURRENT_PLAN:
-      if(state._id !== action.planId){
+    case SET_CURRENT_TASK:
+      if(state._id !== action.taskId){
         return {
           ...state,
           isCurrent: false

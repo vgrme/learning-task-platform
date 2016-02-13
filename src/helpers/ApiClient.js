@@ -33,7 +33,7 @@ class _ApiClient {
           request.set('cookie', req.get('cookie'));
         }
 
-        const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NmJhNWJjY2VlNTc3ODJiNDk4MjA1MjYiLCJpYXQiOjE0NTUyNDE4NjQwMTUsImV4cCI6MTQ1NTI1OTg2NDAxNX0.g4pXjmBY7Cvq9RQhnoWV1dT0ll4ME2eEUMIH_0dEcmI";
+        const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NmJhNWJjY2VlNTc3ODJiNDk4MjA1MjYiLCJpYXQiOjE0NTUzODg5MjE0OTgsImV4cCI6MTQ1NTQwNjkyMTQ5OH0._mh4vgtifuEHW8VBWTHs42uQ0SiL0gd81nD7FEwPqZs";
         request.set('Authorization', 'Bearer '+token);
 
         if (data) {

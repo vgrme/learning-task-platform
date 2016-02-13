@@ -20,14 +20,17 @@ const PlanRow = (props) => {
   };
 
   const handleClick = () => {
-    props.onPlanClick(props.plan._id);
+    if(props.onPlanClick){
+      props.onPlanClick(props.plan);
+    }
   };
 
   return (
     <div>
       <TextField value={props.plan.name} fullWidth={true}
                  inputStyle={planStyle.basic} underlineStyle={planStyle.underlineStyle} 
-                 onChange={handleTextChange} onClick={handleClick}/>
+                 onChange={handleTextChange} onClick={handleClick}
+                 onBlur={()=>props.onTextBlur(props.plan)}/>
     </div>
   );
 

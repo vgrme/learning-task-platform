@@ -4,6 +4,7 @@ import {LOAD, LOAD_SUCCESS, LOAD_FAIL,
         SAVE, SAVE_SUCCESS, SAVE_FAIL,
         SAVE_ALL, SAVE_ALL_SUCCESS, SAVE_ALL_FAIL,  
         SELECT_SECTION, UN_SELECT_SECTION,
+        ACTIVATE_SECTION, DE_ACTIVATE_SECTION,
         UPDATE_SECTION, ROLLBACK_SECTION, 
         ADD_SECTION, STOP_ADD_SECTION} from './sectionsConstant';
 
@@ -28,7 +29,7 @@ export default function reducer(state = initialState, action = {}) {
     case LOAD_SUCCESS:
       return {
         ...state,
-        list: plansService.getOrderedSections(action.result),
+        list: plansService.getOrderedArray(action.result),
         loading: false,
         loaded: true
       };
@@ -41,7 +42,7 @@ export default function reducer(state = initialState, action = {}) {
     case SAVE_SUCCESS:
       return {
         ...state,
-        list: plansService.findAndReplaceSection(state.liat, action.result),
+        list: plansService.findAndReplaceById(state.list, action.replaceWithResult?action.result:action.section),
         saving: false,
         saved: true
       };
@@ -55,7 +56,7 @@ export default function reducer(state = initialState, action = {}) {
     case SAVE_ALL_SUCCESS:
       return {
         ...state,
-        list: plansService.getOrderedSections(action.result),
+        list: plansService.getOrderedArray(action.result),
         newSection: null,
         saving: false,
         saved: true
@@ -79,7 +80,7 @@ export default function reducer(state = initialState, action = {}) {
     case ADD_SECTION:
       return {
         ...state,
-        newSection: {name: '', active: true, order: 1}
+        newSection: {name: '', active: true, order: 1, isCurrent: true}
       };
     case STOP_ADD_SECTION:
       return {
@@ -98,6 +99,16 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         list: state.list.map(s=> section(s, action)),
         showCurrent: false
+      };
+    case ACTIVATE_SECTION:
+      return {
+        ...state,
+        list: state.list.map(s=> section(s, action))
+      };
+    case DE_ACTIVATE_SECTION:
+      return {
+        ...state,
+        list: state.list.map(s=> section(s, action))
       };
     default:
       return state;
@@ -154,6 +165,19 @@ export function unSelectSection(){
   }
 }
 
+export function activateSection(sectionId){
+  return {
+    type: ACTIVATE_SECTION,
+    sectionId
+  }
+}
+
+export function deActivateSection(){
+  return {
+    type: DE_ACTIVATE_SECTION
+  }
+}
+
 export function saveAllSections(sections, reason){
   return {
     types: [SAVE, SAVE_ALL_SUCCESS, SAVE_FAIL],
@@ -162,10 +186,15 @@ export function saveAllSections(sections, reason){
   }
 }
 
-export function saveSection(section){
+export function saveSection(section, replaceWithResult){
   return {
     types: [SAVE, SAVE_SUCCESS, SAVE_FAIL],
-    isNew: !section._id,
+    section,
+    replaceWithResult,
     promise: (client) => client.post('/api/learning/sections',{data:section})
   };
+}
+
+export function changeSectionActiveValue(section){
+  return saveSection({...section, active: !section.active}, false);
 }

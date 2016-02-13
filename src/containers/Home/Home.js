@@ -17,9 +17,10 @@ import Container from '../App/Container';
   })
 )
 export default class Home extends Component {
-
   
   render() {
+    const {showCurrentPlan} = this.props;
+
     const containerStyle = {
       position: 'absolute',
       top:  '50px',
@@ -68,11 +69,13 @@ export default class Home extends Component {
               <HomePlansList />
             </Paper>
           </div>
-          <div style={planDetailStyle}> 
-            <Paper style={paperStyle} zDepth={2}>
-              <PlanDetails/>
-            </Paper>
-          </div>
+          { !showCurrentPlan?'':
+            <div style={planDetailStyle}> 
+              <Paper style={paperStyle} zDepth={2}>
+                <PlanDetails/>
+              </Paper>
+            </div>
+          }
         </div>
       </Container>
     );

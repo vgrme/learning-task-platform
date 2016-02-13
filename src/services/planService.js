@@ -30,8 +30,8 @@ import _ from 'lodash';
 // ];
 
 
-export function getOrderedSections(sections){
-  return _.orderBy(sections, ['order']);
+export function getOrderedArray(array){
+  return _.orderBy(array, ['order']);
 }
 
 export function addSection(sections, section){
@@ -42,8 +42,28 @@ export function addSection(sections, section){
   });
 }
 
-export function findAndReplaceSection(sections, section){
-  return sections.map(s=> s._id===section._id? section:s );
+export function addTask(tasks, task){
+  var newList = [task].concat(tasks);
+  return _.map(newList, function(item, i){
+    item.order = i+1;
+    return item;
+  });
+}
+
+export function addPlan(plans, sectionId, plan){
+  var newList = [plan].concat(_.filter(plans, {sectionId: sectionId}));
+  return _.map(newList, function(item, i){
+    item.order = i+1;
+    return item;
+  });
+}
+
+export function findAndReplaceById(array, item){
+  return array.map(x=> x._id===item._id? item:x );
+}
+
+export function replacePlansBySection(plans, sectionId, newPlans){
+  return newPlans.concat(_.filter(plans, (p)=>p.sectionId!==sectionId));
 }
 
 export function getOrderedTasksByPlanId(tasks){

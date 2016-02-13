@@ -2,11 +2,14 @@ import * as plansService from 'services/planService';
 import plan from './plan';
 import {LOAD, LOAD_SUCCESS, LOAD_FAIL, 
         SAVE, SAVE_SUCCESS, SAVE_FAIL, 
-        UPDATE_PLAN_NAME, SET_CURRENT_PLAN} from './plansConstant';
+        SAVE_ALL, SAVE_ALL_SUCCESS, SAVE_ALL_FAIL,
+        ADD_PLAN, STOP_ADD_PLAN,
+        UPDATE_PLAN, ROLLBACK_PLAN, SET_CURRENT_PLAN} from './plansConstant';
 
 const initialState = {
   showCurrent: false,
-  currentPlan: {},
+  currentPlanId: null,
+  currentSectionId: null,
   list: [],
   loading: false,
   loaded: false,
@@ -38,9 +41,9 @@ export default function reducer(state = initialState, action = {}) {
     case SAVE_SUCCESS:
       return {
         ...state,
+        list: plansService.findAndReplaceById(state.list, action.replaceWithResult?action.result:action.plan),
         saving: false,
-        saved: true,
-        list: action.isNew?[action.result].concat(state.list):state.list
+        saved: true
       };
     case SAVE_FAIL:
       return {
@@ -49,17 +52,47 @@ export default function reducer(state = initialState, action = {}) {
         saved: false,
         error: action.error
       };
-    case UPDATE_PLAN_NAME:
+    case SAVE_ALL_SUCCESS:
+      return {
+        ...state,
+        list: plansService.replacePlansBySection(state.list, action.sectionId, action.result),
+        newPlan: null,
+        saving: false,
+        saved: true
+      };
+    case UPDATE_PLAN:
+      if(!action.planId){
+        return {
+          ...state,
+          newPlan: {...state.newPlan,[action.field]: action.data}
+        }
+      }
       return {
         ...state,
         list: state.list.map(p=>plan(p, action))
+      };
+    case ROLLBACK_PLAN:
+      return {
+        ...state,
+        list: state.list.map(p=> plan(p, action))
       };
     case SET_CURRENT_PLAN:
       return {
         ...state,
         showCurrent: true,
-        currentPlan: state.list.find(p=>p.id===action.planId),
+        currentPlanId: action.planId,
+        currentSectionId: action.sectionId,
         list: state.list.map(p=>plan(p, action))
+      };
+    case ADD_PLAN:
+      return {
+        ...state,
+        newPlan: {name: '', active: true, order: 1, sectionId: action.sectionId}
+      };
+    case STOP_ADD_PLAN:
+      return {
+        ...state,
+        newPlan: null
       };
     default:
       return state;
@@ -75,23 +108,61 @@ export function loadPlans(){
 
 export function updatePlanName(planId, planName){
   return {
-    type: UPDATE_PLAN_NAME,
-    planId: planId,
-    planName: planName
+    type: UPDATE_PLAN,
+    planId,
+    field: 'name',
+    data: planName
   };
 }
 
-export function selectPlan(planId){
+export function rollbackPlanName(planId){
+  return {
+    type: ROLLBACK_PLAN,
+    planId,
+    field: 'name'
+  }
+}
+
+export function selectPlan(plan){
   return {
     type: SET_CURRENT_PLAN,
-    planId: planId
+    planId: plan._id,
+    sectionId: plan.sectionId
   };
 }
 
-export function savePlan(plan, isNew){
+export function addPlan(sectionId){
+  return {
+    type: ADD_PLAN,
+    sectionId
+  }
+}
+
+export function stopAddPlan(){
+  return {
+    type: STOP_ADD_PLAN
+  }
+}
+
+export function changePlanActiveValue(plan){
+  return savePlan({...plan, active: !plan.active}, plan.sectionId);
+}
+
+export function savePlan(plan, sectionId, replaceWithResult){
   return {
     types: [SAVE, SAVE_SUCCESS, SAVE_FAIL],
-    isNew: !plan._id,
-    promise: (client) => client.post('/api/learning/plans',{data:plan})
+    sectionId,
+    plan,
+    replaceWithResult,
+    promise: (client) => client.post(`/api/learning/plans/${sectionId}`,{data:plan})
   };
+}
+
+export function saveAllPlans(plans, sectionId, reason){
+  return {
+    types: [SAVE, SAVE_ALL_SUCCESS, SAVE_FAIL],
+    sectionId,
+    reason,
+    promise: (client) => client.post(`/api/learning/plans/${sectionId}/many`,{data:plans})
+  }
 }

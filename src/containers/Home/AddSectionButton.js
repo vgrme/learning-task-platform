@@ -14,12 +14,8 @@ export default class AddSectionButton extends Component {
 
   render() {
 
-    const handleAddSection = () => {
-      this.props.addSection();
-    };
-
     return (
-      <OutlineButton label="+ Section" onClick={handleAddSection}/>
+      <OutlineButton label="+ Section" onClick={this.props.addSection}/>
     );
   }
 }

@@ -6,5 +6,13 @@ export const SAVE = 'plans/SAVE';
 export const SAVE_SUCCESS = 'plans/SAVE_SUCCESS';
 export const SAVE_FAIL = 'plans/SAVE_FAIL';
 
-export const UPDATE_PLAN_NAME = 'plans/UPDATE_PLAN_NAME';
+export const SAVE_ALL = 'plans/SAVE_ALL';
+export const SAVE_ALL_SUCCESS = 'plans/SAVE_ALL_SUCCESS';
+export const SAVE_ALL_FAIL = 'plans/SAVE_ALL_FAIL';
+
+export const ADD_PLAN = 'plans/ADD_PLAN';
+export const STOP_ADD_PLAN = 'plans/STOP_ADD_PLAN';
+
+export const UPDATE_PLAN = 'plans/UPDATE_PLAN';
+export const ROLLBACK_PLAN = 'plans/ROLLBACK_PLAN';
 export const SET_CURRENT_PLAN = 'plans/SET_CURRENT_PLAN';
