@@ -5,7 +5,7 @@ import TextField from 'material-ui/lib/text-field';
 import Checkbox from 'material-ui/lib/checkbox';
 
 const TaskRow = (props) => {
-  const {task, onTextChange, onTextBlur, onCheck} = props;
+  const {task, autoFocus, onTextChange, onTextBlur, onCheck} = props;
 
 
   const checkBoxStyle = {
@@ -29,8 +29,8 @@ const TaskRow = (props) => {
   return (
     <div className="clearfix">
       <Checkbox style={checkBoxStyle} checked={task.complete} onCheck={onCheck}/>
-      <TextField style={textStyle} value={task.name} fullWidth={true}
-                 onChange={handleTextChange} onBlur={()=>onTextBlur(task)}/>
+      <TextField style={textStyle} value={task.name} fullWidth={true} onChange={handleTextChange} autoFocus={autoFocus}
+                 onBlur={()=>onTextBlur(task)} onEnterKeyDown={()=>onTextBlur(task)}/>
     </div>
   );
 
@@ -38,6 +38,7 @@ const TaskRow = (props) => {
 
 TaskRow.propTypes = {
   task: PropTypes.object,
+  autoFocus: PropTypes.bool,
   onTextChange: PropTypes.func,
   onCheck: PropTypes.func
 };

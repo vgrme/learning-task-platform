@@ -35,8 +35,8 @@ export default class TasksList extends Component {
         <div>
           {
             !newTask?'':
-            <TaskRow task={newTask} onTextChange={updateTaskName} 
-                        onTextBlur={handleTaskBlur} />
+            <TaskRow task={newTask} onTextChange={updateTaskName} autoFocus={true}
+                     onTextBlur={handleTaskBlur} />
           }
         </div>
         <div>

@@ -50,7 +50,7 @@ export default class HomePlansList extends Component {
       <div>
         {
           !newSection?'':
-          <SectionRow section={newSection} onTextChange={updateSectionName} 
+          <SectionRow section={newSection} onTextChange={updateSectionName} autoFocus={true}
                       onTextBlur={()=>saveSectionName(newSection, sections)} hideArchive={true} />
         }
         <div onMouseLeave={onMouseLeaveSectionList}>

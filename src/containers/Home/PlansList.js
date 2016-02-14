@@ -27,7 +27,7 @@ export default class PlansList extends Component {
         <div>
           {
             !newPlan || newPlan.sectionId!==sectionId?'':
-            <PlanRow plan={newPlan} onTextChange={updatePlanName} 
+            <PlanRow plan={newPlan} onTextChange={updatePlanName} autoFocus={true}
                         onTextBlur={()=>savePlanName(newPlan, plans)} />
           }
         </div>

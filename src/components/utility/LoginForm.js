@@ -74,8 +74,13 @@ export default class LoginForm extends React.Component {
       float: 'right'
     };
 
+    const handleEnterKey = (e) => {
+      if(e.keyCode === 13)
+        onSubmit(this.state.email, this.state.password);
+    };
+
     return (
-      <Paper style={style} zDepth={1}>
+      <Paper style={style} zDepth={1} onKeyDown={handleEnterKey}>
         <div style={headerStyle}>Login</div>
         <Divider />
         <div className="clearfix">
@@ -91,7 +96,8 @@ export default class LoginForm extends React.Component {
                      onChange={this.handlePasswordChange}/>
         </div>
         <RaisedButton label="login" style={btnStyle} backgroundColor={Colors.teal500} labelColor="white"
-                      onClick={()=>onSubmit(this.state.email, this.state.password)} />
+                      onClick={()=>onSubmit(this.state.email, this.state.password)} 
+                      disabled={!this.state.email||!this.state.password}/>
       </Paper>
     );
   }

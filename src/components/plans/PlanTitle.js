@@ -13,8 +13,8 @@ const PlanTitle = (props) => {
 
   return (
     <div>
-      <TextField value={plan.name} fullWidth={true}
-                 onChange={handleTextChange} onBlur={()=>onTextBlur(plan)}/>
+      <TextField value={plan.name} fullWidth={true} onChange={handleTextChange} 
+                 onBlur={()=>onTextBlur(plan)} onEnterKeyDown={()=>onTextBlur(plan)}/>
     </div>
   );
 

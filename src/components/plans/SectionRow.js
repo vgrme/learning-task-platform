@@ -5,7 +5,7 @@ import FlatButton from 'material-ui/lib/flat-button';
 
 const SectionRow = (props) => {
 
-  const {section, hideArchive, onTextChange, onTextBlur, onArchiveClick, onAddPlanClick} = props;
+  const {section, hideArchive, onTextChange, onTextBlur, onArchiveClick, onAddPlanClick, autoFocus} = props;
 
   const style = {
     borderBottom: '1px solid'
@@ -38,13 +38,12 @@ const SectionRow = (props) => {
     fontSize: '10px'
   };
 
-
   return (
 
     <div style={style} className="clearfix">
       <div style={sectionTextStyle}>
-        <TextField value={section.name} underlineShow={false} 
-                   onChange={handleTextChange} onBlur={onTextBlur}/>
+        <TextField value={section.name} underlineShow={false} autoFocus={autoFocus}
+                   onChange={handleTextChange} onBlur={onTextBlur} onEnterKeyDown={onTextBlur}/>
       </div>
       {!section.isActive?'':
         <div style={sectionOptionsStyle}>
@@ -60,6 +59,7 @@ const SectionRow = (props) => {
 SectionRow.propTypes = {
   section: PropTypes.object.isRequired,
   hideArchive: PropTypes.bool,
+  autoFocus: PropTypes.bool,
   onTextChange: PropTypes.func,
   onTextBlur: PropTypes.func,
   onArchiveClick: PropTypes.func,
