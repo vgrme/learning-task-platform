@@ -2,6 +2,7 @@ var path = require('path');
 var express = require('express');
 var request = require('request');
 var bodyParser = require('body-parser');
+var favicon = require('serve-favicon');
 
 var webpack = require('webpack');
 var webpackDevMiddleware = require('webpack-dev-middleware');
@@ -9,8 +10,8 @@ var webpackHotMiddleware = require('webpack-hot-middleware');
 var webpackConfigBuilder = require('./webpack.config');
 var webpackConfig = webpackConfigBuilder('development');
 
-var port = process.env.PORT || 3000;
-var baseApiUrl = process.env.NODE_ENV === "development"? 'http://localhost:9000':process.env.API_URL;
+var port = process.env.PORT || 5000;
+var baseApiUrl = process.env.NODE_ENV === "development"? 'http://localhost:9000':'http://localhost:9000';
 
 var app = express();
 
@@ -19,6 +20,8 @@ var static_path = process.env.NODE_ENV === "development"? 'src':'dist';
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(bodyParser.text());
+
+app.use(favicon(path.join(__dirname, 'assets/favicon.ico')));
 
 var callApi = function(req, res){
   var options = {
@@ -61,6 +64,8 @@ if(process.env.NODE_ENV === "development"){
 
 app.use('/api', callApi);
 app.use('/auth', callApi);
+
+app.use(express.static(path.join(__dirname, static_path)));
 
 app.get('*', function (req, res) {
   res.sendFile('index.html', { root: path.join(__dirname, static_path) });

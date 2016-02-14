@@ -1,6 +1,6 @@
 import superagent from 'superagent';
 import cookie from 'react-cookie';
-import history from 'helpers/history'
+import history from 'helpers/history';
 //import config from '../config';
 
 const methods = ['get', 'post', 'put', 'patch', 'del'];
