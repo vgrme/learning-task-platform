@@ -4,6 +4,7 @@ export tasks from './tasks/tasks';
 export filter from './filter';
 export leftSideBar from './leftSideBar';
 
+export * as authActions from './auth';
 export * as tasksActions from './tasks/tasks';
 export * as plansActions from './plans/plans';
 export * as sectionsActions from './sections/sections';

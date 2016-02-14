@@ -25,9 +25,11 @@ export default class SideDetails extends Component {
     savePlan: PropTypes.func.isRequired
   };
 
-  componentDidMount() {
-    const {currentPlanId, currentSectionId, loadTasks} = this.props;
-    loadTasks(currentSectionId, currentPlanId);
+  componentWillReceiveProps(nextProps) {
+    const {currentPlanId, currentSectionId, loadTasks} = nextProps;
+    if (this.props.currentPlanId !== currentPlanId) {
+      loadTasks(currentSectionId, currentPlanId);
+    }
   }
 
   render() {

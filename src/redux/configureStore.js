@@ -4,7 +4,7 @@
 
 import { createStore, applyMiddleware, compose } from 'redux';
 import { syncHistory } from 'react-router-redux';
-import { browserHistory } from 'react-router';
+import history from 'helpers/history';
 import thunk from 'redux-thunk';
 import clientMiddleware from './middleware/clientMiddleware';
 import rootReducer from './reducer';
@@ -13,26 +13,30 @@ import ApiClient from 'helpers/ApiClient';
 
 export default function configureStore(initialState) {
   const client = new ApiClient();
+  const reduxRouterMiddleware = syncHistory(history);
+
   let finalCreateStore;
   if(process.env.NODE_ENV && process.env.NODE_ENV){
     const { persistState } = require('redux-devtools');
     const DevTools = require('../containers/DevTool');
 
     finalCreateStore = compose(
-      applyMiddleware(clientMiddleware(client), createLogger()),
+      applyMiddleware(reduxRouterMiddleware, clientMiddleware(client), createLogger()),
       window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument(),
       persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
     )(createStore);
   }
   else{
     finalCreateStore = compose(
-      applyMiddleware(clientMiddleware(client))
+      applyMiddleware(reduxRouterMiddleware, clientMiddleware(client))
     )(createStore);
   }
 
   //finalCreateStore = reduxReactRouter({ getRoutes, createHistory })(finalCreateStore);
 
   const store = finalCreateStore(rootReducer, initialState);
+
+  reduxRouterMiddleware.listenForReplays(store);
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

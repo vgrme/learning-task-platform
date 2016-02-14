@@ -141,13 +141,6 @@ export function rollbackTaskName(taskId){
   };
 }
 
-export function selectTask(taskId){
-  return {
-    type: SET_CURRENT_TASK,
-    taskId: taskId
-  };
-}
-
 export function addTask(planId){
   return {
     type: ADD_TASK,

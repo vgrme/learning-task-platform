@@ -1,4 +1,6 @@
 import superagent from 'superagent';
+import cookie from 'react-cookie';
+import history from 'helpers/history'
 //import config from '../config';
 
 const methods = ['get', 'post', 'put', 'patch', 'del'];
@@ -33,14 +35,22 @@ class _ApiClient {
           request.set('cookie', req.get('cookie'));
         }
 
-        const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NmJhNWJjY2VlNTc3ODJiNDk4MjA1MjYiLCJpYXQiOjE0NTUzODg5MjE0OTgsImV4cCI6MTQ1NTQwNjkyMTQ5OH0._mh4vgtifuEHW8VBWTHs42uQ0SiL0gd81nD7FEwPqZs";
-        request.set('Authorization', 'Bearer '+token);
+        //const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NmJhNWJjY2VlNTc3ODJiNDk4MjA1MjYiLCJpYXQiOjE0NTU0MTg1ODEwNDMsImV4cCI6MTQ1NTQzNjU4MTA0M30.7W1HqjYGvxFfnKCRw0aQH8XfSa_t8v0n66KZ-NtQwaM";
+        const token = cookie.load('token');
+        if(token) request.set('Authorization', 'Bearer '+token);
 
         if (data) {
           request.send(data);
         }
 
-        request.end((err, { body } = {}) => err ? reject(body || err) : resolve(body));
+        request.end((err, { body } = {}) => {
+          if(err){
+            if(err.status === 401)
+              //history.replaceState(null, '/login');
+            reject(body || err);
+          }
+          else resolve(body);
+        });
       }));
   }
 }

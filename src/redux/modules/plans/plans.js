@@ -132,6 +132,8 @@ export function savePlanName(plan, plans){
     else if(plan.pre && plan.name !== plan.pre.name){
       return savePlan(plan, plan.sectionId);
     }
+    else
+      return {type: 'No_CHANGE'};
   }
 }
 

@@ -20,7 +20,7 @@ const dest = document.getElementById('app');
 
 ReactDOM.render(
   <Provider store={store} key="provider">
-    {routes}
+    {routes(store)}
   </Provider>,
   dest
 );
@@ -30,7 +30,7 @@ if (__DEV__ && __DEVTOOLS__ && !window.devToolsExtension) {
   ReactDOM.render(
     <Provider store={store} key="provider">
       <div>
-        {routes}
+        {routes(store)}
         <DevTools />
       </div>
     </Provider>,
