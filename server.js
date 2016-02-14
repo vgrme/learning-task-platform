@@ -10,7 +10,7 @@ var webpackConfigBuilder = require('./webpack.config');
 var webpackConfig = webpackConfigBuilder('development');
 
 var port = process.env.PORT || 3000;
-var baseApiUrl = process.env.NODE_ENV === "development"? 'http://localhost:9000':'http://api.chenyunyc.com';
+var baseApiUrl = process.env.NODE_ENV === "development"? 'http://localhost:9000':process.env.API_URL;
 
 var app = express();
 
