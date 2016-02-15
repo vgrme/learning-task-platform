@@ -4,18 +4,19 @@ var request = require('request');
 var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
 
-var port = process.env.PORT || 5000;
-var baseApiUrl = process.env.NODE_ENV === "development"? 'http://localhost:9000':'http://localhost:9000';
+var port = process.env.PORT || 3000;
+
+var baseApiUrl = process.env.NODE_ENV === "development"? 'http://localhost:9000':process.env.API_URL;
 
 var app = express();
 
-var static_path = process.env.NODE_ENV === "development"? 'src':'dist';
+var static_path = process.env.NODE_ENV === "development"? 'src':'';
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 
-app.use(favicon(path.join(__dirname, 'assets/favicon.ico')));
+app.use(favicon(path.join(__dirname, 'favicon.ico')));
 
 var callApi = function(req, res){
   var options = {

@@ -16,7 +16,7 @@ export default function configureStore(initialState) {
   const reduxRouterMiddleware = syncHistory(history);
 
   let finalCreateStore;
-  if(process.env.NODE_ENV && process.env.NODE_ENV){
+  if(process.env.NODE_ENV && process.env.NODE_ENV === "development"){
     const { persistState } = require('redux-devtools');
     const DevTools = require('../containers/DevTool');
 
