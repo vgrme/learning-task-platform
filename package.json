@@ -3,7 +3,7 @@
   "version": "1.0.3",
   "description": "",
   "scripts": {
-    "start": "node server.js",
+    "start": "NODE_ENV=production node server.js",
     "dev": "NODE_ENV=development node server.js",
     "lint": "eslint src",
     "lint:watch": "watch 'npm run lint' src",
@@ -34,6 +34,7 @@
     "redux": "3.0.5",
     "redux-logger": "2.5.0",
     "redux-thunk": "1.0.3",
+    "request": "2.69.0",
     "scroll-behavior": "0.3.0",
     "serve-favicon": "2.3.0",
     "superagent": "1.7.2"
