@@ -4,12 +4,6 @@ var request = require('request');
 var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
 
-var webpack = require('webpack');
-var webpackDevMiddleware = require('webpack-dev-middleware');
-var webpackHotMiddleware = require('webpack-hot-middleware');
-var webpackConfigBuilder = require('./webpack.config');
-var webpackConfig = webpackConfigBuilder('development');
-
 var port = process.env.PORT || 5000;
 var baseApiUrl = process.env.NODE_ENV === "development"? 'http://localhost:9000':'http://localhost:9000';
 
@@ -48,6 +42,10 @@ var callApi = function(req, res){
 };
 
 if(process.env.NODE_ENV === "development"){
+  var webpack = require('webpack');
+  var webpackConfigBuilder = require('./webpack.config');
+  var webpackConfig = webpackConfigBuilder('development');
+
   var compiler = webpack(webpackConfig);
 
   app.use(require('webpack-dev-middleware')(compiler, {
