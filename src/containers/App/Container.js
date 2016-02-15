@@ -1,9 +1,9 @@
 import React, {PropTypes} from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import {NavbarTop, LeftSideBar} from 'components';
-import {plansActions, sectionsActions} from 'redux/modules';
+import {NavbarTop} from 'components';
+import LeftSideBar from './LeftSideBar';
+import {sectionsActions, plansActions} from 'redux/modules';
 import * as leftNavActions from 'redux/modules/leftSideBar';
 
 
@@ -12,7 +12,7 @@ import * as leftNavActions from 'redux/modules/leftSideBar';
     isLeftSideBarOpen: state.leftSideBar,
     sections: state.sections.list
   }),
-  { ...leftNavActions, ...plansActions, ...sectionsActions })
+  { ...leftNavActions, ...sectionsActions, ...plansActions })
 export default class Container extends React.Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
@@ -37,14 +37,6 @@ export default class Container extends React.Component {
       openLeftNav();
     };
 
-    const handleClickClose = () =>{
-      closeLeftNav();
-    };
-
-    const leftSideBarStyle = {
-      width: sideBarWidth
-    };
-
     const containerStyle = {
       position: 'absolute',
       left: isLeftSideBarOpen? sideBarWidth + 'px':'0',
@@ -55,8 +47,7 @@ export default class Container extends React.Component {
 
     return (
       <div>
-        <LeftSideBar width={sideBarWidth} onClickClose={handleClickClose} open={isLeftSideBarOpen}
-                     sections={sections}/>
+        <LeftSideBar width={sideBarWidth} open={isLeftSideBarOpen} />
         <div style={containerStyle}>
           <NavbarTop title={title} onClickMenu={handleClickMenuBtn} showMenuBtn={!isLeftSideBarOpen}/>
           <div>{this.props.children}</div>

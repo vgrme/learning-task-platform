@@ -5,6 +5,7 @@ import ToolbarSeparator from 'material-ui/lib/toolbar/toolbar-separator';
 import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title';
 import FontIcon from 'material-ui/lib/font-icon';
 import Colors from 'material-ui/lib/styles/colors';
+import colors from 'helpers/colors';
 
 
 const NavbarTop = (props) => {
@@ -18,7 +19,9 @@ const NavbarTop = (props) => {
   };
 
   const navBarStyle = {
-    height: height
+    height: height,
+    backgroundColor: 'white',
+    borderBottom: '1px solid '+ Colors.grey300
   };
 
   const titleStyle = {

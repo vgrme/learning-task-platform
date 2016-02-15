@@ -155,7 +155,9 @@ export function stopAddTask(){
 }
 
 export function changeTaskCompleteValue(task, sectionId, planId){
-  return saveTask({...task, complete: !task.complete}, sectionId, planId);
+  var newCompelete = !task.complete;
+  var dateTimeCompleted = newCompelete? Date.now(): null;
+  return saveTask({...task, complete: newCompelete, dateTimeCompleted: dateTimeCompleted}, sectionId, planId);
 }
 
 

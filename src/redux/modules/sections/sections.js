@@ -91,14 +91,13 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         list: state.list.map(s=> section(s, action)),
-        showCurrent: action.showCurrent,
         currentSectionId: action.sectionId
       };
     case UN_SELECT_SECTION:
       return {
         ...state,
         list: state.list.map(s=> section(s, action)),
-        showCurrent: false
+        currentSectionId: null
       };
     case ACTIVATE_SECTION:
       return {
@@ -171,11 +170,10 @@ export function stopAddSection(){
   };
 }
 
-export function selectSection(sectionId, showCurrent){
+export function selectSection(sectionId){
   return {
     type: SELECT_SECTION,
-    sectionId,
-    showCurrent
+    sectionId
   };
 }
 
