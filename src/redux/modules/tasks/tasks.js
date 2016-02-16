@@ -8,6 +8,7 @@ import {LOAD, LOAD_SUCCESS, LOAD_FAIL,
 
 const initialState = {
   showCurrent: false,
+  planId: null,
   currentTaskId: null,
   list: [],
   loading: false,
@@ -27,7 +28,7 @@ export default function reducer(state = initialState, action = {}) {
     case LOAD_SUCCESS:
       return {
         ...state,
-        list: action.result,
+        list: plansService.getOrderedArray(action.result),
         loading: false,
         loaded: true
       };

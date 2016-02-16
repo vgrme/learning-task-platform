@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import * as plansService from 'services/planService';
 import {plansActions, tasksActions} from 'redux/modules';
-import {PlanTitle} from 'components';
+import {PlanTitle, PlanProgress} from 'components';
 import PlanActionBar from './PlanActionBar';
 import TasksList from './TasksList';
 
@@ -11,7 +11,8 @@ import TasksList from './TasksList';
   state => ({
     currentPlanId: state.plans.currentPlanId,
     currentSectionId: state.plans.currentSectionId,
-    plans: state.plans.list
+    plans: state.plans.list,
+    tasks: state.tasks.list
   }),
   { ...plansActions, ...tasksActions })
 export default class SideDetails extends Component {
@@ -36,7 +37,7 @@ export default class SideDetails extends Component {
   }
 
   render() {
-    const {currentPlanId, plans} = this.props;
+    const {currentPlanId, plans, tasks} = this.props;
     const {rollbackPlanName, savePlan, updatePlanName} = this.props;
 
     const currentPlan = plans.find(p=>p._id === currentPlanId);
@@ -54,6 +55,7 @@ export default class SideDetails extends Component {
       <div>
         <PlanTitle plan={currentPlan} onTextChange={updatePlanName} 
                    onTextBlur={handlePlanBlur}/>
+        <PlanProgress tasks={tasks}/>
         <PlanActionBar plan={currentPlan} />
         <TasksList />
       </div>

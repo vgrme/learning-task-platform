@@ -25,6 +25,7 @@ export default class Container extends React.Component {
   componentDidMount() {
     this.props.loadPlans();
     this.props.loadSections();
+    this.props.loadPlansPercentageInfo();
   }
 
   render() {

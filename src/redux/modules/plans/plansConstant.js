@@ -2,6 +2,10 @@ export const LOAD = 'plans/LOAD';
 export const LOAD_SUCCESS = 'plans/LOAD_SUCCESS';
 export const LOAD_FAIL = 'plans/LOAD_FAIL';
 
+export const LOAD_PCT = 'plans/LOAD_PCT';
+export const LOAD_PCT_SUCCESS = 'plans/LOAD_PCT_SUCCESS';
+export const LOAD_PCT_FAIL = 'plans/LOAD_PCT_FAIL';
+
 export const SAVE = 'plans/SAVE';
 export const SAVE_SUCCESS = 'plans/SAVE_SUCCESS';
 export const SAVE_FAIL = 'plans/SAVE_FAIL';

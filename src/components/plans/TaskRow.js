@@ -1,10 +1,17 @@
 import React, {Component, PropTypes} from 'react';
+import moment from 'moment';
 import TextField from 'material-ui/lib/text-field';
 import Checkbox from 'material-ui/lib/checkbox';
 import Colors from 'material-ui/lib/styles/colors';
+import FontIcon from 'material-ui/lib/font-icon';
+import IconButton from 'material-ui/lib/icon-button';
 
 const TaskRow = (props) => {
   const {task, autoFocus, onTextChange, onTextBlur, onCheck} = props;
+
+  const rowStyle = {
+    position:'relative'
+  };
 
   const checkBoxStyle = {
     width: '5%',
@@ -31,6 +38,26 @@ const TaskRow = (props) => {
     borderColor: '#BFAF80'
   };
 
+  const completedDateStyle = {
+    position: 'absolute',
+    right: 20,
+    top: 10,
+    float: 'left',
+    fontSize: 10
+  };
+
+  const infoIconStyle = {
+    btn: {
+      position: 'absolute',
+      right: -20,
+      top: 0
+    },
+    icon:{
+      color: Colors.grey300,
+      fontSize: 18
+    }
+  };
+
   const handleTextChange = (event) => {
     if(onTextChange){
       onTextChange(task._id, event.target.value);
@@ -38,11 +65,17 @@ const TaskRow = (props) => {
   };
 
   return (
-    <div className="clearfix">
+    <div className="clearfix" style={rowStyle}>
       <Checkbox style={checkBoxStyle} iconStyle={iconStyle} checked={task.complete} onCheck={onCheck}/>
       <TextField style={textStyle} inputStyle={inputStyle} value={task.name} fullWidth={true} 
                  onChange={handleTextChange} autoFocus={autoFocus} onBlur={()=>onTextBlur(task)} 
                  onEnterKeyDown={()=>onTextBlur(task)} underlineFocusStyle={textUnderlineStyle}/>
+      
+      {!task.dateTimeCompleted?'':
+        <div style={completedDateStyle}>(Completed on {moment(task.dateTimeCompleted).format('MM-DD-YYYY')})</div>
+      }
+      <IconButton style={infoIconStyle.btn} iconStyle={infoIconStyle.icon} iconClassName="fa fa-angle-down" />
+    
     </div>
   );
 

@@ -13,7 +13,7 @@ const PlanTitle = (props) => {
 
   const style={
     borderBottom: '1px solid '+ Colors.grey300
-  }
+  };
 
 
   return (

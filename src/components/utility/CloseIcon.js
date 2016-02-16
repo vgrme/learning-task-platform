@@ -4,7 +4,7 @@ import colors from 'helpers/colors';
 
 export default class CloseIcon extends React.Component {
   static propTypes = {
-    onClickClose: PropTypes.func.isRequired
+    onClick: PropTypes.func.isRequired
   };
 
   constructor(props) {

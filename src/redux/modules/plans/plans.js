@@ -1,6 +1,7 @@
 import * as plansService from 'services/planService';
 import plan from './plan';
 import {LOAD, LOAD_SUCCESS, LOAD_FAIL, 
+        LOAD_PCT, LOAD_PCT_SUCCESS, LOAD_PCT_FAIL,
         SAVE, SAVE_SUCCESS, SAVE_FAIL, 
         SAVE_ALL, SAVE_ALL_SUCCESS, SAVE_ALL_FAIL,
         ADD_PLAN, STOP_ADD_PLAN,
@@ -11,6 +12,7 @@ const initialState = {
   currentPlanId: null,
   currentSectionId: null,
   list: [],
+  percentageInfo: {},
   loading: false,
   loaded: false,
   saving: false,
@@ -31,6 +33,11 @@ export default function reducer(state = initialState, action = {}) {
         list: action.result,
         loading: false,
         loaded: true
+      };
+    case LOAD_PCT_SUCCESS:
+      return {
+        ...state,
+        percentageInfo: action.result
       };
     case SAVE:
       return {
@@ -103,6 +110,13 @@ export function loadPlans(){
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
     promise: (client) => client.get('/api/learning/plans')
+  };
+}
+
+export function loadPlansPercentageInfo(){
+  return {
+    types: [LOAD_PCT, LOAD_PCT_SUCCESS, LOAD_PCT_FAIL],
+    promise: (client) => client.get('/api/learning/percentage/plans')
   };
 }
 
