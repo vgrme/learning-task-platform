@@ -130,6 +130,7 @@ export function saveTaskName(task, tasks, sectionId, planId){
     else if(task.pre && task.name !== task.pre.name){
       return saveTask(task, sectionId, planId);
     }
+    return {type: 'NO_CHANGE'};
   }
 }
 

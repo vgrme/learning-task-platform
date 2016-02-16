@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import TextField from 'material-ui/lib/text-field';
+import Colors from 'material-ui/lib/styles/colors';
 
 const PlanTitle = (props) => {
   const {plan, onTextChange, onTextBlur} = props;
@@ -10,10 +11,14 @@ const PlanTitle = (props) => {
     }
   };
 
+  const style={
+    borderBottom: '1px solid '+ Colors.grey300
+  }
+
 
   return (
-    <div>
-      <TextField value={plan.name} fullWidth={true} onChange={handleTextChange} 
+    <div style={style}>
+      <TextField value={plan.name} fullWidth={true} onChange={handleTextChange} underlineShow={false}
                  onBlur={()=>onTextBlur(plan)} onEnterKeyDown={()=>onTextBlur(plan)}/>
     </div>
   );

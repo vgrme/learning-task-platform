@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import * as plansService from 'services/planService';
 import {plansActions, tasksActions} from 'redux/modules';
 import FlatButton from 'material-ui/lib/flat-button';
-
+import Colors from 'material-ui/lib/styles/colors';
 
 @connect(
   state => ({}),
@@ -22,7 +22,7 @@ export default class SideDetails extends Component {
     const btnStyle = {
       float: 'right',
       border: '1px solid',
-      borderColor: 'green',
+      borderColor: Colors.brown500,
       lineHeight: '20px',
       margin: '20px 0 0 10px',
       minWidth: '30px',

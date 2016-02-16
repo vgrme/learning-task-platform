@@ -147,6 +147,7 @@ export function saveSectionName(section, sections){
     else if(section.pre && section.name !== section.pre.name){
       return saveSection(section);
     }
+    return {type: 'NO_CHANGE'};
   }
 }
 

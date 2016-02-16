@@ -5,13 +5,33 @@ import Colors from 'material-ui/lib/styles/colors';
 const PlanRow = (props) => {
   const {plan, autoFocus, onTextChange, onTextBlur, onPlanClick} = props;
 
-  const planStyle = {
-    basic: {
-      marginLeft: 20
-    },
-    underlineStyle: {
-      borderColor: Colors.orange500
-    }
+  const selectedStyle = {
+    borderTop: '2px solid '+ '#BFAF80',
+    borderBottom: '2px solid '+ '#BFAF80',
+    marginLeft: -20,
+    marginRight: -20
+  }
+
+  const style={
+    borderTop: '1px solid '+ Colors.grey300,
+    borderBottom: '1px solid '+ Colors.grey300,
+    marginTop: 5,
+    height: 30,
+    ...(plan.isCurrent?selectedStyle:{})
+  }
+
+  const rowStyle = {
+    height: 30
+  };
+
+  const selectedInputStyle = {
+    //color: Colors.purple500,
+    marginLeft: 40
+  };
+
+  const inputStyle = {
+    marginLeft: 20,
+    ...(plan.isCurrent?selectedInputStyle:{})
   };
 
   const handleTextChange = (event) => {
@@ -27,9 +47,9 @@ const PlanRow = (props) => {
   };
 
   return (
-    <div>
-      <TextField value={plan.name} fullWidth={true} autoFocus={autoFocus}
-                 inputStyle={planStyle.basic} underlineStyle={planStyle.underlineStyle} 
+    <div style={style}>
+      <TextField style={rowStyle} value={plan.name} autoFocus={autoFocus} 
+                 inputStyle={inputStyle} fullWidth={true} underlineShow={false}
                  onChange={handleTextChange} onClick={handleClick}
                  onBlur={()=>onTextBlur(plan)} onEnterKeyDown={()=>onTextBlur(plan)}/>
     </div>

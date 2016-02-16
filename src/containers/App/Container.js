@@ -28,7 +28,7 @@ export default class Container extends React.Component {
   }
 
   render() {
-    const title = 'LiF - Learning is Fun';
+    const title = 'LIF - Learning is Fun';
     const sideBarWidth = 280;
     const {isLeftSideBarOpen, sections} = this.props;
     const {openLeftNav, closeLeftNav} = this.props;

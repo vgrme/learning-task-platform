@@ -22,14 +22,15 @@ export default class SectionMenuItem extends React.Component {
     const itemHoverStyle = {
       fontSize: 18,
       fontWeight: 500,
-      backgroundColor: colors.darkPurple
+      backgroundColor: colors.lightGrey,
+      color: colors.darkPurple
     };
 
     const itemSeletedStyle = {
       fontSize: 18,
       fontWeight: 500,
-      backgroundColor: colors.lightGrey,
-      color: colors.darkPurple
+      backgroundColor: colors.darkPurple,
+      color: colors.lightYellow
     };
 
     const itemStyle = {

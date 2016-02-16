@@ -133,7 +133,7 @@ export function savePlanName(plan, plans){
       return savePlan(plan, plan.sectionId);
     }
     else
-      return {type: 'No_CHANGE'};
+      return {type: 'NO_CHANGE'};
   }
 }
 

@@ -2,13 +2,14 @@ import React, {Component, PropTypes} from 'react';
 import Divider from 'material-ui/lib/divider';
 import TextField from 'material-ui/lib/text-field';
 import FlatButton from 'material-ui/lib/flat-button';
+import Colors from 'material-ui/lib/styles/colors';
 
 const SectionRow = (props) => {
 
   const {section, hideArchive, onTextChange, onTextBlur, onArchiveClick, onAddPlanClick, autoFocus} = props;
 
   const style = {
-    borderBottom: '1px solid'
+    borderBottom: '1px solid '+Colors.brown500
   };
 
   const handleTextChange = (event) => {
@@ -19,7 +20,9 @@ const SectionRow = (props) => {
 
   const sectionTextStyle = {
     width: '50%',
-    float: 'left'
+    float: 'left',
+    height: 40,
+    fontWeight: 500
   };
 
   const sectionOptionsStyle = {
@@ -30,9 +33,9 @@ const SectionRow = (props) => {
   const btnStyle ={
     float: 'right',
     border: '1px solid',
-    borderColor: 'green',
+    borderColor: Colors.brown500,
     lineHeight: '20px',
-    margin: '20px 0 0 10px',
+    margin: '15px 0 0 10px',
     minWidth: '30px',
     fontWeight: '0',
     fontSize: '10px'
