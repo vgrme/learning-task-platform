@@ -12,6 +12,8 @@ export const SAVE_ALL_FAIL = 'tasks/SAVE_ALL_FAIL';
 
 export const ADD_TASK = 'tasks/ADD_TASK';
 export const STOP_ADD_TASK = 'tasks/STOP_ADD_TASK';
+export const ADD_BATCH_TASKS = 'tasks/ADD_BATCH_TASKS';
+export const STOP_ADD_BATCH_TASKS = 'tasks/STOP_ADD_BATCH_TASKS';
 
 export const UPDATE_TASK = 'tasks/UPDATE_TASK';
 export const ROLLBACK_TASK = 'tasks/ROLLBACK_TASK';

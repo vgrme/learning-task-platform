@@ -29,7 +29,7 @@ export default class App extends React.Component {
       this.props.load();
       this.props.history.pushState(null, '/');
     }
-    if(this.props.token && !nextProps.token){ //logout
+    if(this.props.user && !nextProps.user){ //logout
       cookie.save('token', '');
       this.props.history.pushState(null, '/login');
     }

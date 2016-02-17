@@ -20,6 +20,14 @@ export function addTask(tasks, task){
   });
 }
 
+export function addTasks(tasks, newTasks){
+  var newList = newTasks.concat(tasks);
+  return _.map(newList, function(item, i){
+    item.order = i+1;
+    return item;
+  });
+}
+
 export function addPlan(plans, sectionId, plan){
   var newList = [plan].concat(_.filter(plans, {sectionId: sectionId}));
   return _.map(newList, function(item, i){
@@ -41,13 +49,20 @@ export function getGroupedPlans(plans, sections){
   var plansGroup = _.groupBy(plans, 'sectionId');
   
   var orderedPlans = _.chain(sections)
-                         .orderBy(['order'])
-                         .map((section)=>{
-                            var result = {};
-                            result.section = section;
-                            result.plans = _.orderBy(plansGroup[section._id],['order']);
-                            return result;
-                          })
-                         .value();
+                      .orderBy(['order'])
+                      .map((section)=>{
+                        var result = {};
+                        result.section = section;
+                        result.plans = _.orderBy(plansGroup[section._id],['order']);
+                        return result;
+                      })
+                      .value();
   return orderedPlans;
+}
+
+export function generateBatchTasks(mainName, number, planId){
+  return _.chain(number)
+          .range()
+          .map(n=>{return {name: `${mainName} ${n+1}`, planId}; })
+          .value();
 }

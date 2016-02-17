@@ -4,6 +4,7 @@ import {LOAD, LOAD_SUCCESS, LOAD_FAIL,
         SAVE, SAVE_SUCCESS, SAVE_FAIL, 
         SAVE_ALL, SAVE_ALL_SUCCESS, SAVE_ALL_FAIL,
         ADD_TASK, STOP_ADD_TASK,
+        ADD_BATCH_TASKS, STOP_ADD_BATCH_TASKS,
         UPDATE_TASK, ROLLBACK_TASK, SET_CURRENT_TASK} from './constant';
 
 const initialState = {
@@ -14,7 +15,8 @@ const initialState = {
   loading: false,
   loaded: false,
   saving: false,
-  saved: false
+  saved: false,
+  addingBatchTasks: false
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -57,6 +59,7 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         list: plansService.getOrderedArray(action.result),
         newTask: null,
+        addingBatchTasks: false,
         saving: false,
         saved: true
       };
@@ -92,6 +95,16 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         newTask: null
+      };
+    case ADD_BATCH_TASKS:
+      return {
+        ...state,
+        addingBatchTasks: true
+      };
+    case STOP_ADD_BATCH_TASKS:
+      return {
+        ...state,
+        addingBatchTasks: false
       };
     default:
       return state;
@@ -133,6 +146,24 @@ export function saveTaskName(task, tasks, sectionId, planId){
     }
     return {type: 'NO_CHANGE'};
   }
+}
+
+export function addBatchTasks(){
+  return {
+    type: ADD_BATCH_TASKS
+  };
+}
+
+export function stopAddBatchTasks(){
+  return {
+    type: STOP_ADD_BATCH_TASKS
+  };
+}
+
+export function saveBatchTasks(mainName, number, tasks, sectionId, planId){
+  var batchTasks = plansService.generateBatchTasks(mainName, number, planId);
+  var newTasksList = plansService.addTasks(tasks, batchTasks);
+  return saveAllTasks(newTasksList, sectionId, planId, 'addNew');
 }
 
 export function rollbackTaskName(taskId){
