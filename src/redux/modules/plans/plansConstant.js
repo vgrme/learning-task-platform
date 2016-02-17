@@ -10,6 +10,10 @@ export const SAVE = 'plans/SAVE';
 export const SAVE_SUCCESS = 'plans/SAVE_SUCCESS';
 export const SAVE_FAIL = 'plans/SAVE_FAIL';
 
+export const DELETE = 'plans/DELETE';
+export const DELETE_SUCCESS = 'plans/DELETE_SUCCESS';
+export const DELETE_FAIL = 'plans/DELETE_FAIL';
+
 export const SAVE_ALL = 'plans/SAVE_ALL';
 export const SAVE_ALL_SUCCESS = 'plans/SAVE_ALL_SUCCESS';
 export const SAVE_ALL_FAIL = 'plans/SAVE_ALL_FAIL';

@@ -45,8 +45,6 @@ class _ApiClient {
 
         request.end((err, { body } = {}) => {
           if(err){
-            if(err.status === 401)
-              //history.replaceState(null, '/login');
             reject(body || err);
           }
           else resolve(body);

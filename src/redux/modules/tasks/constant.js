@@ -6,6 +6,10 @@ export const SAVE = 'tasks/SAVE';
 export const SAVE_SUCCESS = 'tasks/SAVE_SUCCESS';
 export const SAVE_FAIL = 'tasks/SAVE_FAIL';
 
+export const DELETE = 'tasks/DELETE';
+export const DELETE_SUCCESS = 'tasks/DELETE_SUCCESS';
+export const DELETE_FAIL = 'tasks/DELETE_FAIL';
+
 export const SAVE_ALL = 'tasks/SAVE_ALL';
 export const SAVE_ALL_SUCCESS = 'tasks/SAVE_ALL_SUCCESS';
 export const SAVE_ALL_FAIL = 'tasks/SAVE_ALL_FAIL';

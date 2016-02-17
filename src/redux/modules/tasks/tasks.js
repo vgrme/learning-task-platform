@@ -2,6 +2,7 @@ import * as plansService from 'services/planService';
 import task from './task';
 import {LOAD, LOAD_SUCCESS, LOAD_FAIL, 
         SAVE, SAVE_SUCCESS, SAVE_FAIL, 
+        DELETE, DELETE_SUCCESS, DELETE_FAIL, 
         SAVE_ALL, SAVE_ALL_SUCCESS, SAVE_ALL_FAIL,
         ADD_TASK, STOP_ADD_TASK,
         ADD_BATCH_TASKS, STOP_ADD_BATCH_TASKS,
@@ -53,6 +54,13 @@ export default function reducer(state = initialState, action = {}) {
         saving: false,
         saved: false,
         error: action.error
+      };
+    case DELETE_SUCCESS:
+      return {
+        ...state,
+        list: plansService.findAndRemoveById(state.list, action.task._id),
+        saving: false,
+        saved: true
       };
     case SAVE_ALL_SUCCESS:
       return {
@@ -202,6 +210,16 @@ export function saveTask(task, sectionId, planId, replaceWithResult){
     task,
     replaceWithResult,
     promise: (client) => client.post(`/api/learning/tasks/${sectionId}/${planId}`,{data:task})
+  };
+}
+
+export function deleteTask(task, sectionId, planId){
+  return {
+    types: [SAVE, DELETE_SUCCESS, SAVE_FAIL],
+    sectionId,
+    planId,
+    task,
+    promise: (client) => client.del(`/api/learning/tasks/${sectionId}/${planId}/${task._id}`)
   };
 }
 

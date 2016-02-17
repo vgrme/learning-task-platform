@@ -6,7 +6,7 @@ import MenuItem from 'material-ui/lib/menus/menu-item';
 import IconButton from 'material-ui/lib/icon-button';
 
 const PlanRow = (props) => {
-  const {plan, percentage, autoFocus, onTextChange, onTextBlur, onPlanClick} = props;
+  const {plan, percentage, autoFocus, onTextChange, onTextBlur, onPlanClick, deletePlan} = props;
 
   const selectedStyle = {
     borderTop: '2px solid '+ '#BFAF80',
@@ -80,6 +80,12 @@ const PlanRow = (props) => {
                  onChange={handleTextChange} onClick={handleClick}
                  onBlur={()=>onTextBlur(plan)} onEnterKeyDown={()=>onTextBlur(plan)}/>
       {!percentage?'':<div style={pctStyle}>{percentage.toFixed(0)}%</div>}
+    </div>
+  );
+
+};
+
+/*
       <IconMenu style={menuStyle}
         iconButtonElement={<IconButton iconStyle={menuIconStyle} iconClassName="fa fa-angle-down" />}
         anchorOrigin={{horizontal: 'left', vertical: 'top'}}
@@ -87,10 +93,7 @@ const PlanRow = (props) => {
         <MenuItem primaryText="Delete" />
         <MenuItem primaryText="Archive" />
       </IconMenu>
-    </div>
-  );
-
-};
+*/
 
 PlanRow.propTypes = {
   plan: PropTypes.object.isRequired,

@@ -40,6 +40,10 @@ export function findAndReplaceById(array, item){
   return array.map(x=> x._id===item._id? item:x );
 }
 
+export function findAndRemoveById(array, id){
+  return _.remove(array, x => x._id!==id);
+}
+
 export function replacePlansBySection(plans, sectionId, newPlans){
   return newPlans.concat(_.filter(plans, (p)=>p.sectionId!==sectionId));
 }

@@ -18,7 +18,6 @@ export default function clientMiddleware(client) {
         (result) => next({...rest, result, type: SUCCESS}),
         (error) => {
           if(error.status === 401){
-            //history.replaceState(null, '/login');
             return next(authActions.logout());
           }
           next({...rest, error, type: FAILURE});

@@ -3,6 +3,7 @@ import plan from './plan';
 import {LOAD, LOAD_SUCCESS, LOAD_FAIL, 
         LOAD_PCT, LOAD_PCT_SUCCESS, LOAD_PCT_FAIL,
         SAVE, SAVE_SUCCESS, SAVE_FAIL, 
+        DELETE, DELETE_SUCCESS, DELETE_FAIL,
         SAVE_ALL, SAVE_ALL_SUCCESS, SAVE_ALL_FAIL,
         ADD_PLAN, STOP_ADD_PLAN,
         UPDATE_PLAN, ROLLBACK_PLAN, SET_CURRENT_PLAN} from './plansConstant';
@@ -58,6 +59,15 @@ export default function reducer(state = initialState, action = {}) {
         saving: false,
         saved: false,
         error: action.error
+      };
+    case DELETE_SUCCESS:
+      return {
+        ...state,
+        list: plansService.findAndRemoveById(state.list, action.planId),
+        currentPlanId: state.currentPlanId===action.planId?null:state.currentPlanId,
+        showCurrent: state.currentPlanId===action.planId?false:state.showCurrent,
+        saving: false,
+        saved: true
       };
     case SAVE_ALL_SUCCESS:
       return {
@@ -192,6 +202,15 @@ export function savePlan(plan, sectionId, replaceWithResult){
     plan,
     replaceWithResult,
     promise: (client) => client.post(`/api/learning/plans/${sectionId}`,{data:plan})
+  };
+}
+
+export function deletePlan(planId, sectionId){
+  return {
+    types: [SAVE, DELETE_SUCCESS, SAVE_FAIL],
+    sectionId,
+    planId,
+    promise: (client) => client.del(`/api/learning/plans/${sectionId}/${planId}`)
   };
 }
 

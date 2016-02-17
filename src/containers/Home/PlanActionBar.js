@@ -23,7 +23,7 @@ export default class PlanActionBar extends Component {
 
   render() {
     const {plan, tasks, currentPlanId, currentSectionId, addingBatchTasks} = this.props;
-    const {changePlanActiveValue, addTask, addBatchTasks, stopAddBatchTasks, saveBatchTasks} = this.props;  //from actions
+    const {changePlanActiveValue, deletePlan, addTask, addBatchTasks, stopAddBatchTasks, saveBatchTasks} = this.props;  //from actions
 
     const archiveLabel = plan.active? 'Archive': 'UnArchive';
 
@@ -41,7 +41,7 @@ export default class PlanActionBar extends Component {
           <IconMenu
             iconButtonElement={<CircleButton tooltip="Archive">more_horiz</CircleButton>}
           >
-            <MenuItem primaryText="Delete Plan"/>
+            <MenuItem primaryText="Delete Plan" onTouchTap={()=>deletePlan(plan._id, currentSectionId)}/>
             <MenuItem primaryText="Add Multiple Tasks" onTouchTap={addBatchTasks}/>
           </IconMenu>
         </div>
