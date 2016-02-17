@@ -17,7 +17,7 @@ export default class PlanProgress extends Component {
     const percentage = completed.length / tasks.length * 100;
 
     return (
-      <LinearProgress mode="determinate" value={percentage} color={Colors.teal400}/>
+      <LinearProgress mode="determinate" value={percentage||0} color={Colors.teal400}/>
     );
   }
 }

@@ -41,8 +41,7 @@ const TaskRow = (props) => {
   const completedDateStyle = {
     position: 'absolute',
     right: 20,
-    top: 10,
-    float: 'left',
+    top: 28,
     fontSize: 10
   };
 

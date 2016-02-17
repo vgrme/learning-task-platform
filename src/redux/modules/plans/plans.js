@@ -37,7 +37,7 @@ export default function reducer(state = initialState, action = {}) {
     case LOAD_PCT_SUCCESS:
       return {
         ...state,
-        percentageInfo: action.result
+        percentageInfo: {...state.percentageInfo, ...action.result}
       };
     case SAVE:
       return {
@@ -113,10 +113,11 @@ export function loadPlans(){
   };
 }
 
-export function loadPlansPercentageInfo(){
+export function loadPlansPercentageInfo(planId){
+  var params = !planId?'':planId;
   return {
     types: [LOAD_PCT, LOAD_PCT_SUCCESS, LOAD_PCT_FAIL],
-    promise: (client) => client.get('/api/learning/percentage/plans')
+    promise: (client) => client.get(`/api/learning/percentage/plans/${params}`)
   };
 }
 

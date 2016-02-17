@@ -9,15 +9,13 @@ import * as leftNavActions from 'redux/modules/leftSideBar';
 
 @connect(
   state => ({
-    isLeftSideBarOpen: state.leftSideBar,
-    sections: state.sections.list
+    isLeftSideBarOpen: state.leftSideBar
   }),
   { ...leftNavActions, ...sectionsActions, ...plansActions })
 export default class Container extends React.Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
     isLeftSideBarOpen: PropTypes.bool.isRequired,
-    sections: PropTypes.array,
     openLeftNav: PropTypes.func.isRequired,
     closeLeftNav: PropTypes.func.isRequired
   };
@@ -31,7 +29,7 @@ export default class Container extends React.Component {
   render() {
     const title = 'LIF - Learning is Fun';
     const sideBarWidth = 280;
-    const {isLeftSideBarOpen, sections} = this.props;
+    const {isLeftSideBarOpen} = this.props;
     const {openLeftNav, closeLeftNav} = this.props;
 
     const handleClickMenuBtn = () =>{

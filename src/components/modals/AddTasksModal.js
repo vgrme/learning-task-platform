@@ -51,7 +51,7 @@ export default class AddTasksModal extends React.Component {
           <TextField value={this.state.name} onChange={this.handleTextChange('name')} />
         </div>
         <div>
-          <span style={labelStyle}>Number of Files</span>
+          <span style={labelStyle}>Number of Tasks</span>
           <TextField value={this.state.number} onChange={this.handleTextChange('number')} />
         </div>
       </Dialog>

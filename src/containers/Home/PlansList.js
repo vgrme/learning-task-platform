@@ -24,11 +24,6 @@ export default class PlansList extends Component {
     const {plans, sectionId, newPlan, tasks, currentPlanId, percentageInfo} = this.props;
     const {savePlanName, selectPlan, updatePlanName} = this.props;  //from plansActions
 
-    const percentage = {
-      ...percentageInfo,
-      [currentPlanId]: tasks.filter(t=>t.complete).length / tasks.length*100
-    };
-
     return (
       <div>
         <div>
@@ -40,7 +35,7 @@ export default class PlansList extends Component {
         </div>
         <div>
           {plans.map((p) => 
-            <PlanRow key={p._id} plan={p} percentage={percentage[p._id]} onTextChange={updatePlanName} onPlanClick={selectPlan}
+            <PlanRow key={p._id} plan={p} percentage={percentageInfo[p._id]} onTextChange={updatePlanName} onPlanClick={selectPlan}
                      onTextBlur={()=>savePlanName(p, plans)} />
            )
           }

@@ -42,7 +42,7 @@ export default class PlanActionBar extends Component {
             iconButtonElement={<CircleButton tooltip="Archive">more_horiz</CircleButton>}
           >
             <MenuItem primaryText="Delete Plan"/>
-            <MenuItem primaryText="Add Multile Tasks" onTouchTap={addBatchTasks}/>
+            <MenuItem primaryText="Add Multiple Tasks" onTouchTap={addBatchTasks}/>
           </IconMenu>
         </div>
         <AddTasksModal open={addingBatchTasks} onClose={stopAddBatchTasks} onSubmit={handleSaveBatchTasks}/>
