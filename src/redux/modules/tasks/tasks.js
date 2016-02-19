@@ -135,6 +135,15 @@ export function updateTaskName(taskId, taskName){
   };
 }
 
+export function updateTaskDescription(taskId, taskDescription){
+  return {
+    type: UPDATE_TASK,
+    taskId,
+    field: 'description',
+    data: taskDescription
+  };
+}
+
 export function saveTaskName(task, tasks, sectionId, planId){
   if(!task._id){
     if(!task.name){
@@ -152,8 +161,15 @@ export function saveTaskName(task, tasks, sectionId, planId){
     else if(task.pre && task.name !== task.pre.name){
       return saveTask(task, sectionId, planId);
     }
-    return {type: 'NO_CHANGE'};
   }
+  return {type: 'NO_CHANGE'};
+}
+
+export function saveTaskDescription(task, sectionId, planId){
+  if(task._id && task.pre && task.description !== task.pre.description){
+    return saveTask(task, sectionId, planId);
+  }
+  return {type: 'NO_CHANGE'};
 }
 
 export function addBatchTasks(){

@@ -30,10 +30,15 @@ export default class TasksList extends Component {
 
   render() {
     const {currentPlanId, currentSectionId, tasks, newTask} = this.props;
-    const {updateTaskName, saveTaskName, changeTaskCompleteValue} = this.props; //from tasksActions
+    const {updateTaskName, updateTaskDescription, saveTaskName, saveTaskDescription, 
+           changeTaskCompleteValue} = this.props; //from tasksActions
 
-    const handleTaskBlur = (task) => {
+    const handleSubmitName = (task) => {
       saveTaskName(task, tasks, currentSectionId, currentPlanId);
+    };
+
+    const handleSubmitDescription = (task) =>{
+      saveTaskDescription(task, currentSectionId, currentPlanId);
     };
 
     return (
@@ -41,14 +46,14 @@ export default class TasksList extends Component {
         <div>
           {
             !newTask?'':
-            <TaskRow task={newTask} onTextChange={updateTaskName} autoFocus={true}
-                     onTextBlur={handleTaskBlur} />
+            <TaskRow task={newTask} onNameChange={updateTaskName} autoFocus={true}
+                     onSubmitName={()=>handleSubmitName(newTask)} />
           }
         </div>
         <div>
           {tasks.map((t) => 
-            <TaskRow key={t._id} task={t} onTextChange={updateTaskName} 
-                     onTextBlur={handleTaskBlur} 
+            <TaskRow key={t._id} task={t} onNameChange={updateTaskName} onDescriptionChange={updateTaskDescription}
+                     onSubmitName={()=>handleSubmitName(t)} onSubmitDescription={()=>handleSubmitDescription(t)}
                      onCheck={()=>changeTaskCompleteValue(t,currentSectionId,currentPlanId)}/>
            )
           }
