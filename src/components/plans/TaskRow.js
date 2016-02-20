@@ -18,7 +18,8 @@ export default class TaskRow extends React.Component {
     super(props);
 
     this.state = {
-      showDetail: false
+      showDetail: false,
+      enterDescription: false
     };
   }
 
@@ -55,9 +56,6 @@ export default class TaskRow extends React.Component {
     };
 
     const completedDateStyle = {
-      position: 'absolute',
-      right: 20,
-      top: 28,
       fontSize: 10
     };
 
@@ -78,6 +76,16 @@ export default class TaskRow extends React.Component {
       margin: '3px auto'
     };
 
+    const descriptionStyle = {
+      border: this.state.enterDescription?'1px solid #BFAF80':'',
+      padding: '0 3px 0 3px'
+    };
+
+    const hintStyle = {
+      top: 12,
+      left: 5
+    };
+
     const handleNameTextChange = (event) => {
       if(onNameChange){
         onNameChange(task._id, event.target.value);
@@ -96,6 +104,18 @@ export default class TaskRow extends React.Component {
       });
     };
 
+    const enterDescription = () => {
+      this.setState({
+        enterDescription: true
+      });
+    };
+
+    const leaveDescription = () => {
+      this.setState({
+        enterDescription: false
+      });
+    };
+
     return (
       <div>
         <div className="clearfix" style={rowStyle}>
@@ -103,17 +123,19 @@ export default class TaskRow extends React.Component {
           <TextField style={textStyle} inputStyle={inputStyle} value={task.name} fullWidth={true} 
                      onChange={handleNameTextChange} autoFocus={autoFocus} onBlur={onSubmitName} 
                      onEnterKeyDown={onSubmitName} underlineFocusStyle={textUnderlineStyle}/>
-          
-          {!task.dateTimeCompleted?'':
-            <div style={completedDateStyle}>(Completed on {moment(task.dateTimeCompleted).format('MM-DD-YYYY')})</div>
-          }
           <IconButton style={infoIconStyle.btn} iconStyle={infoIconStyle.icon} iconClassName="fa fa-angle-down" 
                       onClick={handleDetailBtnClick}/>
         </div>
         {!this.state.showDetail?'':
           <div style={detailStyle}>
-            <div>show info here</div>
-            <TextField value={task.description} multiLine={true} underlineShow={false} rows={2} fullWidth={true}
+            <div>
+            {!task.dateTimeCompleted?'':
+              <span style={completedDateStyle}>(Completed on {moment(task.dateTimeCompleted).format('MM-DD-YYYY')})</span>
+            }
+            </div>
+            <TextField style={descriptionStyle} value={task.description} multiLine={true} 
+                       underlineShow={false} hintText="Description" hintStyle={hintStyle}
+                       rows={2} fullWidth={true} onMouseEnter={enterDescription} onMouseLeave={leaveDescription}
                        onChange={handleDescriptionTextChange} onBlur={onSubmitDescription} 
                        />
           </div>
