@@ -1,5 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-import FlatButton from 'material-ui/lib/flat-button';
 import IconButton from 'material-ui/lib/icon-button';
 import Colors from 'material-ui/lib/styles/colors';
 

@@ -44,7 +44,8 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         saving: true,
-        saved: false
+        saved: false,
+        error: ''
       };
     case SAVE_SUCCESS:
       return {
@@ -155,7 +156,7 @@ export function savePlanName(plan, plans){
       return rollbackPlanName(plan._id);
     }
     else if(plan.pre && plan.name !== plan.pre.name){
-      return savePlan(plan, plan.sectionId);
+      return savePlan(plan, plan.sectionId, true);
     }
     else
       return {type: 'NO_CHANGE'};

@@ -39,7 +39,8 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         saving: true,
-        saved: false
+        saved: false,
+        error: ''
       };
     case SAVE_SUCCESS:
       return {
@@ -159,7 +160,7 @@ export function saveTaskName(task, tasks, sectionId, planId){
       return rollbackTaskName(task._id);
     }
     else if(task.pre && task.name !== task.pre.name){
-      return saveTask(task, sectionId, planId);
+      return saveTask(task, sectionId, planId, true);
     }
   }
   return {type: 'NO_CHANGE'};

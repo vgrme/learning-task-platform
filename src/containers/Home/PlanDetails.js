@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import * as plansService from 'services/planService';
 import {plansActions, tasksActions} from 'redux/modules';
-import {PlanTitle, PlanProgress} from 'components';
+import {PlanTitle, PlanProgress, SaveNotice} from 'components';
 import PlanActionBar from './PlanActionBar';
 import TasksList from './TasksList';
 
@@ -12,7 +12,10 @@ import TasksList from './TasksList';
     currentPlanId: state.plans.currentPlanId,
     currentSectionId: state.plans.currentSectionId,
     plans: state.plans.list,
-    tasks: state.tasks.list
+    tasks: state.tasks.list,
+    taskSaving: state.tasks.saving, 
+    taskSaved: state.tasks.saved, 
+    taskError: state.tasks.error
   }),
   { ...plansActions, ...tasksActions })
 export default class SideDetails extends Component {
@@ -51,12 +54,27 @@ export default class SideDetails extends Component {
       }
     };
 
+    const getSaveMode = ()=>{
+      const {taskSaving, taskSaved, taskError} = this.props;
+      if(taskSaving){
+        return 'saving';
+      }
+      else if (taskSaved){
+        return 'saved';
+      }
+      else if (taskError){
+        return 'error';
+      }
+      return '';
+    };
+
     return (
       <div>
         <PlanTitle plan={currentPlan} onTextChange={updatePlanName} 
                    onTextBlur={handlePlanBlur}/>
         <PlanProgress tasks={tasks}/>
         <PlanActionBar plan={currentPlan} />
+        <SaveNotice mode={getSaveMode()}/>
         <TasksList />
       </div>
     );

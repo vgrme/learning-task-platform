@@ -5,6 +5,7 @@ export NavbarTop from './utility/NavbarTop';
 export CloseIcon from './utility/CloseIcon';
 export LoginForm from './utility/LoginForm';
 export LoginSuccess from './utility/LoginSuccess';
+export SaveNotice from './utility/SaveNotice';
 
 export SectionRow from './plans/SectionRow';
 export PlanRow from './plans/PlanRow';

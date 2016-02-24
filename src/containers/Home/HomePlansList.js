@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import * as plansService from 'services/planService';
 import {plansActions, sectionsActions} from 'redux/modules';
 
-import {PlanRow, SectionRow} from 'components';
+import {PlanRow, SectionRow, SaveNotice} from 'components';
 import PlansList from './PlansList';
 
 @connect(
@@ -11,7 +11,13 @@ import PlansList from './PlansList';
     sections: state.sections.list,
     plans: state.plans.list,
     newSection: state.sections.newSection,
-    filter: state.filter
+    filter: state.filter,
+    sectionSaving: state.sections.saving,
+    sectionSaved: state.sections.saved,
+    sectionError: state.sections.error,
+    planSaving: state.plans.saving,
+    planSaved: state.plans.saved,
+    planError: state.plans.error
   }),
   {...plansActions, ...sectionsActions })
 export default class HomePlansList extends Component {
@@ -46,8 +52,24 @@ export default class HomePlansList extends Component {
       deActivateSection();
     };
 
+    const getSaveMode = ()=>{
+      const {sectionSaving, sectionSaved, sectionError} = this.props;
+      const {planSaving, planSaved, planError} = this.props;
+      if(sectionSaving || planSaving){
+        return 'saving';
+      }
+      else if (sectionSaved || planSaved){
+        return 'saved';
+      }
+      else if (sectionError || planError){
+        return 'error';
+      }
+      return '';
+    };
+
     return (
       <div>
+        <SaveNotice mode={getSaveMode()}/>
         {
           !newSection?'':
           <SectionRow section={newSection} onTextChange={updateSectionName} autoFocus={true}

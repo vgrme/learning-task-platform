@@ -37,14 +37,16 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         saving: true,
-        saved: false
+        saved: false,
+        error: ''
       };
     case SAVE_SUCCESS:
       return {
         ...state,
         list: plansService.findAndReplaceById(state.list, action.replaceWithResult?action.result:action.section),
         saving: false,
-        saved: true
+        saved: true,
+        error: ''
       };
     case SAVE_FAIL:
       return {
@@ -145,7 +147,7 @@ export function saveSectionName(section, sections){
       return rollbackSectionName(section._id);
     }
     else if(section.pre && section.name !== section.pre.name){
-      return saveSection(section);
+      return saveSection(section, true);
     }
     return {type: 'NO_CHANGE'};
   }
