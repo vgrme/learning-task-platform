@@ -5,6 +5,7 @@ import {plansActions, tasksActions} from 'redux/modules';
 import {PlanTitle, PlanProgress, SaveNotice} from 'components';
 import PlanActionBar from './PlanActionBar';
 import TasksList from './TasksList';
+import Filter from './Filter';
 
 
 @connect(
@@ -23,10 +24,7 @@ export default class SideDetails extends Component {
     currentPlanId: PropTypes.string.isRequired,
     currentSectionId: PropTypes.string.isRequired,
     plans: PropTypes.array,
-    loadTasks: PropTypes.func.isRequired,
-    updatePlanName: PropTypes.func.isRequired,
-    rollbackPlanName: PropTypes.func.isRequired,
-    savePlan: PropTypes.func.isRequired
+    loadTasks: PropTypes.func.isRequired
   };
 
   componentDidMount() {
@@ -41,18 +39,9 @@ export default class SideDetails extends Component {
 
   render() {
     const {currentPlanId, plans, tasks} = this.props;
-    const {rollbackPlanName, savePlan, updatePlanName} = this.props;
+    const {rollbackPlanName, savePlan} = this.props;
 
     const currentPlan = plans.find(p=>p._id === currentPlanId);
-
-    const handlePlanBlur = (plan) => {
-      if(!plan.name){
-        rollbackPlanName(plan._id);
-      }
-      else if(plan.pre && plan.name !== plan.pre.name){
-        savePlan(plan, plan.sectionId);
-      }
-    };
 
     const getSaveMode = ()=>{
       const {taskSaving, taskSaved, taskError} = this.props;
@@ -70,10 +59,10 @@ export default class SideDetails extends Component {
 
     return (
       <div>
-        <PlanTitle plan={currentPlan} onTextChange={updatePlanName} 
-                   onTextBlur={handlePlanBlur}/>
+        <PlanTitle plan={currentPlan}/>
         <PlanProgress tasks={tasks}/>
         <PlanActionBar plan={currentPlan} />
+        <Filter filterKey="task"/>
         <SaveNotice mode={getSaveMode()}/>
         <TasksList />
       </div>

@@ -48,11 +48,35 @@ export function replacePlansBySection(plans, sectionId, newPlans){
   return newPlans.concat(_.filter(plans, (p)=>p.sectionId!==sectionId));
 }
 
-export function getGroupedPlans(plans, sections){
+var filterByActive = (status) => {
+  return (item) => {
+    if(status === 'All') return true;
+    if(status === 'Active') return item.active;
+    if(status === 'Not Active') return !item.active;
+  };
+};
+
+var filterByComplete = (status) => {
+  return (item) => {
+    if(status === 'All') return true;
+    if(status === 'Complete') return item.complete;
+    if(status === 'Not Complete') return !item.complete;
+  };
+};
+
+export function getTasksDisplayList(tasks, filter){
+  return _.chain(tasks)
+          .filter(filterByComplete(filter))
+          .orderBy(['order'])
+          .value();
+}
+
+export function getGroupedPlans(plans, sections, filter){
 
   var plansGroup = _.groupBy(plans, 'sectionId');
   
   var orderedPlans = _.chain(sections)
+                      .filter(filterByActive(filter))
                       .orderBy(['order'])
                       .map((section)=>{
                         var result = {};

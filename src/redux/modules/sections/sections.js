@@ -4,7 +4,6 @@ import {LOAD, LOAD_SUCCESS, LOAD_FAIL,
         SAVE, SAVE_SUCCESS, SAVE_FAIL,
         SAVE_ALL, SAVE_ALL_SUCCESS, SAVE_ALL_FAIL,  
         SELECT_SECTION, UN_SELECT_SECTION,
-        ACTIVATE_SECTION, DE_ACTIVATE_SECTION,
         UPDATE_SECTION, ROLLBACK_SECTION, 
         ADD_SECTION, STOP_ADD_SECTION} from './sectionsConstant';
 
@@ -101,16 +100,6 @@ export default function reducer(state = initialState, action = {}) {
         list: state.list.map(s=> section(s, action)),
         currentSectionId: null
       };
-    case ACTIVATE_SECTION:
-      return {
-        ...state,
-        list: state.list.map(s=> section(s, action))
-      };
-    case DE_ACTIVATE_SECTION:
-      return {
-        ...state,
-        list: state.list.map(s=> section(s, action))
-      };
     default:
       return state;
   }
@@ -183,19 +172,6 @@ export function selectSection(sectionId){
 export function unSelectSection(){
   return {
     type: UN_SELECT_SECTION
-  };
-}
-
-export function activateSection(sectionId){
-  return {
-    type: ACTIVATE_SECTION,
-    sectionId
-  };
-}
-
-export function deActivateSection(){
-  return {
-    type: DE_ACTIVATE_SECTION
   };
 }
 

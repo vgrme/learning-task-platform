@@ -16,8 +16,5 @@ export const ROLLBACK_SECTION = 'sections/ROLLBACK_SECTION';
 export const SELECT_SECTION = 'sections/SELECT_SECTION';
 export const UN_SELECT_SECTION = 'sections/UN_SELECT_SECTION';
 
-export const ACTIVATE_SECTION = 'sections/ACTIVATE_SECTION';
-export const DE_ACTIVATE_SECTION = 'sections/DE_ACTIVATE_SECTION';
-
 export const ADD_SECTION = 'sections/ADD_SECTION';
 export const STOP_ADD_SECTION = 'sections/STOP_ADD_SECTION';

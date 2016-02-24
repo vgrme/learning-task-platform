@@ -6,7 +6,7 @@ import Colors from 'material-ui/lib/styles/colors';
 
 const SectionRow = (props) => {
 
-  const {section, hideArchive, onTextChange, onTextBlur, onArchiveClick, onAddPlanClick, autoFocus} = props;
+  const {section, onTextChange, onTextBlur, onArchiveClick, onAddPlanClick, autoFocus, isActive} = props;
 
   const style = {
     borderBottom: '1px solid '+Colors.brown500
@@ -48,10 +48,10 @@ const SectionRow = (props) => {
         <TextField value={section.name} underlineShow={false} autoFocus={autoFocus}
                    onChange={handleTextChange} onBlur={onTextBlur} onEnterKeyDown={onTextBlur}/>
       </div>
-      {!section.isActive?'':
+      {!isActive?'':
         <div style={sectionOptionsStyle}>
-          {hideArchive?'':<FlatButton style={btnStyle} label="Archive" onClick={()=>onArchiveClick(section)}/>}
-          {!section.name?'':<FlatButton style={btnStyle} label="+ Plan" onClick={()=>onAddPlanClick(section._id)}/>}  
+          {!section._id?'':<FlatButton style={btnStyle} label={section.active?"Archive":"UnArchive"} onClick={onArchiveClick}/>}
+          {!section.name?'':<FlatButton style={btnStyle} label="+ Plan" onClick={onAddPlanClick}/>}  
         </div>
       }
     </div>
@@ -61,7 +61,7 @@ const SectionRow = (props) => {
 
 SectionRow.propTypes = {
   section: PropTypes.object.isRequired,
-  hideArchive: PropTypes.bool,
+  isActive: PropTypes.bool,
   autoFocus: PropTypes.bool,
   onTextChange: PropTypes.func,
   onTextBlur: PropTypes.func,

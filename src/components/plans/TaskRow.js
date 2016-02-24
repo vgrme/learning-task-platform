@@ -119,12 +119,13 @@ export default class TaskRow extends React.Component {
     return (
       <div>
         <div className="clearfix" style={rowStyle}>
-          <Checkbox style={checkBoxStyle} iconStyle={iconStyle} checked={task.complete} onCheck={onCheck}/>
+          {!task._id?'':<Checkbox style={checkBoxStyle} iconStyle={iconStyle} checked={task.complete} 
+                                  onCheck={onCheck}/>}
           <TextField style={textStyle} inputStyle={inputStyle} value={task.name} fullWidth={true} 
                      onChange={handleNameTextChange} autoFocus={autoFocus} onBlur={onSubmitName} 
                      onEnterKeyDown={onSubmitName} underlineFocusStyle={textUnderlineStyle}/>
-          <IconButton style={infoIconStyle.btn} iconStyle={infoIconStyle.icon} iconClassName="fa fa-angle-down" 
-                      onClick={handleDetailBtnClick}/>
+          {!task._id?'':<IconButton style={infoIconStyle.btn} iconStyle={infoIconStyle.icon} iconClassName="fa fa-angle-down" 
+                      onClick={handleDetailBtnClick}/>}
         </div>
         {!this.state.showDetail?'':
           <div style={detailStyle}>

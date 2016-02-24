@@ -2,10 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
 import Paper from 'material-ui/lib/paper';
-
-import PlanFilter from './PlanFilter';
-import AddSectionButton from './AddSectionButton';
-import HomePlansList from './HomePlansList';
+import MainCol from './MainCol';
 import PlanDetails from './PlanDetails';
 
 import Container from '../App/Container';
@@ -57,14 +54,14 @@ export default class Home extends Component {
       height: 'auto'
     };
 
+    const filterOptions = ['All', 'Complete', 'Not Complete'];
+
     return (
       <Container>
         <div style={containerStyle}>
           <div style={planListStyle}> 
             <Paper style={paperStyle} zDepth={2}>
-              <AddSectionButton />
-              <div className="clearfix"><div className="float-right"><PlanFilter/></div></div>
-              <HomePlansList />
+              <MainCol />
             </Paper>
           </div>
           {!showCurrentPlan?'':

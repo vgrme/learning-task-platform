@@ -3,15 +3,17 @@ import SelectField from 'material-ui/lib/select-field';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 
 const DropDownFilter = (props) => {
-  const onFilterChange = (event, index, value) => {
+  const {filter, filterOptions} = props;
+
+  const handleSelectChange = (event, index, value) => {
     props.onFilterChange(value);
   };
 
   return (
     <div>
-      <SelectField value={props.filter} onChange={onFilterChange}>
+      <SelectField value={filter} onChange={handleSelectChange}>
       {
-        props.filterOptions.map((f) => <MenuItem key={f} value={f} primaryText={f}/>)
+        filterOptions.map((f) => <MenuItem key={f} value={f} primaryText={f}/>)
       }
       </SelectField>
     </div>

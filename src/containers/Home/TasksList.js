@@ -10,6 +10,7 @@ import * as plansService from 'services/planService';
     currentPlanId: state.plans.currentPlanId,
     currentSectionId: state.plans.currentSectionId,
     tasks: state.tasks.list,
+    filter: state.filters.task,
     newTask: state.tasks.newTask,
     saved: state.tasks.saved
   }),
@@ -29,7 +30,7 @@ export default class TasksList extends Component {
   }
 
   render() {
-    const {currentPlanId, currentSectionId, tasks, newTask} = this.props;
+    const {currentPlanId, currentSectionId, tasks, newTask, filter} = this.props;
     const {updateTaskName, updateTaskDescription, saveTaskName, saveTaskDescription, 
            changeTaskCompleteValue} = this.props; //from tasksActions
 
@@ -41,6 +42,8 @@ export default class TasksList extends Component {
       saveTaskDescription(task, currentSectionId, currentPlanId);
     };
 
+    const tasksDisplayList = plansService.getTasksDisplayList(tasks, filter);
+
     return (
       <div>
         <div>
@@ -51,7 +54,9 @@ export default class TasksList extends Component {
           }
         </div>
         <div>
-          {tasks.map((t) => 
+          {
+            newTask?'':
+            tasksDisplayList.map((t) => 
             <TaskRow key={t._id} task={t} onNameChange={updateTaskName} onDescriptionChange={updateTaskDescription}
                      onSubmitName={()=>handleSubmitName(t)} onSubmitDescription={()=>handleSubmitDescription(t)}
                      onCheck={()=>changeTaskCompleteValue(t,currentSectionId,currentPlanId)}/>

@@ -12,14 +12,14 @@ const PlanTitle = (props) => {
   };
 
   const style={
-    //borderBottom: '1px solid '+ Colors.grey300
+    fontSize: 18,
+    marginBottom: 10
   };
 
 
   return (
     <div style={style}>
-      <TextField value={plan.name} fullWidth={true} onChange={handleTextChange} underlineShow={false}
-                 onBlur={()=>onTextBlur(plan)} onEnterKeyDown={()=>onTextBlur(plan)}/>
+      {plan.name}
     </div>
   );
 
