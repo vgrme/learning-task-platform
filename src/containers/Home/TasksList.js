@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {tasksActions, plansActions} from 'redux/modules';
-import {TaskRow} from 'components';
+import {TaskRow, Cover} from 'components';
 import * as plansService from 'services/planService';
 
 
@@ -53,9 +53,9 @@ export default class TasksList extends Component {
                      onSubmitName={()=>handleSubmitName(newTask)} />
           }
         </div>
-        <div>
+        <div className="relative">
+          {!newTask?'':<Cover />}
           {
-            newTask?'':
             tasksDisplayList.map((t) => 
             <TaskRow key={t._id} task={t} onNameChange={updateTaskName} onDescriptionChange={updateTaskDescription}
                      onSubmitName={()=>handleSubmitName(t)} onSubmitDescription={()=>handleSubmitDescription(t)}

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import * as plansService from 'services/planService';
 import {sectionsActions} from 'redux/modules';
 
-import {SectionRow, OutlineButton} from 'components';
+import {SectionRow, OutlineButton, Cover} from 'components';
 import MainColSaveNotice from './MainColSaveNotice';
 import Filter from './Filter';
 import SectionGroup from './SectionGroup';
@@ -36,11 +36,9 @@ export default class HomePlansList extends Component {
 
     return (
       <div>
-        <OutlineButton label="+ Section" onClick={addSection}/>
         <div className="clearfix">
-          <div className="float-right">
-            <Filter filterKey="section"/>
-          </div>
+          <div className="float-left" ><OutlineButton label="+ Section" onClick={addSection}/></div>
+          <div className="float-right"><Filter filterKey="section"/></div>
         </div>
         <MainColSaveNotice />
         {
@@ -48,9 +46,9 @@ export default class HomePlansList extends Component {
           <SectionRow section={newSection} onTextChange={updateSectionName} autoFocus={true}
                       onTextBlur={()=>saveSectionName(newSection, sections)} />
         }
-        <div>
+        <div className="relative">
+          {!newSection?'':<Cover />}
           {
-            newSection?'':
             getGroupedPlans().map((row)=> 
               <SectionGroup key={row.section._id} section={row.section} plans={row.plans} />
             )
