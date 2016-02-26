@@ -34,6 +34,12 @@ export default class HomePlansList extends Component {
       return plansService.getGroupedPlans(plans, sections, filter);
     };
 
+    const showSection = (section) => {
+      if(filter === 'All') return true;
+      else if(filter === 'Active') return section.active;
+      else return !section.active;
+    };
+
     return (
       <div>
         <div className="clearfix">
@@ -50,7 +56,11 @@ export default class HomePlansList extends Component {
           {!newSection?'':<Cover />}
           {
             getGroupedPlans().map((row)=> 
-              <SectionGroup key={row.section._id} section={row.section} plans={row.plans} />
+              <div key={row.section._id}>
+                {!showSection(row.section)?'':
+                  <SectionGroup section={row.section} plans={row.plans} filter={filter}/>
+                }
+              </div>
             )
           }
         </div>

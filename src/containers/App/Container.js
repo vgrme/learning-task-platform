@@ -2,9 +2,11 @@ import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 
 import {NavbarTop} from 'components';
-import LeftSideBar from './LeftSideBar';
+import LeftSideBar from '../LeftSideBar/LeftSideBar';
 import {sectionsActions, plansActions} from 'redux/modules';
 import * as leftNavActions from 'redux/modules/leftSideBar';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 
 @connect(
@@ -12,6 +14,7 @@ import * as leftNavActions from 'redux/modules/leftSideBar';
     isLeftSideBarOpen: state.leftSideBar
   }),
   { ...leftNavActions, ...sectionsActions, ...plansActions })
+@DragDropContext(HTML5Backend)
 export default class Container extends React.Component {
   static propTypes = {
     children: PropTypes.object.isRequired,

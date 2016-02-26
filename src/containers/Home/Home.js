@@ -1,10 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-
 import Paper from 'material-ui/lib/paper';
 import MainCol from './MainCol';
 import PlanDetails from './PlanDetails';
-
 import Container from '../App/Container';
 
 @connect(

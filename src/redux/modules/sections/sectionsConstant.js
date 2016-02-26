@@ -18,3 +18,5 @@ export const UN_SELECT_SECTION = 'sections/UN_SELECT_SECTION';
 
 export const ADD_SECTION = 'sections/ADD_SECTION';
 export const STOP_ADD_SECTION = 'sections/STOP_ADD_SECTION';
+
+export const REORDER_SECTIONS = 'sections/REORDER_SECTIONS';

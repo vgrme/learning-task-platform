@@ -67,7 +67,6 @@ var filterByComplete = (status) => {
 export function getTasksDisplayList(tasks, filter){
   return _.chain(tasks)
           .filter(filterByComplete(filter))
-          .orderBy(['order'])
           .value();
 }
 
@@ -76,7 +75,7 @@ export function getGroupedPlans(plans, sections, filter){
   var plansGroup = _.groupBy(plans, 'sectionId');
   
   var orderedPlans = _.chain(sections)
-                      .filter(filterByActive(filter))
+                      //.filter(filterByActive(filter))
                       .orderBy(['order'])
                       .map((section)=>{
                         var result = {};

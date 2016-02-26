@@ -6,7 +6,7 @@ import {LOAD, LOAD_SUCCESS, LOAD_FAIL,
         SAVE_ALL, SAVE_ALL_SUCCESS, SAVE_ALL_FAIL,
         ADD_TASK, STOP_ADD_TASK,
         ADD_BATCH_TASKS, STOP_ADD_BATCH_TASKS,
-        UPDATE_TASK, ROLLBACK_TASK, SET_CURRENT_TASK} from './constant';
+        UPDATE_TASK, ROLLBACK_TASK, SET_CURRENT_TASK, REORDER_TASK} from './constant';
 
 const initialState = {
   showCurrent: false,
@@ -25,6 +25,7 @@ export default function reducer(state = initialState, action = {}) {
     case LOAD:
       return {
         ...state,
+        list: [],
         loading: true,
         loaded: false
       };
@@ -114,6 +115,11 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         addingBatchTasks: false
+      };
+    case REORDER_TASK:
+      return {
+        ...state,
+        list: action.tasks //plansService.reorder(state.list, action.sourceIndex, action.targetIndex)
       };
     default:
       return state;
@@ -209,6 +215,15 @@ export function addTask(planId){
 export function stopAddTask(){
   return {
     type: STOP_ADD_TASK
+  };
+}
+
+export function reorderTask(tasks, sourceIndex, targetIndex) {
+  return {
+    type: REORDER_TASK,
+    tasks,
+    sourceIndex,
+    targetIndex
   };
 }
 

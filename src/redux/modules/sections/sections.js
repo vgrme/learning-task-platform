@@ -5,7 +5,7 @@ import {LOAD, LOAD_SUCCESS, LOAD_FAIL,
         SAVE_ALL, SAVE_ALL_SUCCESS, SAVE_ALL_FAIL,  
         SELECT_SECTION, UN_SELECT_SECTION,
         UPDATE_SECTION, ROLLBACK_SECTION, 
-        ADD_SECTION, STOP_ADD_SECTION} from './sectionsConstant';
+        ADD_SECTION, STOP_ADD_SECTION, REORDER_SECTIONS} from './sectionsConstant';
 
 const initialState = {
   showCurrent: false,
@@ -100,6 +100,11 @@ export default function reducer(state = initialState, action = {}) {
         list: state.list.map(s=> section(s, action)),
         currentSectionId: null
       };
+    case REORDER_SECTIONS:
+      return {
+        ...state,
+        list: action.sections
+      };
     default:
       return state;
   }
@@ -172,6 +177,13 @@ export function selectSection(sectionId){
 export function unSelectSection(){
   return {
     type: UN_SELECT_SECTION
+  };
+}
+
+export function reorderSections(sections){
+  return {
+    type: REORDER_SECTIONS,
+    sections
   };
 }
 

@@ -7,16 +7,15 @@ import {SectionRow} from 'components';
 import PlansList from './PlansList';
 
 @connect(
-  state => ({ }),
+  state => ({
+   }),
   {...plansActions, ...sectionsActions })
 export default class HomePlansList extends Component {
   static propTypes = {
-    sections: PropTypes.array,
+    section: PropTypes.object,
     plans: PropTypes.array,
-    newSection: PropTypes.object,
     saveSectionName: PropTypes.func.isRequired,
     changeSectionActiveValue: PropTypes.func.isRequired,
-    updatePlanName: PropTypes.func.isRequired,
     updateSectionName: PropTypes.func.isRequired,
     addPlan: PropTypes.func.isRequired
   };
@@ -30,7 +29,7 @@ export default class HomePlansList extends Component {
   }
 
   render() {
-    const {plans, section} = this.props;
+    const {plans, section, filter} = this.props;
     const {saveSectionName, updateSectionName, changeSectionActiveValue} = this.props;  //from sectionsActions
     const {addPlan} = this.props;  //from plansActions
 
@@ -52,7 +51,7 @@ export default class HomePlansList extends Component {
                     onTextBlur={()=>saveSectionName(section)} 
                     onArchiveClick={()=>changeSectionActiveValue(section)} 
                     onAddPlanClick={()=>addPlan(section._id)}/>
-        <PlansList sectionId={section._id} plans={plans}/>
+        <PlansList sectionId={section._id} plans={plans} filter={filter}/>
       </div>
     );
   }

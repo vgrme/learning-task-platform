@@ -22,3 +22,4 @@ export const STOP_ADD_BATCH_TASKS = 'tasks/STOP_ADD_BATCH_TASKS';
 export const UPDATE_TASK = 'tasks/UPDATE_TASK';
 export const ROLLBACK_TASK = 'tasks/ROLLBACK_TASK';
 export const SET_CURRENT_TASK = 'tasks/SET_CURRENT_TASK';
+export const REORDER_TASK = 'tasks/REORDER_TASK';
