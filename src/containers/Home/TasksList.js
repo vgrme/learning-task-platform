@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import update from 'react/lib/update';
 import {tasksActions, plansActions} from 'redux/modules';
-import {TaskRow, Cover} from 'components';
+import {TaskRow, TaskDetail, Cover} from 'components';
 import * as plansService from 'services/planService';
 import DragSortItem from '../Common/DragSortItem';
 
@@ -24,6 +24,14 @@ export default class TasksList extends Component {
     newTask: PropTypes.object
   };
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showTaskDetailIndex: -1
+    };
+  }
+
   componentWillReceiveProps(nextProps) {
     if(!this.props.saved && nextProps.saved){ // task saved
       nextProps.loadPlansPercentageInfo(nextProps.currentPlanId);
@@ -34,6 +42,7 @@ export default class TasksList extends Component {
     const {currentPlanId, currentSectionId, tasks, newTask, filter} = this.props;
     const {updateTaskName, updateTaskDescription, saveTaskName, saveTaskDescription, 
            changeTaskCompleteValue, reorderTask, saveAllTasks} = this.props; //from tasksActions
+    const {showTaskDetailIndex} = this.state;
 
     const handleSubmitName = (task) => {
       saveTaskName(task, tasks, currentSectionId, currentPlanId);
@@ -52,6 +61,10 @@ export default class TasksList extends Component {
             [hoverIndex, 0, dragItem]
           ]
         });
+
+      this.setState({
+        showTaskDetailIndex: -1
+      });
       
       reorderTask(newTasks);
     };
@@ -70,6 +83,12 @@ export default class TasksList extends Component {
       else return !task.complete;
     };
 
+    const handleDetailBtnClick = (index) => {
+      this.setState({
+        showTaskDetailIndex: index === showTaskDetailIndex?-1:index
+      });
+    };
+
     return (
       <div>
         <div>
@@ -85,12 +104,16 @@ export default class TasksList extends Component {
             tasks.map((t, i) => 
             <div key={t._id}>
               {!showTask(t)?'':
-                <DragSortItem type="task" index={i} id={t._id} dragHandle={true}
-                              moveItem={moveItem} saveItems={saveTasksOrder}>
-                  <TaskRow task={t} onNameChange={updateTaskName} onDescriptionChange={updateTaskDescription}
-                         onSubmitName={()=>handleSubmitName(t)} onSubmitDescription={()=>handleSubmitDescription(t)}
-                         onCheck={()=>changeTaskCompleteValue(t,currentSectionId,currentPlanId)}/>
-                </DragSortItem>
+                <div>
+                  <DragSortItem type="task" index={i} id={t._id} dragHandle={true}
+                                moveItem={moveItem} saveItems={saveTasksOrder}>
+                    <TaskRow task={t} onNameChange={updateTaskName} onSubmitName={()=>handleSubmitName(t)}
+                             onCheck={()=>changeTaskCompleteValue(t,currentSectionId,currentPlanId)}
+                             onDetailBtnClick={()=>handleDetailBtnClick(i)}/>
+                  </DragSortItem>
+                  <TaskDetail task={t} onDescriptionChange={updateTaskDescription} show={i===showTaskDetailIndex}
+                              onSubmitDescription={()=>handleSubmitDescription(t)} />
+                </div>
               }
             </div>
            )

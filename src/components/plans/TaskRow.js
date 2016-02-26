@@ -8,7 +8,7 @@ import IconButton from 'material-ui/lib/icon-button';
 
 export default class TaskRow extends React.Component {
   static propTypes = {
-    task: PropTypes.object,
+    task: PropTypes.object.isRequired,
     autoFocus: PropTypes.bool,
     onNameChange: PropTypes.func,
     onCheck: PropTypes.func
@@ -16,15 +16,10 @@ export default class TaskRow extends React.Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      showDetail: false,
-      enterDescription: false
-    };
   }
 
   render(){
-    const {task, autoFocus, onNameChange, onDescriptionChange, onSubmitName, onSubmitDescription, onCheck} = this.props;
+    const {task, autoFocus, onNameChange, onSubmitName, onCheck, onDetailBtnClick} = this.props;
 
     const rowStyle = {
       position:'relative'
@@ -37,7 +32,7 @@ export default class TaskRow extends React.Component {
       marginTop: '8px'
     };
 
-    const iconStyle = {
+    const checkIconStyle = {
       fill: task.complete?Colors.brown100: Colors.brown400
     };
 
@@ -55,10 +50,6 @@ export default class TaskRow extends React.Component {
       borderColor: '#BFAF80'
     };
 
-    const completedDateStyle = {
-      fontSize: 10
-    };
-
     const infoIconStyle = {
       btn: {
         position: 'absolute',
@@ -71,20 +62,6 @@ export default class TaskRow extends React.Component {
       }
     };
 
-    const detailStyle = {
-      width: '90%',
-      margin: '3px auto'
-    };
-
-    const descriptionStyle = {
-      border: this.state.enterDescription?'1px solid #BFAF80':'',
-      padding: '0 3px 0 3px'
-    };
-
-    const hintStyle = {
-      top: 12,
-      left: 5
-    };
 
     const handleNameTextChange = (event) => {
       if(onNameChange){
@@ -92,55 +69,15 @@ export default class TaskRow extends React.Component {
       }
     };
 
-    const handleDescriptionTextChange = (event) => {
-      if(onDescriptionChange){
-        onDescriptionChange(task._id, event.target.value);
-      }
-    };
-
-    const handleDetailBtnClick = () => {
-      this.setState({
-        showDetail: !this.state.showDetail
-      });
-    };
-
-    const enterDescription = () => {
-      this.setState({
-        enterDescription: true
-      });
-    };
-
-    const leaveDescription = () => {
-      this.setState({
-        enterDescription: false
-      });
-    };
-
     return (
-      <div>
-        <div className="clearfix" style={rowStyle}>
-          {!task._id?'':<Checkbox style={checkBoxStyle} iconStyle={iconStyle} checked={task.complete} 
-                                  onCheck={onCheck}/>}
-          <TextField style={textStyle} inputStyle={inputStyle} value={task.name} fullWidth={true} 
-                     onChange={handleNameTextChange} autoFocus={autoFocus} onBlur={onSubmitName} 
-                     onEnterKeyDown={onSubmitName} underlineFocusStyle={textUnderlineStyle}/>
-          {!task._id?'':<IconButton style={infoIconStyle.btn} iconStyle={infoIconStyle.icon} iconClassName="fa fa-angle-down" 
-                      onClick={handleDetailBtnClick}/>}
-        </div>
-        {!this.state.showDetail?'':
-          <div style={detailStyle}>
-            <div>
-            {!task.dateTimeCompleted?'':
-              <span style={completedDateStyle}>(Completed on {moment(task.dateTimeCompleted).format('MM-DD-YYYY')})</span>
-            }
-            </div>
-            <TextField style={descriptionStyle} value={task.description} multiLine={true} 
-                       underlineShow={false} hintText="Description" hintStyle={hintStyle}
-                       rows={2} fullWidth={true} onMouseEnter={enterDescription} onMouseLeave={leaveDescription}
-                       onChange={handleDescriptionTextChange} onBlur={onSubmitDescription} 
-                       />
-          </div>
-        }
+      <div className="clearfix" style={rowStyle}>
+        {!task._id?'':<Checkbox style={checkBoxStyle} iconStyle={checkIconStyle} checked={task.complete} 
+                                onCheck={onCheck}/>}
+        <TextField style={textStyle} inputStyle={inputStyle} value={task.name} fullWidth={true} 
+                   onChange={handleNameTextChange} autoFocus={autoFocus} onBlur={onSubmitName} 
+                   onEnterKeyDown={onSubmitName} underlineFocusStyle={textUnderlineStyle}/>
+        {!task._id?'':<IconButton style={infoIconStyle.btn} iconStyle={infoIconStyle.icon} iconClassName="fa fa-angle-down" 
+                    onClick={onDetailBtnClick}/>}
       </div>
     );
   }

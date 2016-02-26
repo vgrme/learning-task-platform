@@ -11,6 +11,7 @@ export Cover from './utility/Cover';
 export SectionRow from './plans/SectionRow';
 export PlanRow from './plans/PlanRow';
 export TaskRow from './plans/TaskRow';
+export TaskDetail from './plans/TaskDetail';
 export PlanTitle from './plans/PlanTitle';
 export PlanProgress from './plans/PlanProgress';
 export SectionMenuItem from './plans/SectionMenuItem';
