@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start": "NODE_ENV=production node server.js",
-    "prod": "NODE_ENV=production node ./dist/server.js",
+    "prod": "node tools/build.js && node tools/copy.js && NODE_ENV=production node ./dist/server.js",
     "dev": "NODE_ENV=development node server.js",
     "lint": "eslint src",
     "lint:watch": "watch 'npm run lint' src",
@@ -12,9 +12,10 @@
     "remove-dist": "node_modules/.bin/rimraf ./dist",
     "build:html": "node tools/buildHtml.js",
     "prebuild": "npm run clean-dist && npm run build:html",
-    "build": "node tools/build.js && node tools/copy.js && npm run prod",
+    "build": "node tools/build.js && node tools/copy.js",
     "test": "cross-env NODE_ENV=test mocha --reporter progress --compilers js:babel/register --recursive \"./src/**/*.spec.js\"",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "deploy": "git init && heroku git:remote -a chenyunyc-lif && git add . && git commit -am \"deploy\" && git push heroku master -f"
   },
   "dependencies": {
     "body-parser": "1.14.2",

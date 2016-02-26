@@ -82,7 +82,8 @@ export default class PlansList extends Component {
           {this.state.plans.map((p, i) => 
             <div key={p._id}>
               {!showPlan(p)?'':
-                <DragSortItem type={"plan"+sectionId} index={i} id={p._id} moveItem={moveItem} saveItems={savePlansOrder}>
+                <DragSortItem type={"plan"+sectionId} index={i} id={p._id} dragHandle={true}
+                              moveItem={moveItem} saveItems={savePlansOrder}>
                   <PlanRow key={p._id} plan={p} percentage={percentageInfo[p._id]} onTextChange={updatePlanName} 
                            onPlanClick={selectPlan} onTextBlur={()=>savePlanName(p, plans)} />
                 </DragSortItem>

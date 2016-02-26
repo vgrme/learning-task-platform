@@ -85,7 +85,8 @@ export default class TasksList extends Component {
             tasks.map((t, i) => 
             <div key={t._id}>
               {!showTask(t)?'':
-                <DragSortItem type="task" index={i} id={t._id} moveItem={moveItem} saveItems={saveTasksOrder}>
+                <DragSortItem type="task" index={i} id={t._id} dragHandle={true}
+                              moveItem={moveItem} saveItems={saveTasksOrder}>
                   <TaskRow task={t} onNameChange={updateTaskName} onDescriptionChange={updateTaskDescription}
                          onSubmitName={()=>handleSubmitName(t)} onSubmitDescription={()=>handleSubmitDescription(t)}
                          onCheck={()=>changeTaskCompleteValue(t,currentSectionId,currentPlanId)}/>

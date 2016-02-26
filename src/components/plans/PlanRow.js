@@ -31,7 +31,7 @@ const PlanRow = (props) => {
   };
 
   const inputStyle = {
-    marginLeft: 20,
+    marginLeft: 5,
     ...(plan.isCurrent?selectedInputStyle:{})
   };
 

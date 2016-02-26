@@ -1,11 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
-// import ItemTypes from './ItemTypes';
+import FontIcon from 'material-ui/lib/font-icon';
 import { DragSource, DropTarget } from 'react-dnd';
-
-const style = {
-  cursor: 'move'
-};
+import Colors from 'material-ui/lib/styles/colors';
 
 const cardSource = {
   beginDrag(props) {
@@ -83,27 +80,81 @@ const getType = (props) => {
 }))
 @DragSource(getType, cardSource, (connect, monitor) => ({
   connectDragSource: connect.dragSource(),
+  connectDragPreview: connect.dragPreview(),
   isDragging: monitor.isDragging()
 }))
 export default class extends Component {
   static propTypes = {
     connectDragSource: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
+    connectDragPreview: PropTypes.func.isRequired,
     index: PropTypes.number.isRequired,
     isDragging: PropTypes.bool.isRequired,
     id: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     moveItem: PropTypes.func.isRequired,
-    saveItems: PropTypes.func.isRequired
+    saveItems: PropTypes.func.isRequired,
+    dragHandle: PropTypes.bool
   };
 
-  render() {
-    const { text, isDragging, connectDragSource, connectDropTarget } = this.props;
-    const opacity = isDragging ? 0 : 1;
+  constructor(props) {
+    super(props);
 
-    return connectDragSource(connectDropTarget(
-      <div style={{ ...style, opacity }}>
-        {this.props.children}
+    this.state = {
+      showDragIcon: false
+    };
+  }
+
+  render() {
+    const { text, isDragging, dragHandle, connectDragSource, connectDropTarget, connectDragPreview } = this.props;
+
+    const style = {
+      position: 'relative',
+      cursor: dragHandle? '': 'move',
+      opacity: isDragging ? 0 : 1
+    };
+
+    const DragIconSize = 20;
+
+    const dragHandleStyle = {
+      position: 'absolute',
+      margin: 'auto',
+      top: 0,
+      bottom: 0,
+      width: DragIconSize, 
+      height: DragIconSize,
+      left: -1*DragIconSize,
+      cursor: 'move',
+      zIndex: 10
+    };
+
+    const dragIconStyle = {
+      color: Colors.grey500,
+      fontSize: DragIconSize
+    };
+
+    const onMouseEnter = () => {
+      this.setState({
+        showDragIcon: true
+      });
+    };
+
+    const onMouseLeave = () => {
+      this.setState({
+        showDragIcon: false
+      });
+    };
+
+    const dragHandel = (!this.state.showDragIcon&&!isDragging?'':
+                         <FontIcon className="material-icons" style={dragIconStyle}>reorder</FontIcon>);
+
+    const item = dragHandle? (<div>{connectDragSource(<div style={dragHandleStyle}>{dragHandel}</div>)}
+                              <div>{this.props.children}</div></div>):
+                             connectDragSource(<div>{this.props.children}</div>);
+
+    return connectDropTarget(connectDragPreview(
+      <div style={style} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+        {item}
       </div>
     ));
   }
