@@ -28,7 +28,8 @@ export default class TasksList extends Component {
     super(props);
 
     this.state = {
-      showTaskDetailIndex: -1
+      showTaskDetailIndex: -1,
+      tempShowTask: {}
     };
   }
 
@@ -42,7 +43,7 @@ export default class TasksList extends Component {
     const {currentPlanId, currentSectionId, tasks, newTask, filter} = this.props;
     const {updateTaskName, updateTaskDescription, saveTaskName, saveTaskDescription, 
            changeTaskCompleteValue, reorderTask, saveAllTasks} = this.props; //from tasksActions
-    const {showTaskDetailIndex} = this.state;
+    const {showTaskDetailIndex, tempShowTask} = this.state;
 
     const handleSubmitName = (task) => {
       saveTaskName(task, tasks, currentSectionId, currentPlanId);
@@ -79,7 +80,9 @@ export default class TasksList extends Component {
 
     const showTask = (task) => {
       if(filter === 'All') return true;
-      else if(filter === 'Complete') return task.complete;
+      else if(filter === 'Complete') {
+        return task.complete;
+      }
       else return !task.complete;
     };
 
@@ -87,6 +90,18 @@ export default class TasksList extends Component {
       this.setState({
         showTaskDetailIndex: index === showTaskDetailIndex?-1:index
       });
+    };
+
+    const handleTaskCheckBoxClick = (task) => {
+      this.setState({
+        tempShowTask: {...tempShowTask, [task._id]: true}
+      });
+      setTimeout(()=>{
+        this.setState({
+          tempShowTask: {...tempShowTask, [task._id]: false}
+        });
+      }, 2000);
+      changeTaskCompleteValue(task,currentSectionId,currentPlanId);
     };
 
     return (
@@ -103,12 +118,12 @@ export default class TasksList extends Component {
           {
             tasks.map((t, i) => 
             <div key={t._id}>
-              {!showTask(t)?'':
+              {!showTask(t)&&!tempShowTask[t._id]?'':
                 <div>
                   <DragSortItem type="task" index={i} id={t._id} dragHandle={true}
                                 moveItem={moveItem} saveItems={saveTasksOrder}>
                     <TaskRow task={t} onNameChange={updateTaskName} onSubmitName={()=>handleSubmitName(t)}
-                             onCheck={()=>changeTaskCompleteValue(t,currentSectionId,currentPlanId)}
+                             onCheck={()=>handleTaskCheckBoxClick(t)}
                              onDetailBtnClick={()=>handleDetailBtnClick(i)}/>
                   </DragSortItem>
                   <TaskDetail task={t} onDescriptionChange={updateTaskDescription} show={i===showTaskDetailIndex}
