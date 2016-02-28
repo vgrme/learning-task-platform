@@ -3,12 +3,12 @@ const SET_FILTER = 'filter/SET_FILTER';
 const initialState = {
   section: 'Active',
   plan: 'Active',
-  task: 'Not Complete'
+  task: 'Incomplete'
 };
 
 export const FILTER_OPTIONS = {
-  section: ['All', 'Active', 'Not Active'],
-  task: ['All', 'Complete', 'Not Complete']
+  section: ['All', 'Active', 'Inactive'],
+  task: ['All', 'Completed', 'Incomplete']
 };
 
 export default (state = initialState, action) => {

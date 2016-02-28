@@ -23,3 +23,4 @@ export const UPDATE_TASK = 'tasks/UPDATE_TASK';
 export const ROLLBACK_TASK = 'tasks/ROLLBACK_TASK';
 export const SET_CURRENT_TASK = 'tasks/SET_CURRENT_TASK';
 export const REORDER_TASK = 'tasks/REORDER_TASK';
+export const UPDATE_SEARCH_TEXT = 'tasks/UPDATE_SEARCH_TEXT';

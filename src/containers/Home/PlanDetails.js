@@ -62,7 +62,6 @@ export default class SideDetails extends Component {
         <PlanTitle plan={currentPlan}/>
         <PlanProgress tasks={tasks}/>
         <PlanActionBar plan={currentPlan} />
-        <Filter filterKey="task"/>
         <SaveNotice mode={getSaveMode()}/>
         <TasksList />
       </div>

@@ -6,7 +6,8 @@ import {LOAD, LOAD_SUCCESS, LOAD_FAIL,
         SAVE_ALL, SAVE_ALL_SUCCESS, SAVE_ALL_FAIL,
         ADD_TASK, STOP_ADD_TASK,
         ADD_BATCH_TASKS, STOP_ADD_BATCH_TASKS,
-        UPDATE_TASK, ROLLBACK_TASK, SET_CURRENT_TASK, REORDER_TASK} from './constant';
+        UPDATE_TASK, ROLLBACK_TASK, SET_CURRENT_TASK, 
+        REORDER_TASK, UPDATE_SEARCH_TEXT} from './constant';
 
 const initialState = {
   showCurrent: false,
@@ -17,7 +18,8 @@ const initialState = {
   loaded: false,
   saving: false,
   saved: false,
-  addingBatchTasks: false
+  addingBatchTasks: false,
+  searchText: null
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -27,7 +29,8 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         list: [],
         loading: true,
-        loaded: false
+        loaded: false,
+        searchText: null
       };
     case LOAD_SUCCESS:
       return {
@@ -121,9 +124,21 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         list: action.tasks //plansService.reorder(state.list, action.sourceIndex, action.targetIndex)
       };
+    case UPDATE_SEARCH_TEXT:
+      return {
+        ...state,
+        searchText: action.value
+      };
     default:
       return state;
   }
+}
+
+export function updateSearchText(value){
+  return {
+    type: UPDATE_SEARCH_TEXT,
+    value
+  };
 }
 
 export function loadTasks(sectionId, planId){

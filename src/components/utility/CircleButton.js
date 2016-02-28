@@ -22,8 +22,7 @@ export default class CircleButton extends Component {
     };
 
     const iconStyle = {
-      border: '1px solid',
-      borderColor: Colors.brown500,
+      border: '1px solid '+ Colors.brown500,
       padding: 2,
       color: Colors.brown500,
       width: 25,

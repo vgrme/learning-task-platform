@@ -1,9 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import * as plansService from 'services/planService';
-import {sectionsActions} from 'redux/modules';
+import {sectionsActions, filterActions} from 'redux/modules';
 
-import {SectionRow, OutlineButton, Cover} from 'components';
+import {SectionRow, OutlineButton, Cover, DropDownFilter} from 'components';
 import MainColSaveNotice from './MainColSaveNotice';
 import Filter from './Filter';
 import SectionGroup from './SectionGroup';
@@ -13,9 +13,10 @@ import SectionGroup from './SectionGroup';
     sections: state.sections.list,
     plans: state.plans.list,
     newSection: state.sections.newSection,
-    filter: state.filters.section
+    filter: state.filters.section,
+    filters: state.filters
   }),
-  {...sectionsActions })
+  {...sectionsActions, ...filterActions })
 export default class HomePlansList extends Component {
   static propTypes = {
     sections: PropTypes.array,
@@ -27,8 +28,8 @@ export default class HomePlansList extends Component {
   };
 
   render() {
-    const {plans, sections, filter, newSection} = this.props;
-    const {saveSectionName, updateSectionName, addSection} = this.props;  //from sectionsActions
+    const {plans, sections, filter, filters, newSection} = this.props;
+    const {saveSectionName, updateSectionName, addSection, setFilter} = this.props;  //from sectionsActions
 
     const getGroupedPlans = () => {
       return plansService.getGroupedPlans(plans, sections, filter);
@@ -40,11 +41,18 @@ export default class HomePlansList extends Component {
       else return !section.active;
     };
 
+    const handleFilterChange = (value) => {
+      setFilter('section', value);
+    };
+
     return (
       <div>
         <div className="clearfix">
           <div className="float-left" ><OutlineButton label="+ Section" onClick={addSection}/></div>
-          <div className="float-right"><Filter filterKey="section"/></div>
+          <div className="float-right">
+            <DropDownFilter filterOptions={filterActions.FILTER_OPTIONS['section']} filter={filters['section']} 
+                          onFilterChange={handleFilterChange} style={{marginTop: 5}}/>
+          </div>
         </div>
         <MainColSaveNotice />
         {

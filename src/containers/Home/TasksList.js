@@ -13,7 +13,8 @@ import DragSortItem from '../Common/DragSortItem';
     tasks: state.tasks.list,
     filter: state.filters.task,
     newTask: state.tasks.newTask,
-    saved: state.tasks.saved
+    saved: state.tasks.saved,
+    searchText: state.tasks.searchText
   }),
   { ...tasksActions, ...plansActions })
 export default class TasksList extends Component {
@@ -40,7 +41,7 @@ export default class TasksList extends Component {
   }
 
   render() {
-    const {currentPlanId, currentSectionId, tasks, newTask, filter} = this.props;
+    const {currentPlanId, currentSectionId, tasks, newTask, filter, searchText} = this.props;
     const {updateTaskName, updateTaskDescription, saveTaskName, saveTaskDescription, 
            changeTaskCompleteValue, reorderTask, saveAllTasks} = this.props; //from tasksActions
     const {showTaskDetailIndex, tempShowTask} = this.state;
@@ -79,11 +80,16 @@ export default class TasksList extends Component {
     };
 
     const showTask = (task) => {
-      if(filter === 'All') return true;
-      else if(filter === 'Complete') {
-        return task.complete;
+      var show = true;
+      if(filter === 'Completed') {
+        show = show && task.complete;
       }
-      else return !task.complete;
+      else if(filter === 'Incomplete')
+        show = show && !task.complete;
+      if(searchText){
+        show = show && task.name.toLowerCase().indexOf(searchText.toLowerCase())!==-1;
+      }
+      return show;
     };
 
     const handleDetailBtnClick = (index) => {

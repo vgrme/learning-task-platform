@@ -7,6 +7,7 @@ export LoginForm from './utility/LoginForm';
 export LoginSuccess from './utility/LoginSuccess';
 export SaveNotice from './utility/SaveNotice';
 export Cover from './utility/Cover';
+export SearchBar from './utility/SearchBar';
 
 export SectionRow from './plans/SectionRow';
 export PlanRow from './plans/PlanRow';
