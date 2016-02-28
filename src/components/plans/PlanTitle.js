@@ -11,15 +11,19 @@ const PlanTitle = (props) => {
     }
   };
 
+  const style = {
+    marginBottom: 10
+  };
+
   const titleStyle={
     fontSize: 18,
-    marginBottom: 10,
-    marginRight: 10
+    marginRight: 10,
+    fontWeight: 400
   };
 
 
   return (
-    <div>
+    <div style={style}>
       <span style={titleStyle}>{plan.name}</span>
       {plan.active? '': <span className="float-right">(archived)</span>}
     </div>

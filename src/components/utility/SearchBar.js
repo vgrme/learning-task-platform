@@ -28,11 +28,12 @@ const SearchBar = (props) => {
     width: 150,
     height: 20,
     lineHeight: '20px',
-    fontSize: 14
+    fontSize: 14,
+    bottom: 3
   };
 
   const hintStyle = {
-    bottom: 2
+    bottom: 0
   };
 
   const handleTextChange = (event) => {
