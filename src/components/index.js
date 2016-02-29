@@ -9,12 +9,12 @@ export SaveNotice from './utility/SaveNotice';
 export Cover from './utility/Cover';
 export SearchBar from './utility/SearchBar';
 
-export SectionRow from './plans/SectionRow';
-export PlanRow from './plans/PlanRow';
-export TaskRow from './plans/TaskRow';
-export TaskDetail from './plans/TaskDetail';
-export PlanTitle from './plans/PlanTitle';
-export PlanProgress from './plans/PlanProgress';
-export SectionMenuItem from './plans/SectionMenuItem';
+export SectionRow from './section/SectionRow';
+export SectionMenuItem from './section/SectionMenuItem';
+export PlanRow from './plan/PlanRow';
+export PlanTitle from './plan/PlanTitle';
+export PlanProgress from './plan/PlanProgress';
+export TaskRow from './task/TaskRow';
+export TaskDetail from './task/TaskDetail';
 
 export AddTasksModal from './modals/AddTasksModal';

@@ -38,7 +38,7 @@ export default class SaveNotice extends Component {
   render() {
     const style = {
       height: 20,
-      width: 50,
+      width: 100,
       position: 'relative'
     };
 

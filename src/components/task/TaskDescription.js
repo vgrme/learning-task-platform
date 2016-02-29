@@ -94,7 +94,12 @@ export default class TaskDescription extends React.Component {
       var urlExpression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
       var regex = new RegExp(urlExpression);  
       var urls = text.match(regex)||[];
-      var nonUrls = text.split(regex);
+      var nonUrls = urls.reduce((list, url) => {
+        return list.map(l=>l.split(url))
+                   .reduce((a,b) => {
+                      return a.concat(b);
+                    }, []);
+      }, [text]);
       return nonUrls.map((t, i)=>{
         var url = urls[i];
         return (
