@@ -48,6 +48,13 @@ export function replacePlansBySection(plans, sectionId, newPlans){
   return newPlans.concat(_.filter(plans, (p)=>p.sectionId!==sectionId));
 }
 
+export function getOrderedPlansBySection(plans, sectionId){
+  return _.chain(plans)
+          .filter(p=> (p.sectionId === sectionId))
+          .orderBy(['order'])
+          .value();
+}
+
 export function getGroupedPlans(plans, sections, filter){
 
   var plansGroup = _.groupBy(plans, 'sectionId');

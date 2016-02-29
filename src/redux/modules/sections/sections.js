@@ -91,13 +91,11 @@ export default function reducer(state = initialState, action = {}) {
     case SELECT_SECTION:
       return {
         ...state,
-        list: state.list.map(s=> section(s, action)),
         currentSectionId: action.sectionId
       };
     case UN_SELECT_SECTION:
       return {
         ...state,
-        list: state.list.map(s=> section(s, action)),
         currentSectionId: null
       };
     case REORDER_SECTIONS:

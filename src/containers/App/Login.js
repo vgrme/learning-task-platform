@@ -4,7 +4,6 @@ import {authActions} from 'redux/modules';
 import {LoginForm, LoginSuccess} from 'components';
 import Colors from 'material-ui/lib/styles/colors';
 import cookie from 'react-cookie';
-import Paper from 'material-ui/lib/paper';
 
 @connect(
   state => ({

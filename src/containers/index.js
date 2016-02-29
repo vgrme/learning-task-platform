@@ -9,4 +9,5 @@ export Container from './Common/Container';
 export SectionCol from './Section/SectionCol';
 
 export PlanDetailsCol from './Plan/PlanDetailsCol';
+export PlansListCol from './Plan/PlansListCol';
 

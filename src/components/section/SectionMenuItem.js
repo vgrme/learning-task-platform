@@ -36,7 +36,7 @@ export default class SectionMenuItem extends React.Component {
     const itemStyle = {
       color: colors.lightYellow,
       ...(this.state.hover?itemHoverStyle:{}),
-      ...(section.isCurrent?itemSeletedStyle:{})
+      ...(isCurrent?itemSeletedStyle:{})
     };
 
     const handleMouseEnter = () => {

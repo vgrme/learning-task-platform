@@ -8,6 +8,7 @@ const initialState = {
 
 export const FILTER_OPTIONS = {
   section: ['All', 'Active', 'Inactive'],
+  plan: ['All', 'Active', 'Inactive'],
   task: ['All', 'Completed', 'Incomplete']
 };
 

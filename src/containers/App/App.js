@@ -20,13 +20,13 @@ export default class App extends React.Component {
   };
 
   componentDidMount() {
-    this.props.load();
+    this.props.loadAuth();
   }
 
   componentWillReceiveProps(nextProps) {
     if(!this.props.token && nextProps.token){ // login
       cookie.save('token', nextProps.token);
-      this.props.load();
+      this.props.loadAuth();
       this.props.history.pushState(null, '/');
     }
     if(this.props.user && !nextProps.user){ //logout

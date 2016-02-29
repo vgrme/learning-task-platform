@@ -1,36 +1,23 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {plansActions, sectionsActions} from 'redux/modules';
-import {Container} from 'containers';
+import Paper from 'material-ui/lib/paper';
+import {Container, PlansListCol, PlanDetailsCol} from 'containers';
+import TwoColumns from '../Common/TwoColumns';
 
 @connect(
   state => ({
-    //loaded: state.plans.loaded,
-    //sections: state.plans,
-    //filter: state.filter
-  }),
-  { ...plansActions, ...sectionsActions })
-export default class Home extends Component {
-  static propTypes = {
-    loadPlans: PropTypes.func.isRequired,
-    loadSections: PropTypes.func.isRequired
-    //sections: PropTypes.array
-  };
-
-  static contextTypes = {
-    store: PropTypes.object.isRequired
-  };
-
-  componentDidMount() {
-    this.props.loadPlans();
-    this.props.loadSections();
-  }
-
+    showCurrentPlan: state.plans.showCurrent
+  })
+)
+export default class Section extends Component {
+  
   render() {
+    const {showCurrentPlan} = this.props;
+
 
     return (
-      <Container className="clearfix">
-        <div>Section</div>
+      <Container>
+        {TwoColumns(PlansListCol, PlanDetailsCol, showCurrentPlan)}
       </Container>
     );
   }

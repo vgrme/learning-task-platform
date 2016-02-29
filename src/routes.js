@@ -1,7 +1,7 @@
 import React from 'react';
 import {IndexRoute, Route, Router} from 'react-router';
 import history from 'helpers/history';
-import { isLoaded as isAuthLoaded, load as loadAuth } from 'redux/modules/auth';
+import { isLoaded as isAuthLoaded, loadAuth } from 'redux/modules/auth';
 import cookie from 'react-cookie';
 
 import {
@@ -46,7 +46,6 @@ export default (store) => {
         </Route>
 
         <Route path="login" component={Login}/>
-        <Route path="/section" component={NotFound}/>
       </Route>
       <Route path="*" component={NotFound} status={404} />
     </Router>

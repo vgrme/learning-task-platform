@@ -4,11 +4,12 @@ import update from 'react/lib/update';
 import {SectionMenuItem} from 'components';
 import {sectionsActions} from 'redux/modules';
 import DragSortItem from '../Common/DragSortItem';
-
+import history from 'helpers/history';
 
 @connect(
   state => ({
-    sections: state.sections.list
+    sections: state.sections.list,
+    currentSectionId: state.sections.currentSectionId
   }),
   { ...sectionsActions })
 export default class SectionList extends React.Component {
@@ -17,7 +18,7 @@ export default class SectionList extends React.Component {
   };
 
   render() {
-    const {sections} = this.props;
+    const {sections, currentSectionId} = this.props;
     const {selectSection, saveAllSections, reorderSections} = this.props;   //from action
 
     const moveItem = (dragIndex, hoverIndex) => {
@@ -41,12 +42,19 @@ export default class SectionList extends React.Component {
       saveAllSections(newSectionsList, 'reorder');
     };
 
+    const handleSectionClick = (sectionId) => {
+      const path = `/section/${sectionId}`;
+      history.pushState(null, path);
+      selectSection(sectionId);
+    };
+
     return (
       <div>
         {
           sections.map((s, i) => 
             <DragSortItem key={s._id} type="section" index={i} id={s._id} moveItem={moveItem} saveItems={saveSectionsOrder}>
-              <SectionMenuItem section={s} onClick={()=>selectSection(s._id)}/>
+              <SectionMenuItem section={s} isCurrent={currentSectionId===s._id} 
+                               onClick={()=>handleSectionClick(s._id)}/>
             </DragSortItem>
             )
         }
