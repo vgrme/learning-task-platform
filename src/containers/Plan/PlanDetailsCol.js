@@ -5,7 +5,6 @@ import {plansActions, tasksActions} from 'redux/modules';
 import {PlanTitle, PlanProgress, SaveNotice} from 'components';
 import PlanActionBar from './PlanActionBar';
 import TasksList from './TasksList';
-import Filter from './Filter';
 
 
 @connect(
@@ -19,7 +18,7 @@ import Filter from './Filter';
     taskError: state.tasks.error
   }),
   { ...plansActions, ...tasksActions })
-export default class SideDetails extends Component {
+export default class PlanDetailsCol extends Component {
   static propTypes = {
     currentPlanId: PropTypes.string.isRequired,
     currentSectionId: PropTypes.string.isRequired,

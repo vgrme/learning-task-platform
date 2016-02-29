@@ -83,7 +83,7 @@ const getType = (props) => {
   connectDragPreview: connect.dragPreview(),
   isDragging: monitor.isDragging()
 }))
-export default class extends Component {
+export default class DragSortItem extends Component {
   static propTypes = {
     connectDragSource: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func.isRequired,

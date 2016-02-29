@@ -2,11 +2,9 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import * as plansService from 'services/planService';
 import {sectionsActions, filterActions} from 'redux/modules';
-
 import {SectionRow, OutlineButton, Cover, DropDownFilter} from 'components';
-import MainColSaveNotice from './MainColSaveNotice';
-import Filter from './Filter';
-import SectionGroup from './SectionGroup';
+import SectionPlanSaveNotice from './SectionPlanSaveNotice';
+import SectionPlansList from './SectionPlansList';
 
 @connect(
   state => ({
@@ -17,7 +15,7 @@ import SectionGroup from './SectionGroup';
     filters: state.filters
   }),
   {...sectionsActions, ...filterActions })
-export default class HomePlansList extends Component {
+export default class SectionCol extends Component {
   static propTypes = {
     sections: PropTypes.array,
     plans: PropTypes.array,
@@ -54,7 +52,7 @@ export default class HomePlansList extends Component {
                           onFilterChange={handleFilterChange} style={{marginTop: 5}}/>
           </div>
         </div>
-        <MainColSaveNotice />
+        <SectionPlanSaveNotice />
         {
           !newSection?'':
           <SectionRow section={newSection} onTextChange={updateSectionName} autoFocus={true}
@@ -66,7 +64,7 @@ export default class HomePlansList extends Component {
             getGroupedPlans().map((row)=> 
               <div key={row.section._id}>
                 {!showSection(row.section)?'':
-                  <SectionGroup section={row.section} plans={row.plans} filter={filter}/>
+                  <SectionPlansList section={row.section} plans={row.plans} filter={filter}/>
                 }
               </div>
             )

@@ -11,7 +11,7 @@ import DragSortItem from '../Common/DragSortItem';
     sections: state.sections.list
   }),
   { ...sectionsActions })
-export default class LeftSideBar extends React.Component {
+export default class SectionList extends React.Component {
   static propTypes = {
     sections: PropTypes.array.isRequired
   };

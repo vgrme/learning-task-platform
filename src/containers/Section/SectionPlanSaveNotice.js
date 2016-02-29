@@ -12,7 +12,7 @@ import {SaveNotice} from 'components';
     planError: state.plans.error
   }),
   { })
-export default class HomePlansList extends Component {
+export default class SectionPlanSaveNotice extends Component {
   static propTypes = {
   };
 

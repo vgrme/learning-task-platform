@@ -5,7 +5,6 @@ import {plansActions, tasksActions, filterActions} from 'redux/modules';
 import IconMenu from 'material-ui/lib/menus/icon-menu';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import {CircleButton, AddTasksModal, SearchBar, DropDownFilter} from 'components';
-import Filter from './Filter';
 
 @connect(
   state => ({

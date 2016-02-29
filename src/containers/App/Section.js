@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {plansActions, sectionsActions} from 'redux/modules';
-import Container from '../App/Container';
+import {Container} from 'containers';
 
 @connect(
   state => ({

@@ -1,7 +1,12 @@
 export App from './App/App';
-export Container from './App/Container';
-export Home from './Home/Home';
-export Section from './Section/Section';
-export Login from './Login/Login';
-export NotFound from './NotFound';
+export Home from './App/Home';
+export Section from './App/Section';
+export Login from './App/Login';
+export NotFound from './App/NotFound';
+
+export Container from './Common/Container';
+
+export SectionCol from './Section/SectionCol';
+
+export PlanDetailsCol from './Plan/PlanDetailsCol';
 

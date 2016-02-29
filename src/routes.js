@@ -6,7 +6,6 @@ import cookie from 'react-cookie';
 
 import {
     App,
-    Container,
     Home,
     Section,
     Login,

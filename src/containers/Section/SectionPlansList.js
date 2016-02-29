@@ -4,13 +4,13 @@ import * as plansService from 'services/planService';
 import {plansActions, sectionsActions} from 'redux/modules';
 
 import {SectionRow} from 'components';
-import PlansList from './PlansList';
+import PlansList from '../Plan/PlansList';
 
 @connect(
   state => ({
    }),
   {...plansActions, ...sectionsActions })
-export default class HomePlansList extends Component {
+export default class SectionPlansList extends Component {
   static propTypes = {
     section: PropTypes.object,
     plans: PropTypes.array,

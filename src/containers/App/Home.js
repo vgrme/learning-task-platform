@@ -1,9 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import Paper from 'material-ui/lib/paper';
-import MainCol from './MainCol';
-import PlanDetails from './PlanDetails';
-import Container from '../App/Container';
+import {Container, SectionCol, PlanDetailsCol} from 'containers';
 
 @connect(
   state => ({
@@ -59,13 +57,13 @@ export default class Home extends Component {
         <div style={containerStyle}>
           <div style={planListStyle}> 
             <Paper style={paperStyle} zDepth={2}>
-              <MainCol />
+              <SectionCol />
             </Paper>
           </div>
           {!showCurrentPlan?'':
             <div style={planDetailStyle}> 
               <Paper style={paperStyle} zDepth={2}>
-                <PlanDetails/>
+                <PlanDetailsCol />
               </Paper>
             </div>
           }
