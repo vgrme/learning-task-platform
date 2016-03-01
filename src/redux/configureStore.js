@@ -4,7 +4,7 @@
 
 import { createStore, applyMiddleware, compose } from 'redux';
 import { syncHistory } from 'react-router-redux';
-import history from 'helpers/history';
+import { browserHistory } from 'react-router';
 import thunk from 'redux-thunk';
 import clientMiddleware from './middleware/clientMiddleware';
 import rootReducer from './reducer';
@@ -13,7 +13,7 @@ import ApiClient from 'helpers/ApiClient';
 
 export default function configureStore(initialState) {
   const client = new ApiClient();
-  const reduxRouterMiddleware = syncHistory(history);
+  const reduxRouterMiddleware = syncHistory(browserHistory);
 
   let finalCreateStore;
   if(process.env.NODE_ENV && process.env.NODE_ENV === "development"){

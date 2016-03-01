@@ -23,4 +23,6 @@ export const STOP_ADD_PLAN = 'plans/STOP_ADD_PLAN';
 
 export const UPDATE_PLAN = 'plans/UPDATE_PLAN';
 export const ROLLBACK_PLAN = 'plans/ROLLBACK_PLAN';
-export const SET_CURRENT_PLAN = 'plans/SET_CURRENT_PLAN';
+
+export const SELECT_PLAN = 'plans/SELECT_PLAN';
+export const UNSELECT_PLAN = 'plans/UNSELECT_PLAN';

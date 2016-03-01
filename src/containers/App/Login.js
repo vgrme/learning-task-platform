@@ -15,6 +15,10 @@ export default class Login extends Component {
   static propTypes = {
   };
 
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  };
+
   render() {
     const {user, token, login} = this.props;
 
@@ -31,7 +35,7 @@ export default class Login extends Component {
     const cookieToken = cookie.load('token');
 
     const toHomePage = () => {
-      this.props.history.pushState(null, '/');
+      this.context.router.push('/');
     };
 
     return (

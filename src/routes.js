@@ -1,6 +1,6 @@
 import React from 'react';
 import {IndexRoute, Route, Router} from 'react-router';
-import history from 'helpers/history';
+import { browserHistory } from 'react-router';
 import { isLoaded as isAuthLoaded, loadAuth } from 'redux/modules/auth';
 import cookie from 'react-cookie';
 
@@ -13,14 +13,14 @@ import {
   } from './containers';
 
 export default (store) => {
-  const requireLogin = (nextState, replaceState, cb) => {
+  const requireLogin = (nextState, replace, cb) => {
     function checkAuth() {
       const { auth: { user }} = store.getState();
       const token = cookie.load('token');
       if (!user || !token) {
         // oops, not logged in, so can't be here!
         cookie.save('token', '');
-        replaceState(null, '/login');
+        replace('/login');
       }
       cb();
     }
@@ -36,7 +36,7 @@ export default (store) => {
     /**
      * Please keep routes in alphabetical order
      */
-    <Router history={history}>
+    <Router history={browserHistory}>
       <Route path="/" component={App}>{ /* Routes requiring login */ }
         <Route onEnter={requireLogin}>
           { /* Home (main) route */ }

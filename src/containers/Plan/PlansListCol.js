@@ -55,7 +55,7 @@ export default class PlansListCol extends Component {
           </div>
         </div>
         <SaveNotice mode={getSaveMode()}/>
-        <PlansList sectionId={currentSectionId} plans={plans} filter={filter}/>
+        {!currentSectionId?'':<PlansList sectionId={currentSectionId} plans={plans} filter={filter}/>}
       </div>
     );
   }

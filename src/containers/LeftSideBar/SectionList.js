@@ -2,24 +2,27 @@ import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import update from 'react/lib/update';
 import {SectionMenuItem} from 'components';
-import {sectionsActions} from 'redux/modules';
+import {sectionsActions, plansActions} from 'redux/modules';
 import DragSortItem from '../Common/DragSortItem';
-import history from 'helpers/history';
 
 @connect(
   state => ({
     sections: state.sections.list,
     currentSectionId: state.sections.currentSectionId
   }),
-  { ...sectionsActions })
+  { ...sectionsActions, ...plansActions })
 export default class SectionList extends React.Component {
   static propTypes = {
     sections: PropTypes.array.isRequired
   };
 
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  };
+
   render() {
     const {sections, currentSectionId} = this.props;
-    const {selectSection, saveAllSections, reorderSections} = this.props;   //from action
+    const {selectSection, saveAllSections, reorderSections, unSelectPlan} = this.props;   //from action
 
     const moveItem = (dragIndex, hoverIndex) => {
       const dragItem = sections[dragIndex];
@@ -44,8 +47,9 @@ export default class SectionList extends React.Component {
 
     const handleSectionClick = (sectionId) => {
       const path = `/section/${sectionId}`;
-      history.pushState(null, path);
+      this.context.router.push(path);
       selectSection(sectionId);
+      unSelectPlan();
     };
 
     return (

@@ -6,7 +6,7 @@ import {LOAD, LOAD_SUCCESS, LOAD_FAIL,
         DELETE, DELETE_SUCCESS, DELETE_FAIL,
         SAVE_ALL, SAVE_ALL_SUCCESS, SAVE_ALL_FAIL,
         ADD_PLAN, STOP_ADD_PLAN,
-        UPDATE_PLAN, ROLLBACK_PLAN, SET_CURRENT_PLAN} from './plansConstant';
+        UPDATE_PLAN, ROLLBACK_PLAN, SELECT_PLAN, UNSELECT_PLAN} from './plansConstant';
 
 const initialState = {
   showCurrent: false,
@@ -94,13 +94,20 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         list: state.list.map(p=> plan(p, action))
       };
-    case SET_CURRENT_PLAN:
+    case SELECT_PLAN:
       return {
         ...state,
         showCurrent: true,
         currentPlanId: action.planId,
         currentSectionId: action.sectionId,
         list: state.list.map(p=>plan(p, action))
+      };
+    case UNSELECT_PLAN:
+      return {
+        ...state,
+        showCurrent: false,
+        currentPlanId: null,
+        currentSectionId: null
       };
     case ADD_PLAN:
       return {
@@ -173,9 +180,15 @@ export function rollbackPlanName(planId){
 
 export function selectPlan(plan){
   return {
-    type: SET_CURRENT_PLAN,
+    type: SELECT_PLAN,
     planId: plan._id,
     sectionId: plan.sectionId
+  };
+}
+
+export function unSelectPlan(plan){
+  return {
+    type: UNSELECT_PLAN
   };
 }
 
