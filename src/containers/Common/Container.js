@@ -1,10 +1,10 @@
 import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
-
 import {NavbarTop} from 'components';
 import LeftSideBar from '../LeftSideBar/LeftSideBar';
-import {sectionsActions, plansActions} from 'redux/modules';
+import {sectionsActions, plansActions, authActions} from 'redux/modules';
 import * as leftNavActions from 'redux/modules/leftSideBar';
+import { browserHistory } from 'react-router';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
@@ -13,7 +13,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
   state => ({
     isLeftSideBarOpen: state.leftSideBar
   }),
-  { ...leftNavActions, ...sectionsActions, ...plansActions })
+  { ...leftNavActions, ...sectionsActions, ...plansActions, ...authActions })
 @DragDropContext(HTML5Backend)
 export default class Container extends React.Component {
   static propTypes = {
@@ -33,7 +33,7 @@ export default class Container extends React.Component {
     const title = 'LIF - Learning is Fun';
     const sideBarWidth = 280;
     const {isLeftSideBarOpen} = this.props;
-    const {openLeftNav, closeLeftNav} = this.props;
+    const {openLeftNav, closeLeftNav, logout} = this.props;
 
     const handleClickMenuBtn = () =>{
       openLeftNav();
@@ -47,11 +47,21 @@ export default class Container extends React.Component {
       top:0
     };
 
+    const toHome = () => {
+      browserHistory.push('/');
+    };
+
+    const handleLogout = () => {
+      logout();
+      browserHistory.push('/login');
+    };
+
     return (
       <div>
         <LeftSideBar width={sideBarWidth} open={isLeftSideBarOpen} />
         <div style={containerStyle}>
-          <NavbarTop title={title} onClickMenu={handleClickMenuBtn} showMenuBtn={!isLeftSideBarOpen}/>
+          <NavbarTop title={title} onClickMenu={handleClickMenuBtn} showMenuBtn={!isLeftSideBarOpen}
+                     onClickHome={toHome} onClickLogout={handleLogout}/>
           <div>{this.props.children}</div>
         </div>
       </div>

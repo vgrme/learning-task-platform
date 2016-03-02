@@ -11,11 +11,20 @@ import colors from 'helpers/colors';
 const NavbarTop = (props) => {
   const height = '40px';
 
-  const menuIconStyle = {
+  const iconStyle = {
     lineHeight: height,
-    padding: '0 10px 0 10px',
+    padding: '0 10px 0 10px'
+  };
+
+  const menuIconStyle = {
+    ...iconStyle,
     borderRight: '1px solid '+ Colors.grey300,
     display: props.showMenuBtn? 'block': 'none'
+  };
+
+  const logoutIconStyle = {
+    ...iconStyle,
+    float:'right'
   };
 
   const navBarStyle = {
@@ -33,7 +42,11 @@ const NavbarTop = (props) => {
     <Toolbar style={navBarStyle}>
       <ToolbarGroup firstChild={true} float="left">
         <FontIcon className="material-icons" style={menuIconStyle} onClick={props.onClickMenu}>menu</FontIcon>
+        <FontIcon className="material-icons" style={iconStyle} onClick={props.onClickHome}>home</FontIcon>
         <ToolbarTitle text={props.title} style={titleStyle}/>
+      </ToolbarGroup>
+      <ToolbarGroup float="right">
+        <FontIcon className="fa fa-sign-out" style={logoutIconStyle} onClick={props.onClickLogout} />
       </ToolbarGroup>
     </Toolbar>
   );
