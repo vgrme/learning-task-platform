@@ -7,7 +7,7 @@ export default function clientMiddleware(client) {
         return action(dispatch, getState);
       }
 
-      const { promise, types, ...rest } = action; // eslint-disable-line no-redeclare
+      const { promise, types, ...rest } = action;
       if (!promise) {
         return next(action);
       }
@@ -17,13 +17,12 @@ export default function clientMiddleware(client) {
       return promise(client).then(
         (result) => next({...rest, result, type: SUCCESS}),
         (error) => {
-          if(error.status === 401){
+          if(error.status === 401 && !rest.isLogin){
             return next(authActions.logout());
           }
           next({...rest, error, type: FAILURE});
         }
       ).catch((error)=> {
-        //console.error('MIDDLEWARE ERROR:', error);
         next({...rest, error, type: FAILURE});
       });
     };

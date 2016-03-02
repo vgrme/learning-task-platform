@@ -38,6 +38,11 @@ export default class TasksList extends Component {
     if(!this.props.saved && nextProps.saved){ // task saved
       nextProps.loadPlansPercentageInfo(nextProps.currentPlanId);
     }
+    if(this.props.currentPlanId !== nextProps.currentPlanId){
+      this.setState({
+        showTaskDetailIndex: -1
+      });
+    }
   }
 
   render() {

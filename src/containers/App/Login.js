@@ -8,7 +8,8 @@ import cookie from 'react-cookie';
 @connect(
   state => ({
     user: state.auth.user,
-    token: state.auth.token
+    token: state.auth.token,
+    loginError: state.auth.loginError
   }),
   {...authActions })
 export default class Login extends Component {
@@ -20,7 +21,7 @@ export default class Login extends Component {
   };
 
   render() {
-    const {user, token, login} = this.props;
+    const {user, token, loginError, login} = this.props;
 
     const style = {
       position: 'absolute',
@@ -40,7 +41,8 @@ export default class Login extends Component {
 
     return (
       <div style={style}>
-        {!cookieToken?<LoginForm onSubmit={login}/>:<LoginSuccess user={user} onSubmit={toHomePage} />}
+        {!cookieToken?<LoginForm onSubmit={login} showError={loginError}/> :
+                      <LoginSuccess user={user} onSubmit={toHomePage} />}
       </div>
     );
   }

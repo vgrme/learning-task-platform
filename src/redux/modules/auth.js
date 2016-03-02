@@ -41,7 +41,8 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         user: null,
         token: null,
-        loggingIn: true
+        loggingIn: true,
+        loginError: null
       };
     case LOGIN_SUCCESS:
       return {
@@ -82,6 +83,7 @@ export function loadAuth() {
 export function login(email, password) {
   return {
     types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAIL],
+    isLogin: true,
     promise: (client) => client.post('/auth/local', {
       data: {
         email: email,

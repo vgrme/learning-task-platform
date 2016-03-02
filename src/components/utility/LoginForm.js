@@ -33,7 +33,7 @@ export default class LoginForm extends React.Component {
   };
 
   render(){
-    const {onSubmit} = this.props;
+    const {onSubmit, showError} = this.props;
 
     const style = {
       height: 300,
@@ -74,6 +74,12 @@ export default class LoginForm extends React.Component {
       float: 'right'
     };
 
+    const errorStyle = {
+      color: Colors.red500,
+      marginRight: 50,
+      textAlign: 'right'
+    };
+
     const handleEnterKey = (e) => {
       if(e.keyCode === 13)
         onSubmit(this.state.email, this.state.password);
@@ -95,6 +101,7 @@ export default class LoginForm extends React.Component {
                      underlineFocusStyle={inputStyle.underline} floatingLabelStyle={inputStyle.label}
                      onChange={this.handlePasswordChange}/>
         </div>
+        {!showError?'':<div style={errorStyle}>Wrong username or password.</div>}
         <RaisedButton label="login" style={btnStyle} backgroundColor={Colors.teal500} labelColor="white"
                       onClick={()=>onSubmit(this.state.email, this.state.password)} 
                       disabled={!this.state.email||!this.state.password}/>
