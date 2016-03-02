@@ -39,9 +39,13 @@ export default class Login extends Component {
       this.context.router.push('/');
     };
 
+    const handleClickDemo = () => {
+      login('demo@demo.com', 'demo');
+    };
+
     return (
       <div style={style}>
-        {!cookieToken?<LoginForm onSubmit={login} showError={loginError}/> :
+        {!cookieToken?<LoginForm onSubmit={login} showError={loginError} onClickDemo={handleClickDemo}/> :
                       <LoginSuccess user={user} onSubmit={toHomePage} />}
       </div>
     );

@@ -6,11 +6,12 @@ var favicon = require('serve-favicon');
 
 var port = process.env.PORT || 3000;
 
-var baseApiUrl = process.env.NODE_ENV === "development"? 'http://localhost:9000':process.env.API_URL;
+var baseApiUrl = process.env.NODE_ENV === "development"? 'http://localhost:9000':
+                 (process.env.NODE_ENV === "demo"? 'http://cy-demo-api.herokuapp.com': process.env.API_URL);
 
 var app = express();
 
-var static_path = process.env.NODE_ENV === "development"? 'src':'';
+var static_path = process.env.NODE_ENV === "development" || process.env.NODE_ENV === "demo"? 'src':'';
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -42,7 +43,7 @@ var callApi = function(req, res){
   });
 };
 
-if(process.env.NODE_ENV === "development"){
+if(process.env.NODE_ENV === "development" || process.env.NODE_ENV === "demo"){
   var webpack = require('webpack');
   var webpackConfigBuilder = require('./webpack.config');
   var webpackConfig = webpackConfigBuilder('development');
@@ -73,5 +74,5 @@ app.get('*', function (req, res) {
 app.listen(port, function (error) {
   if (error) throw error;
 
-  console.log('server running at http://%s:%d', port);
+  console.log('server running at localhost:', port);
 });

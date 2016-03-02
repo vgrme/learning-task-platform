@@ -33,7 +33,7 @@ export default class LoginForm extends React.Component {
   };
 
   render(){
-    const {onSubmit, showError} = this.props;
+    const {onSubmit, showError, onClickDemo} = this.props;
 
     const style = {
       height: 300,
@@ -74,6 +74,12 @@ export default class LoginForm extends React.Component {
       float: 'right'
     };
 
+    const tryDemoStyle = {
+      marginTop: 60,
+      color: Colors.green500,
+      cursor: 'pointer'
+    };
+
     const errorStyle = {
       color: Colors.red500,
       marginRight: 50,
@@ -105,6 +111,7 @@ export default class LoginForm extends React.Component {
         <RaisedButton label="login" style={btnStyle} backgroundColor={Colors.teal500} labelColor="white"
                       onClick={()=>onSubmit(this.state.email, this.state.password)} 
                       disabled={!this.state.email||!this.state.password}/>
+        <div style={tryDemoStyle} onClick={onClickDemo}>Do not have an account? Try demo.</div>
       </Paper>
     );
   }
