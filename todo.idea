@@ -1,7 +1,0 @@
-1.use this style:
-
-render() {
-    const { selectedSubreddit, posts, isFetching, lastUpdated } = this.props
-
-
-2.add types for all props
