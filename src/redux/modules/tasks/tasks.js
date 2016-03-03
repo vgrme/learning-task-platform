@@ -60,12 +60,19 @@ export default function reducer(state = initialState, action = {}) {
         saved: false,
         error: action.error
       };
+    case DELETE:
+      return {
+        ...state,
+        deleting: true,
+        deleted: false
+      };
     case DELETE_SUCCESS:
       return {
         ...state,
+        deletedTask: {...action.task, _id:null},
         list: plansService.findAndRemoveById(state.list, action.task._id),
-        saving: false,
-        saved: true
+        deleting: false,
+        deleted: true
       };
     case SAVE_ALL_SUCCESS:
       return {
@@ -262,7 +269,7 @@ export function saveTask(task, sectionId, planId, replaceWithResult){
 
 export function deleteTask(task, sectionId, planId){
   return {
-    types: [SAVE, DELETE_SUCCESS, SAVE_FAIL],
+    types: [DELETE, DELETE_SUCCESS, SAVE_FAIL],
     sectionId,
     planId,
     task,

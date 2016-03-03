@@ -1,10 +1,5 @@
 import React, {Component, PropTypes} from 'react';
 import moment from 'moment';
-import TextField from 'material-ui/lib/text-field';
-import Checkbox from 'material-ui/lib/checkbox';
-import Colors from 'material-ui/lib/styles/colors';
-import FontIcon from 'material-ui/lib/font-icon';
-import IconButton from 'material-ui/lib/icon-button';
 import TaskDescription from './TaskDescription';
 
 export default class TaskDetail extends React.Component {
@@ -15,10 +10,11 @@ export default class TaskDetail extends React.Component {
   };
 
   render(){
-    const {task, onDescriptionChange, onSubmitDescription, show} = this.props;
+    const {task, onDescriptionChange, onSubmitDescription, onDeleteTask, show} = this.props;
 
     const completedDateStyle = {
-      fontSize: 10
+      fontSize: 10,
+      marginLeft: 10
     };
 
     const detailStyle = {
@@ -26,11 +22,16 @@ export default class TaskDetail extends React.Component {
       margin: '3px auto'
     };
 
+    const deleteIconStyle = {
+      cursor: 'pointer'
+    };
+
     return (
       <div>
         {!show?'':
           <div style={detailStyle}>
             <div>
+            <i style={deleteIconStyle} className="fa fa-trash-o" onClick={onDeleteTask}></i>
             {!task.dateTimeCompleted?'':
               <span style={completedDateStyle}>(Completed on {moment(task.dateTimeCompleted).format('MM-DD-YYYY')})</span>
             }

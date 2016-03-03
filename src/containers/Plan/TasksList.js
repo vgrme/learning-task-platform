@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import update from 'react/lib/update';
+import Snackbar from 'material-ui/lib/snackbar';
 import {tasksActions, plansActions} from 'redux/modules';
 import {TaskRow, TaskDetail, Cover} from 'components';
 import * as plansService from 'services/planService';
@@ -14,7 +15,9 @@ import DragSortItem from '../Common/DragSortItem';
     filter: state.filters.task,
     newTask: state.tasks.newTask,
     saved: state.tasks.saved,
-    searchText: state.tasks.searchText
+    searchText: state.tasks.searchText,
+    deleted: state.tasks.deleted,
+    deletedTask: state.tasks.deletedTask
   }),
   { ...tasksActions, ...plansActions })
 export default class TasksList extends Component {
@@ -30,7 +33,8 @@ export default class TasksList extends Component {
 
     this.state = {
       showTaskDetailIndex: -1,
-      tempShowTask: {}
+      tempShowTask: {},
+      openDeletedBar: false
     };
   }
 
@@ -38,17 +42,23 @@ export default class TasksList extends Component {
     if(!this.props.saved && nextProps.saved){ // task saved
       nextProps.loadPlansPercentageInfo(nextProps.currentPlanId);
     }
-    if(this.props.currentPlanId !== nextProps.currentPlanId){
+    if(this.props.currentPlanId !== nextProps.currentPlanId || 
+       this.props.tasks.length !== nextProps.tasks.length){
       this.setState({
         showTaskDetailIndex: -1
+      });
+    }
+    if(!this.props.deleted && nextProps.deleted){
+      this.setState({
+        openDeletedBar: true
       });
     }
   }
 
   render() {
-    const {currentPlanId, currentSectionId, tasks, newTask, filter, searchText} = this.props;
+    const {currentPlanId, currentSectionId, tasks, newTask, filter, searchText, deletedTask} = this.props;
     const {updateTaskName, updateTaskDescription, saveTaskName, saveTaskDescription, 
-           changeTaskCompleteValue, reorderTask, saveAllTasks} = this.props; //from tasksActions
+           changeTaskCompleteValue, reorderTask, saveAllTasks, deleteTask} = this.props; //from tasksActions
     const {showTaskDetailIndex, tempShowTask} = this.state;
 
     const handleSubmitName = (task) => {
@@ -115,6 +125,18 @@ export default class TasksList extends Component {
       changeTaskCompleteValue(task,currentSectionId,currentPlanId);
     };
 
+    const closeDeletedBar = () => {
+      this.setState({
+        openDeletedBar: false
+      });
+    };
+
+    const handleUndoDelete = () => {
+      const newTasksList = [deletedTask].concat(tasks);
+      saveAllTasks(newTasksList, currentSectionId, currentPlanId, 'undoDelete');
+      closeDeletedBar();
+    };
+
     return (
       <div>
         <div>
@@ -138,13 +160,22 @@ export default class TasksList extends Component {
                              onDetailBtnClick={()=>handleDetailBtnClick(i)}/>
                   </DragSortItem>
                   <TaskDetail task={t} onDescriptionChange={updateTaskDescription} show={i===showTaskDetailIndex}
-                              onSubmitDescription={()=>handleSubmitDescription(t)} />
+                              onSubmitDescription={()=>handleSubmitDescription(t)} 
+                              onDeleteTask={()=>deleteTask(t,currentSectionId,currentPlanId)}/>
                 </div>
               }
             </div>
            )
           }
         </div>
+        <Snackbar
+          open={this.state.openDeletedBar}
+          message="Task Deleted"
+          action="undo"
+          autoHideDuration={10000}
+          onActionTouchTap={handleUndoDelete}
+          onRequestClose={closeDeletedBar}
+        />
       </div>
     );
   }

@@ -91,6 +91,8 @@ export default class TaskDescription extends React.Component {
     };
 
     const getTextJsx = (text) => {
+      if(!text) return (<br/>);
+      
       var urlExpression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
       var regex = new RegExp(urlExpression);  
       var urls = text.match(regex)||[];
