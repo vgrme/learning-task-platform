@@ -33,7 +33,7 @@ export default class Container extends React.Component {
     const title = 'LIF - Learning is Fun';
     const sideBarWidth = 280;
     const {isLeftSideBarOpen} = this.props;
-    const {openLeftNav, closeLeftNav, logout} = this.props;
+    const {openLeftNav, closeLeftNav, logout, selectSection} = this.props;
 
     const handleClickMenuBtn = () =>{
       openLeftNav();
@@ -48,6 +48,7 @@ export default class Container extends React.Component {
     };
 
     const toHome = () => {
+      selectSection(null);
       browserHistory.push('/');
     };
 

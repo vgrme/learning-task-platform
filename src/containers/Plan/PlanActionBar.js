@@ -42,7 +42,6 @@ export default class PlanActionBar extends Component {
       <div className="clearfix">
         <div className="float-left">
           <CircleButton tooltip="Add Task" onTouchTap={()=>addTask(plan._id)}>add</CircleButton>
-          <CircleButton tooltip="Add Note">attach_file</CircleButton>
           <CircleButton tooltip="Archive" onTouchTap={()=>changePlanActiveValue(plan)}>folder_open</CircleButton>
           <IconMenu
             iconButtonElement={<CircleButton tooltip="Archive">more_horiz</CircleButton>}

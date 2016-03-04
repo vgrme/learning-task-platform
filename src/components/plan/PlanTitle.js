@@ -3,7 +3,7 @@ import TextField from 'material-ui/lib/text-field';
 import Colors from 'material-ui/lib/styles/colors';
 
 const PlanTitle = (props) => {
-  const {plan, onTextChange, onTextBlur} = props;
+  const {plan, onTextChange, onTextBlur, onTitleClick} = props;
 
   const handleTextChange = (event) => {
     if(onTextChange){
@@ -18,13 +18,14 @@ const PlanTitle = (props) => {
   const titleStyle={
     fontSize: 18,
     marginRight: 10,
-    fontWeight: 400
+    fontWeight: 400,
+    cursor: 'pointer'
   };
 
 
   return (
     <div style={style}>
-      <span style={titleStyle}>{plan.name}</span>
+      <span style={titleStyle} onClick={onTitleClick}>{plan.name}</span>
       {plan.active? '': <span className="float-right">(archived)</span>}
     </div>
   );

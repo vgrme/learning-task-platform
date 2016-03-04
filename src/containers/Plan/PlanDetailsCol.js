@@ -2,10 +2,9 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import * as plansService from 'services/planService';
 import {plansActions, tasksActions} from 'redux/modules';
-import {PlanTitle, PlanProgress, SaveNotice} from 'components';
+import {PlanTitle, PlanProgress, SaveNotice, TaskText} from 'components';
 import PlanActionBar from './PlanActionBar';
 import TasksList from './TasksList';
-
 
 @connect(
   state => ({
@@ -26,6 +25,14 @@ export default class PlanDetailsCol extends Component {
     loadTasks: PropTypes.func.isRequired
   };
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      textView: false
+    };
+  }
+
   componentDidMount() {
     this.props.loadTasks(this.props.currentSectionId, this.props.currentPlanId);
   }
@@ -33,6 +40,9 @@ export default class PlanDetailsCol extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.currentPlanId !== nextProps.currentPlanId) {
       this.props.loadTasks(nextProps.currentSectionId, nextProps.currentPlanId);
+      this.setState({
+        textView: false
+      });
     }
   }
 
@@ -56,13 +66,27 @@ export default class PlanDetailsCol extends Component {
       return '';
     };
 
+    const handleTitleClick = () => {
+      this.setState({
+        textView: !this.state.textView
+      });
+    };
+
     return (
       <div>
-        <PlanTitle plan={currentPlan}/>
+        <PlanTitle plan={currentPlan} onTitleClick={handleTitleClick}/>
         <PlanProgress tasks={tasks}/>
-        <PlanActionBar plan={currentPlan} />
-        <SaveNotice mode={getSaveMode()}/>
-        <TasksList />
+        {this.state.textView?
+          <div>
+            {tasks.map((t, i) => <TaskText key={t._id} task={t} />)}
+          </div>
+          :
+          <div>
+            <PlanActionBar plan={currentPlan} />
+            <SaveNotice mode={getSaveMode()}/>
+            <TasksList />
+          </div>
+        }
       </div>
     );
   }

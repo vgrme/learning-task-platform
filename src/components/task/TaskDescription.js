@@ -5,6 +5,7 @@ import Checkbox from 'material-ui/lib/checkbox';
 import Colors from 'material-ui/lib/styles/colors';
 import FontIcon from 'material-ui/lib/font-icon';
 import IconButton from 'material-ui/lib/icon-button';
+import TaskDescriptionText from './TaskDescriptionText';
 
 export default class TaskDescription extends React.Component {
   static propTypes = {
@@ -90,41 +91,6 @@ export default class TaskDescription extends React.Component {
       });
     };
 
-    const getTextJsx = (text) => {
-      if(!text) return (<br/>);
-      
-      var urlExpression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
-      var regex = new RegExp(urlExpression);  
-      var urls = text.match(regex)||[];
-      var nonUrls = urls.reduce((list, url) => {
-        return list.map(l=>l.split(url))
-                   .reduce((a,b) => {
-                      return a.concat(b);
-                    }, []);
-      }, [text]);
-      return nonUrls.map((t, i)=>{
-        var url = urls[i];
-        return (
-          <span key={i}>
-            <span>{t}</span>
-            {!url?'':<a href={url} target="_blank" onClick={(e)=>e.stopPropagation()}>{url}</a>}
-          </span>
-          );
-      });
-    };
-
-    const getDescriptionJsx = (description) => {
-      if(description){
-        const lines = description.split(/\r?\n/g);
-        return lines.map((line, i) => {
-          
-          return (<div key={i}>
-                  {getTextJsx(line)}
-                 </div>);
-        });
-      }
-    };
-
     return (
       <div style={style} onMouseEnter={enterDescription} onMouseLeave={leaveDescription} 
            onClick={handleFocus} onBlur={handleBlur}>
@@ -133,9 +99,8 @@ export default class TaskDescription extends React.Component {
                    rows={2} fullWidth={true}
                    onChange={handleDescriptionTextChange} onBlur={onSubmitDescription} />
         {this.state.showEdit||!task.description?'':
-          <div style={textStyle}>
-            {getDescriptionJsx(task.description)}
-          </div>}
+            <TaskDescriptionText style={textStyle} text={task.description} />
+        }
       </div>
     );
   }

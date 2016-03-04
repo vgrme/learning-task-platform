@@ -49,6 +49,7 @@ export default class TasksList extends Component {
       });
     }
     if(!this.props.deleted && nextProps.deleted){
+      nextProps.loadPlansPercentageInfo(nextProps.currentPlanId);
       this.setState({
         openDeletedBar: true
       });

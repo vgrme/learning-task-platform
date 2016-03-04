@@ -16,5 +16,6 @@ export PlanTitle from './plan/PlanTitle';
 export PlanProgress from './plan/PlanProgress';
 export TaskRow from './task/TaskRow';
 export TaskDetail from './task/TaskDetail';
+export TaskText from './task/TaskText';
 
 export AddTasksModal from './modals/AddTasksModal';

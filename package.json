@@ -16,7 +16,8 @@
     "build": "node tools/build.js && node tools/copy.js",
     "test": "cross-env NODE_ENV=test mocha --reporter progress --compilers js:babel/register --recursive \"./src/**/*.spec.js\"",
     "test:watch": "npm run test -- --watch",
-    "deploy": "git init && heroku git:remote -a chenyunyc-lif && git add . && git commit -am \"deploy\" && git push heroku master -f"
+    "deploy": "git init && heroku git:remote -a chenyunyc-lif && git add . && git commit -am \"deploy\" && git push heroku master -f",
+    "deploy-demo": "git init && heroku git:remote -a cy-demo-lif && git add . && git commit -am \"deploy\" && git push heroku master -f"
   },
   "dependencies": {
     "body-parser": "1.14.2",
