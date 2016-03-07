@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import * as plansService from 'services/planService';
 import {plansActions, tasksActions} from 'redux/modules';
 import {PlanTitle, PlanProgress, SaveNotice, TaskText} from 'components';
+import IconButton from 'material-ui/lib/icon-button';
 import PlanActionBar from './PlanActionBar';
 import TasksList from './TasksList';
 
@@ -48,9 +49,16 @@ export default class PlanDetailsCol extends Component {
 
   render() {
     const {currentPlanId, plans, tasks} = this.props;
-    const {rollbackPlanName, savePlan} = this.props;
+    const {rollbackPlanName, savePlan, unSelectPlan} = this.props;
 
     const currentPlan = plans.find(p=>p._id === currentPlanId);
+
+    const closeIconStyle = {
+      position: 'absolute',
+      top: -7,
+      right: -7,
+      cursor: 'pointer'
+    };
 
     const getSaveMode = ()=>{
       const {taskSaving, taskSaved, taskError} = this.props;
@@ -73,7 +81,8 @@ export default class PlanDetailsCol extends Component {
     };
 
     return (
-      <div>
+      <div className="relative">
+        <i className="fa fa-times" style={closeIconStyle} onClick={unSelectPlan}></i>
         <PlanTitle plan={currentPlan} onTitleClick={handleTitleClick}/>
         <PlanProgress tasks={tasks}/>
         {this.state.textView?

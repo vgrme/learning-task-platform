@@ -30,14 +30,15 @@ export default class TaskDescription extends React.Component {
     const lineHeight = '18px';
 
     const style = {
-      border: this.state.showBorder?'1px solid #BFAF80':'',
+      border: this.state.showBorder?'1px solid #BFAF80':'1px solid white',
       position: 'relative'
     };
 
     const descriptionStyle = {
       padding: '0 3px 0 3px',
       fontSize,
-      lineHeight
+      lineHeight,
+      transition: 'visibility 0.35s ease 0s'
     };
 
     const textStyle = {

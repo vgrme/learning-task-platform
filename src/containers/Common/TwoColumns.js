@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import Paper from 'material-ui/lib/paper';
 import {Container, SectionCol, PlanDetailsCol} from 'containers';
+import Transitions from 'material-ui/lib/styles/transitions';
 
 export default (MainCol, SecondeCol, showSecond) => {
 
@@ -19,7 +20,8 @@ export default (MainCol, SecondeCol, showSecond) => {
     bottom: 0,
     display: 'flex',
     overflow: 'auto',
-    flex: 1
+    flex: 1,
+    transition: Transitions.easeOut()
   };
 
   const planListStyle = {

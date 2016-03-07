@@ -186,7 +186,7 @@ export function selectPlan(plan){
   };
 }
 
-export function unSelectPlan(plan){
+export function unSelectPlan(){
   return {
     type: UNSELECT_PLAN
   };

@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
+import Transitions from 'material-ui/lib/styles/transitions';
 import {NavbarTop} from 'components';
 import LeftSideBar from '../LeftSideBar/LeftSideBar';
 import {sectionsActions, plansActions, authActions} from 'redux/modules';
@@ -44,7 +45,8 @@ export default class Container extends React.Component {
       left: isLeftSideBarOpen? sideBarWidth + 'px':'0',
       right: 0,
       bottom: 0,
-      top:0
+      top:0,
+      transition: Transitions.easeOut()
     };
 
     const toHome = () => {
